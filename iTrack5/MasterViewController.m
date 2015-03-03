@@ -11,6 +11,9 @@
 
 @interface MasterViewController ()
 
+@property (strong, nonatomic) CLLocationManager* locationManager;
+@property (strong, nonatomic) CLLocation* lastKnownLocation;
+
 @end
 
 @implementation MasterViewController
@@ -24,24 +27,166 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonClicked)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+   
+    [self.locationManager startMonitoringSignificantLocationChanges];
+    /*
+    CLCircularRegion* region = [[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(-36.923, 123.222) radius:100.00 identifier:@"random string"];
+    [self.locationManager startMonitoringForRegion:region];*/
+    
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void) addButtonClicked
+{
+    [self performSegueWithIdentifier:@"showDetail" sender:self];
 }
 
-- (void)insertNewObject:(id)sender {
+
+- (CLLocationManager*) locationManager
+{
+    if(!_locationManager)
+    {
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [_locationManager requestAlwaysAuthorization];
+        _locationManager.delegate = self;
+    }
+    return _locationManager;
+}
+- (void) locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
+{
+    [self.locationManager requestStateForRegion:region];
+}
+
+- (void) locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
+{
+    [self.locationManager requestStateForRegion:region];//error typically happens during requestState - just recall
+}
+
+- (void) locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
+{
+    Geofence* fence = [self getFenceFromRegion:region];
+    if(!fence)//if for some reason we recieved "didEnterRegion", but we are not looking to track that region, just remove it from monitoring
+    {
+        [self.locationManager stopMonitoringForRegion:region];
+        return;
+    }
+    
+    //check fence time:
+    float currentTime = [[NSDate date] timeIntervalSince1970];
+    if(currentTime >= [fence.timestampStart floatValue] && currentTime <= [fence.timestampEnd floatValue])
+    {
+        [self hitFence:fence];
+    }
+    
+}
+- (void) locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+{
+    if(state == CLRegionStateInside)
+    {
+        [self locationManager:manager didEnterRegion:region];
+    }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    self.lastKnownLocation = locations[locations.count-1];
+    [self updateTrackers];
+}
+
+- (Geofence*) getFenceFromRegion:(CLRegion*)region
+{
+    NSArray* allRegions = self.fetchedResultsController.fetchedObjects;
+    Geofence* retval;
+    for (Geofence* fence in allRegions)
+    {
+     if([fence.identifier isEqualToString:region.identifier])
+     {
+         retval = fence;
+         break;
+     }
+    }
+    
+    return retval;
+}
+
+- (void) hitFence:(Geofence*)fence
+{
+ 
+    if(!fence.hasBeenHit){//check again, even though it was supposed to be checked, because we are accessing async so 2 threads could have entered this method
+    fence.hasBeenHit = [NSNumber numberWithBool:YES];
+    [self save];
+    [self sendMessageTo:fence.recipient address:fence.address];}
+    
+    
+}
+
+- (void) sendMessageTo:(NSNumber*)rec address:(NSString*)address
+{
+    dispatch_queue_t q = dispatch_queue_create("Q5", NULL);
+    dispatch_async(q, ^{
+        
+        NSURL *url = [NSURL URLWithString:@"http://textbelt.com/text"];
+        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+        NSString* message = [NSString stringWithFormat: @"You have been notified that ___ arrived at: %@.", address];
+        NSString *messageBody = [NSString stringWithFormat:@"number=%@&message=%@",rec, message];
+        NSData* dataToSend = [messageBody dataUsingEncoding:NSUTF8StringEncoding];
+        request.HTTPBody = dataToSend;
+        request.HTTPMethod = @"POST";
+        NSError* error;
+        NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+        NSDictionary* response = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        BOOL success = [response valueForKey:@"success"];
+        
+        
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.fireDate = [NSDate date];
+        localNotification.alertBody = success ? [NSString stringWithFormat:@"Sent to %@ that you arrived at: %@.", rec, address] : [NSString stringWithFormat:@"Failed to send to %@ that you arrived at: %@.", rec, address];
+        localNotification.soundName = UILocalNotificationDefaultSoundName;
+        localNotification.applicationIconBadgeNumber = 1;
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    });
+
+}
+
+#pragma mark - Segues
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+        
+        NSManagedObject *object;
+        if (![sender isEqual:self]) {
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        }//if sender is self, then we are being launched from add button
+        
+        [[segue destinationViewController] setDetailItem:object];
+        ((DetailViewController*)[segue destinationViewController]).delegate = self;
+    }
+}
+
+- (void) addFenceWithLong:(float)longtitude lat:(float)lat start:(float)start stop:(float)stop recurr:(float)recurr recipient:(NSInteger)rec address:(NSString*)address{
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-        
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
-        
+    Geofence* fence = [NSEntityDescription insertNewObjectForEntityForName:@"Geofence"inManagedObjectContext:context];
+    
+    fence.longtitude = [NSNumber numberWithFloat:longtitude];
+    fence.lat = [NSNumber numberWithFloat:lat];
+    fence.timestampStart = [NSNumber numberWithFloat:start];
+    fence.timestampEnd = [NSNumber numberWithFloat:stop];
+    fence.recur = [NSNumber numberWithFloat:recurr];
+    fence.recipient = [NSNumber numberWithInteger: rec];
+    fence.identifier = [self randomStringWithLength:10];
+    fence.address = address;
+    
+    [self save];
+}
+
+- (void) save
+{
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     // Save the context.
     NSError *error = nil;
     if (![context save:&error]) {
@@ -50,16 +195,19 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
+
 }
 
-#pragma mark - Segues
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[segue destinationViewController] setDetailItem:object];
+NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+-(NSString *) randomStringWithLength: (int) len {
+    
+    NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
+    
+    for (int i=0; i<len; i++) {
+        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random()%[letters length]]];
     }
+    
+    return randomString;
 }
 
 #pragma mark - Table View
@@ -101,7 +249,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+    cell.textLabel.text = [[object valueForKey:@"timestampStart"] description];
 }
 
 #pragma mark - Fetched results controller
@@ -114,14 +262,14 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Geofence" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestampStart" ascending:NO];
     NSArray *sortDescriptors = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
@@ -146,6 +294,31 @@
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView beginUpdates];
+}
+
+- (void) updateTrackers
+{
+    NSSet* monitored = self.locationManager.monitoredRegions;
+    for(CLRegion* region in monitored)
+    {
+        [self.locationManager stopMonitoringForRegion:region];
+    }
+    
+    NSArray* allGeofences = [self.fetchedResultsController fetchedObjects];
+    for(Geofence* fence in allGeofences)
+    {
+        if(!fence.hasBeenHit && [fence.timestampEnd doubleValue] >= [[NSDate date] timeIntervalSince1970])//if geofence is expired, don't track
+            [self startTrackingGeofence:fence];
+    }
+    NSSet* monitored2 = self.locationManager.monitoredRegions;
+    
+}
+
+- (void) startTrackingGeofence:(Geofence*)fence
+{
+    CLCircularRegion* region = [[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake([fence.lat doubleValue], [fence.longtitude doubleValue]) radius:1000.00 identifier:fence.identifier];
+    
+    [self.locationManager startMonitoringForRegion:region];
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
@@ -194,6 +367,7 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView endUpdates];
+    [self updateTrackers];
 }
 
 /*

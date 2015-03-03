@@ -7,15 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D1445EF1A93AC92000B6F35 /* mapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1445EE1A93AC92000B6F35 /* mapViewController.m */; };
+		3D1445F41A943F34000B6F35 /* customCalloutXIB.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D1445F31A943F34000B6F35 /* customCalloutXIB.xib */; };
+		3D1445F71A9440A3000B6F35 /* customCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1445F61A9440A3000B6F35 /* customCalloutView.m */; };
+		3D1445FD1A9443D4000B6F35 /* MapPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1445FC1A9443D4000B6F35 /* MapPinView.m */; };
+		3D1446091A9CFEB6000B6F35 /* Geofence.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1446081A9CFEB6000B6F35 /* Geofence.m */; };
+		3D14460C1A9D0B88000B6F35 /* UTCtoHumanTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D14460B1A9D0B88000B6F35 /* UTCtoHumanTime.m */; };
+		3D73770B1AA4D7F7006CB9DF /* toViewCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D73770A1AA4D7F7006CB9DF /* toViewCalloutView.m */; };
+		3D73770E1AA4D80A006CB9DF /* whenViewCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D73770D1AA4D80A006CB9DF /* whenViewCalloutView.m */; };
+		3D7377111AA4D81F006CB9DF /* sizeViewCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7377101AA4D81F006CB9DF /* sizeViewCalloutView.m */; };
+		3D7377131AA4D88C006CB9DF /* toViewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7377121AA4D88C006CB9DF /* toViewView.xib */; };
+		3D7377151AA4D8A5006CB9DF /* whenViewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7377141AA4D8A5006CB9DF /* whenViewView.xib */; };
+		3D7377171AA4D8C0006CB9DF /* sizeViewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7377161AA4D8C0006CB9DF /* sizeViewView.xib */; };
+		3D73771A1AA511A4006CB9DF /* calloutViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7377191AA511A4006CB9DF /* calloutViewManager.m */; };
+		3D73771D1AA51AAE006CB9DF /* calloutViewClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D73771C1AA51AAE006CB9DF /* calloutViewClass.m */; };
 		3DE102551A911DFB002591FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102541A911DFB002591FA /* main.m */; };
 		3DE102581A911DFB002591FA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102571A911DFB002591FA /* AppDelegate.m */; };
 		3DE1025B1A911DFB002591FA /* iTrack5.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102591A911DFB002591FA /* iTrack5.xcdatamodeld */; };
-		3DE1025E1A911DFB002591FA /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1025D1A911DFB002591FA /* MasterViewController.m */; };
 		3DE102611A911DFB002591FA /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102601A911DFB002591FA /* DetailViewController.m */; };
 		3DE102641A911DFB002591FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DE102621A911DFB002591FA /* Main.storyboard */; };
 		3DE102661A911DFB002591FA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DE102651A911DFB002591FA /* Images.xcassets */; };
 		3DE102691A911DFB002591FA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DE102671A911DFB002591FA /* LaunchScreen.xib */; };
 		3DE102751A911DFB002591FA /* iTrack5Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102741A911DFB002591FA /* iTrack5Tests.m */; };
+		3DE1027F1A911E39002591FA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE1027E1A911E39002591FA /* CoreLocation.framework */; };
+		3DE102811A911E3F002591FA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE102801A911E3F002591FA /* MapKit.framework */; };
+		3DE102871A9123E7002591FA /* MapPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102861A9123E7002591FA /* MapPin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +45,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D1445ED1A93AC92000B6F35 /* mapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mapViewController.h; sourceTree = "<group>"; };
+		3D1445EE1A93AC92000B6F35 /* mapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mapViewController.m; sourceTree = "<group>"; };
+		3D1445F31A943F34000B6F35 /* customCalloutXIB.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = customCalloutXIB.xib; sourceTree = "<group>"; };
+		3D1445F51A9440A3000B6F35 /* customCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = customCalloutView.h; sourceTree = "<group>"; };
+		3D1445F61A9440A3000B6F35 /* customCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = customCalloutView.m; sourceTree = "<group>"; };
+		3D1445FB1A9443D4000B6F35 /* MapPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPinView.h; sourceTree = "<group>"; };
+		3D1445FC1A9443D4000B6F35 /* MapPinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPinView.m; sourceTree = "<group>"; };
+		3D1446071A9CFEB6000B6F35 /* Geofence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geofence.h; sourceTree = "<group>"; };
+		3D1446081A9CFEB6000B6F35 /* Geofence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geofence.m; sourceTree = "<group>"; };
+		3D14460A1A9D0B88000B6F35 /* UTCtoHumanTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UTCtoHumanTime.h; sourceTree = "<group>"; };
+		3D14460B1A9D0B88000B6F35 /* UTCtoHumanTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTCtoHumanTime.m; sourceTree = "<group>"; };
+		3D7377091AA4D7F7006CB9DF /* toViewCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = toViewCalloutView.h; sourceTree = "<group>"; };
+		3D73770A1AA4D7F7006CB9DF /* toViewCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = toViewCalloutView.m; sourceTree = "<group>"; };
+		3D73770C1AA4D80A006CB9DF /* whenViewCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = whenViewCalloutView.h; sourceTree = "<group>"; };
+		3D73770D1AA4D80A006CB9DF /* whenViewCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = whenViewCalloutView.m; sourceTree = "<group>"; };
+		3D73770F1AA4D81F006CB9DF /* sizeViewCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sizeViewCalloutView.h; sourceTree = "<group>"; };
+		3D7377101AA4D81F006CB9DF /* sizeViewCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sizeViewCalloutView.m; sourceTree = "<group>"; };
+		3D7377121AA4D88C006CB9DF /* toViewView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = toViewView.xib; sourceTree = "<group>"; };
+		3D7377141AA4D8A5006CB9DF /* whenViewView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = whenViewView.xib; sourceTree = "<group>"; };
+		3D7377161AA4D8C0006CB9DF /* sizeViewView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = sizeViewView.xib; sourceTree = "<group>"; };
+		3D7377181AA511A4006CB9DF /* calloutViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calloutViewManager.h; sourceTree = "<group>"; };
+		3D7377191AA511A4006CB9DF /* calloutViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calloutViewManager.m; sourceTree = "<group>"; };
+		3D73771B1AA51AAE006CB9DF /* calloutViewClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calloutViewClass.h; sourceTree = "<group>"; };
+		3D73771C1AA51AAE006CB9DF /* calloutViewClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calloutViewClass.m; sourceTree = "<group>"; };
 		3DE1024F1A911DFB002591FA /* iTrack5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTrack5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE102531A911DFB002591FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE102541A911DFB002591FA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -45,6 +85,10 @@
 		3DE1026E1A911DFB002591FA /* iTrack5Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTrack5Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE102731A911DFB002591FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE102741A911DFB002591FA /* iTrack5Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iTrack5Tests.m; sourceTree = "<group>"; };
+		3DE1027E1A911E39002591FA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3DE102801A911E3F002591FA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3DE102851A9123E7002591FA /* MapPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPin.h; sourceTree = "<group>"; };
+		3DE102861A9123E7002591FA /* MapPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPin.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +96,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DE102811A911E3F002591FA /* MapKit.framework in Frameworks */,
+				3DE1027F1A911E39002591FA /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,9 +111,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D7377051AA4D789006CB9DF /* callout view classes */ = {
+			isa = PBXGroup;
+			children = (
+				3D7377181AA511A4006CB9DF /* calloutViewManager.h */,
+				3D7377191AA511A4006CB9DF /* calloutViewManager.m */,
+				3D73771B1AA51AAE006CB9DF /* calloutViewClass.h */,
+				3D73771C1AA51AAE006CB9DF /* calloutViewClass.m */,
+				3D7377091AA4D7F7006CB9DF /* toViewCalloutView.h */,
+				3D73770A1AA4D7F7006CB9DF /* toViewCalloutView.m */,
+				3D73770C1AA4D80A006CB9DF /* whenViewCalloutView.h */,
+				3D73770D1AA4D80A006CB9DF /* whenViewCalloutView.m */,
+				3D73770F1AA4D81F006CB9DF /* sizeViewCalloutView.h */,
+				3D7377101AA4D81F006CB9DF /* sizeViewCalloutView.m */,
+				3D1445F31A943F34000B6F35 /* customCalloutXIB.xib */,
+				3D7377121AA4D88C006CB9DF /* toViewView.xib */,
+				3D7377141AA4D8A5006CB9DF /* whenViewView.xib */,
+				3D7377161AA4D8C0006CB9DF /* sizeViewView.xib */,
+				3D1445F51A9440A3000B6F35 /* customCalloutView.h */,
+				3D1445F61A9440A3000B6F35 /* customCalloutView.m */,
+			);
+			name = "callout view classes";
+			sourceTree = "<group>";
+		};
 		3DE102461A911DFB002591FA = {
 			isa = PBXGroup;
 			children = (
+				3DE102801A911E3F002591FA /* MapKit.framework */,
+				3DE1027E1A911E39002591FA /* CoreLocation.framework */,
 				3DE102511A911DFB002591FA /* iTrack5 */,
 				3DE102711A911DFB002591FA /* iTrack5Tests */,
 				3DE102501A911DFB002591FA /* Products */,
@@ -86,16 +157,27 @@
 		3DE102511A911DFB002591FA /* iTrack5 */ = {
 			isa = PBXGroup;
 			children = (
+				3D14460A1A9D0B88000B6F35 /* UTCtoHumanTime.h */,
+				3D14460B1A9D0B88000B6F35 /* UTCtoHumanTime.m */,
 				3DE102561A911DFB002591FA /* AppDelegate.h */,
 				3DE102571A911DFB002591FA /* AppDelegate.m */,
 				3DE1025C1A911DFB002591FA /* MasterViewController.h */,
 				3DE1025D1A911DFB002591FA /* MasterViewController.m */,
 				3DE1025F1A911DFB002591FA /* DetailViewController.h */,
 				3DE102601A911DFB002591FA /* DetailViewController.m */,
+				3DE102851A9123E7002591FA /* MapPin.h */,
+				3DE102861A9123E7002591FA /* MapPin.m */,
+				3D1445FB1A9443D4000B6F35 /* MapPinView.h */,
+				3D1445FC1A9443D4000B6F35 /* MapPinView.m */,
 				3DE102621A911DFB002591FA /* Main.storyboard */,
+				3D7377051AA4D789006CB9DF /* callout view classes */,
+				3D1445ED1A93AC92000B6F35 /* mapViewController.h */,
+				3D1445EE1A93AC92000B6F35 /* mapViewController.m */,
 				3DE102651A911DFB002591FA /* Images.xcassets */,
 				3DE102671A911DFB002591FA /* LaunchScreen.xib */,
 				3DE102591A911DFB002591FA /* iTrack5.xcdatamodeld */,
+				3D1446071A9CFEB6000B6F35 /* Geofence.h */,
+				3D1446081A9CFEB6000B6F35 /* Geofence.m */,
 				3DE102521A911DFB002591FA /* Supporting Files */,
 			);
 			path = iTrack5;
@@ -176,6 +258,12 @@
 				TargetAttributes = {
 					3DE1024E1A911DFB002591FA = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = CUV9Y7J47P;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					3DE1026D1A911DFB002591FA = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -207,9 +295,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D7377171AA4D8C0006CB9DF /* sizeViewView.xib in Resources */,
+				3D1445F41A943F34000B6F35 /* customCalloutXIB.xib in Resources */,
 				3DE102641A911DFB002591FA /* Main.storyboard in Resources */,
 				3DE102691A911DFB002591FA /* LaunchScreen.xib in Resources */,
+				3D7377131AA4D88C006CB9DF /* toViewView.xib in Resources */,
 				3DE102661A911DFB002591FA /* Images.xcassets in Resources */,
+				3D7377151AA4D8A5006CB9DF /* whenViewView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,9 +319,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D73770E1AA4D80A006CB9DF /* whenViewCalloutView.m in Sources */,
+				3D14460C1A9D0B88000B6F35 /* UTCtoHumanTime.m in Sources */,
+				3D1445F71A9440A3000B6F35 /* customCalloutView.m in Sources */,
 				3DE102611A911DFB002591FA /* DetailViewController.m in Sources */,
-				3DE1025E1A911DFB002591FA /* MasterViewController.m in Sources */,
+				3D1445FD1A9443D4000B6F35 /* MapPinView.m in Sources */,
+				3D1445EF1A93AC92000B6F35 /* mapViewController.m in Sources */,
 				3DE102581A911DFB002591FA /* AppDelegate.m in Sources */,
+				3D73771D1AA51AAE006CB9DF /* calloutViewClass.m in Sources */,
+				3D73771A1AA511A4006CB9DF /* calloutViewManager.m in Sources */,
+				3D1446091A9CFEB6000B6F35 /* Geofence.m in Sources */,
+				3DE102871A9123E7002591FA /* MapPin.m in Sources */,
+				3D73770B1AA4D7F7006CB9DF /* toViewCalloutView.m in Sources */,
+				3D7377111AA4D81F006CB9DF /* sizeViewCalloutView.m in Sources */,
 				3DE1025B1A911DFB002591FA /* iTrack5.xcdatamodeld in Sources */,
 				3DE102551A911DFB002591FA /* main.m in Sources */,
 			);
@@ -422,6 +524,7 @@
 				3DE1027A1A911DFB002591FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3DE1027B1A911DFB002591FA /* Build configuration list for PBXNativeTarget "iTrack5Tests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +533,7 @@
 				3DE1027D1A911DFB002591FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
