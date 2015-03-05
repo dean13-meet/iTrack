@@ -12,6 +12,7 @@
 @interface toViewCalloutView : calloutViewClass
 @property (strong, nonatomic) IBOutlet UIView *view;
 
-
+@property (strong, nonatomic) NSArray* recipients;
+@property (weak, nonatomic) IBOutlet UITextField *toBox;
 
 @end

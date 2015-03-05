@@ -43,5 +43,9 @@
 - (IBAction)backClicked:(id)sender {
     [super backClicked];
 }
+- (IBAction)radiusChange:(UISlider *)sender
+{
+    [self.delegate radiusValueChanged:self.slider.value];
+}
 
 @end

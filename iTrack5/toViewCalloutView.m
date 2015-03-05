@@ -40,4 +40,8 @@
     [super clickedNext];
 }
 
+- (NSArray*)recipients
+{
+    return @[self.toBox.text];
+}
 @end

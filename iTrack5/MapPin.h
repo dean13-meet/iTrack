@@ -12,7 +12,7 @@
     NSString *subtitle;
 }
 
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSString *subtitle;
 @property (nonatomic) NSString* address;//matches coordinates
@@ -20,5 +20,7 @@
 @property (nonatomic) Geofence* fence;
 
 - (id)initWithCoordinates:(CLLocationCoordinate2D)location placeName:(NSString *)placeName description:(NSString *)description;
+- (void) setCoordinate:(CLLocationCoordinate2D)coord;
 
+@property (strong, nonatomic)MKPinAnnotationView* pinView;
 @end

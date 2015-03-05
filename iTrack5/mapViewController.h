@@ -16,7 +16,7 @@
 
 @protocol geofenceCreator <NSObject>
 
-- (void) addFenceWithLong:(float)longtitude lat:(float)lat start:(float)start stop:(float)stop recurr:(float)recurr recipient:(NSInteger)rec address:(NSString*)address radius:(NSInteger)radius givenFence:(Geofence*)fence;
+- (void) addFenceWithLong:(float)longtitude lat:(float)lat recurr:(float)recurr recipient:(NSInteger)rec address:(NSString*)address radius:(NSInteger)radius givenFence:(Geofence*)fence arrival:(BOOL)arrival leave:(BOOL)leave;
 
 @end
 

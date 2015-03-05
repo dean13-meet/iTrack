@@ -54,13 +54,18 @@
 }
 - (IBAction)createClicked:(id)sender
 {
-    MapPinView* pin = (MapPinView*)self.delegate;
-    mapViewController* map = pin.mapVC;
-    [map addFenceWithLong:pin.annotation.coordinate.longitude lat:pin.annotation.coordinate.latitude start:self.date1.timeIntervalSince1970 stop:self.date2.timeIntervalSince1970 recurr:[self getReccurence] recipient:[self.recipientField.text integerValue] address:((MapPin*)pin.annotation).address radius:self.radiusSlider.value givenFence:self.fence];
     
+    [self createClickedRecurr:[self getReccurence] recipient:[self.recipientField.text integerValue] radius:self.radiusSlider.value arrival:self.arrivalSwitch.on leave:self.leaveSwitch.on];
     
 }
 
+- (void) createClickedRecurr:(float)recurr recipient:(NSInteger)recipient radius:(float)radius arrival:(BOOL)arrival leave:(BOOL)leave
+{
+    MapPinView* pin = (MapPinView*)self.delegate;
+    mapViewController* map = pin.mapVC;
+    [map addFenceWithLong:pin.annotation.coordinate.longitude lat:pin.annotation.coordinate.latitude recurr:recurr recipient:recipient address:((MapPin*)pin.annotation).address radius:radius givenFence:self.fence arrival:arrival leave:leave];
+    self.editMode = NO;
+}
 
 - (void) setEditMode:(BOOL)editMode
 {
@@ -122,11 +127,8 @@
             return 0.0;
             
         case 1://Daily
-            return 60.0*60*24;
+            return 1.0;
         
-        case 2://Weekly
-            return 60.0*60*24*7;
-            
         default:
             return 0.0;
     }
@@ -138,7 +140,7 @@
 }
 
 - (void) createDatePickers
-{
+{/*
     if (self.keyboardToolbar1 == nil) {
         self.keyboardToolbar1 = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
         [self.keyboardToolbar1 setBarStyle:UIBarStyleBlackTranslucent];
@@ -176,11 +178,11 @@
     [self.datePicker2 addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     
     self.endField.inputView = self.datePicker2;
-    
+ */
 }
 
 - (void)datePickerValueChanged:(id)sender{
-    
+    /*
     if([sender isEqual:self.datePicker1])
     {
         self.date1 = self.datePicker1.date;
@@ -189,10 +191,10 @@
     {
         self.date2 = self.datePicker2.date;
     }
-    
+    */
 }
 - (IBAction)doneEditing:(UITextField *)sender
-{
+{/*
     if([sender isEqual:self.startField])
     {
         self.date1 = self.datePicker1.date;
@@ -200,9 +202,9 @@
     else if([sender isEqual:self.endField])
     {
         self.date2 = self.datePicker2.date;
-    }
+    }*/
 }
-
+/*
 - (void) setDate1:(NSDate *)date1
 {
     _date1 = date1;
@@ -217,11 +219,18 @@
     
     [self.endField setText:[UTCtoHumanTime secToLocalTime:date2.timeIntervalSince1970]];
     self.datePicker2.date = date2;
-}
+}*/
 
 
 - (void) closeKeyboard
 {
     [self.view endEditing:YES];
+}
+
+
+- (void) radiusValueChanged:(float)radius
+{
+    self.radiusSlider.value = radius;
+    [self.delegate radiusValueChanged];
 }
 @end

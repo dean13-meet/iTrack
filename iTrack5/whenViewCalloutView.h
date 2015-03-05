@@ -12,6 +12,9 @@
 @interface whenViewCalloutView : calloutViewClass
 @property (strong, nonatomic) IBOutlet UIView *view;
 
+@property (weak, nonatomic) IBOutlet UISegmentedControl *recurr;
+@property (weak, nonatomic) IBOutlet UISwitch *arrivalSwitch;
 
+@property (weak, nonatomic) IBOutlet UISwitch *leaveSwitch;
 
 @end

@@ -22,5 +22,7 @@
 
 @property (nonatomic) BOOL forceCircleUpdate;
 
+
+
 - (void) repositionCalloutView;
 @end

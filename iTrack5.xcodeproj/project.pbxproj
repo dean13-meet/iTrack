@@ -11,7 +11,6 @@
 		3D1445F41A943F34000B6F35 /* customCalloutXIB.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D1445F31A943F34000B6F35 /* customCalloutXIB.xib */; };
 		3D1445F71A9440A3000B6F35 /* customCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1445F61A9440A3000B6F35 /* customCalloutView.m */; };
 		3D1445FD1A9443D4000B6F35 /* MapPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1445FC1A9443D4000B6F35 /* MapPinView.m */; };
-		3D1446091A9CFEB6000B6F35 /* Geofence.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1446081A9CFEB6000B6F35 /* Geofence.m */; };
 		3D14460C1A9D0B88000B6F35 /* UTCtoHumanTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D14460B1A9D0B88000B6F35 /* UTCtoHumanTime.m */; };
 		3D73770B1AA4D7F7006CB9DF /* toViewCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D73770A1AA4D7F7006CB9DF /* toViewCalloutView.m */; };
 		3D73770E1AA4D80A006CB9DF /* whenViewCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D73770D1AA4D80A006CB9DF /* whenViewCalloutView.m */; };
@@ -21,6 +20,7 @@
 		3D7377171AA4D8C0006CB9DF /* sizeViewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D7377161AA4D8C0006CB9DF /* sizeViewView.xib */; };
 		3D73771A1AA511A4006CB9DF /* calloutViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7377191AA511A4006CB9DF /* calloutViewManager.m */; };
 		3D73771D1AA51AAE006CB9DF /* calloutViewClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D73771C1AA51AAE006CB9DF /* calloutViewClass.m */; };
+		3D7377231AA8BFBC006CB9DF /* Geofence.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D7377221AA8BFBC006CB9DF /* Geofence.m */; };
 		3DE102551A911DFB002591FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102541A911DFB002591FA /* main.m */; };
 		3DE102581A911DFB002591FA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102571A911DFB002591FA /* AppDelegate.m */; };
 		3DE1025B1A911DFB002591FA /* iTrack5.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102591A911DFB002591FA /* iTrack5.xcdatamodeld */; };
@@ -52,8 +52,6 @@
 		3D1445F61A9440A3000B6F35 /* customCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = customCalloutView.m; sourceTree = "<group>"; };
 		3D1445FB1A9443D4000B6F35 /* MapPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPinView.h; sourceTree = "<group>"; };
 		3D1445FC1A9443D4000B6F35 /* MapPinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPinView.m; sourceTree = "<group>"; };
-		3D1446071A9CFEB6000B6F35 /* Geofence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geofence.h; sourceTree = "<group>"; };
-		3D1446081A9CFEB6000B6F35 /* Geofence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geofence.m; sourceTree = "<group>"; };
 		3D14460A1A9D0B88000B6F35 /* UTCtoHumanTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UTCtoHumanTime.h; sourceTree = "<group>"; };
 		3D14460B1A9D0B88000B6F35 /* UTCtoHumanTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTCtoHumanTime.m; sourceTree = "<group>"; };
 		3D7377091AA4D7F7006CB9DF /* toViewCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = toViewCalloutView.h; sourceTree = "<group>"; };
@@ -69,6 +67,8 @@
 		3D7377191AA511A4006CB9DF /* calloutViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calloutViewManager.m; sourceTree = "<group>"; };
 		3D73771B1AA51AAE006CB9DF /* calloutViewClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calloutViewClass.h; sourceTree = "<group>"; };
 		3D73771C1AA51AAE006CB9DF /* calloutViewClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calloutViewClass.m; sourceTree = "<group>"; };
+		3D7377211AA8BFBC006CB9DF /* Geofence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geofence.h; sourceTree = "<group>"; };
+		3D7377221AA8BFBC006CB9DF /* Geofence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geofence.m; sourceTree = "<group>"; };
 		3DE1024F1A911DFB002591FA /* iTrack5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTrack5.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE102531A911DFB002591FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE102541A911DFB002591FA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -157,6 +157,8 @@
 		3DE102511A911DFB002591FA /* iTrack5 */ = {
 			isa = PBXGroup;
 			children = (
+				3D7377211AA8BFBC006CB9DF /* Geofence.h */,
+				3D7377221AA8BFBC006CB9DF /* Geofence.m */,
 				3D14460A1A9D0B88000B6F35 /* UTCtoHumanTime.h */,
 				3D14460B1A9D0B88000B6F35 /* UTCtoHumanTime.m */,
 				3DE102561A911DFB002591FA /* AppDelegate.h */,
@@ -176,8 +178,6 @@
 				3DE102651A911DFB002591FA /* Images.xcassets */,
 				3DE102671A911DFB002591FA /* LaunchScreen.xib */,
 				3DE102591A911DFB002591FA /* iTrack5.xcdatamodeld */,
-				3D1446071A9CFEB6000B6F35 /* Geofence.h */,
-				3D1446081A9CFEB6000B6F35 /* Geofence.m */,
 				3DE102521A911DFB002591FA /* Supporting Files */,
 			);
 			path = iTrack5;
@@ -324,11 +324,11 @@
 				3D1445F71A9440A3000B6F35 /* customCalloutView.m in Sources */,
 				3DE102611A911DFB002591FA /* DetailViewController.m in Sources */,
 				3D1445FD1A9443D4000B6F35 /* MapPinView.m in Sources */,
+				3D7377231AA8BFBC006CB9DF /* Geofence.m in Sources */,
 				3D1445EF1A93AC92000B6F35 /* mapViewController.m in Sources */,
 				3DE102581A911DFB002591FA /* AppDelegate.m in Sources */,
 				3D73771D1AA51AAE006CB9DF /* calloutViewClass.m in Sources */,
 				3D73771A1AA511A4006CB9DF /* calloutViewManager.m in Sources */,
-				3D1446091A9CFEB6000B6F35 /* Geofence.m in Sources */,
 				3DE102871A9123E7002591FA /* MapPin.m in Sources */,
 				3D73770B1AA4D7F7006CB9DF /* toViewCalloutView.m in Sources */,
 				3D7377111AA4D81F006CB9DF /* sizeViewCalloutView.m in Sources */,

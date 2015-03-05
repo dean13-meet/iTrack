@@ -14,6 +14,8 @@
 @protocol calloutViewManagerDelegate
 
 - (void) viewDidChange;
+- (void) radiusValueChanged:(float)radius;
+- (void) createClickedRecurr:(float)recurr recipient:(NSInteger)recipient radius:(float)radius arrival:(BOOL) arrival leave:(BOOL) leave;
 
 @end
 
@@ -23,6 +25,8 @@
 @property (strong, nonatomic) calloutViewClass* viewToShow;
 
 @property (strong, nonatomic) id<calloutViewManagerDelegate> delegate;
+
+- (void) radiusValueChanged:(float)radius;
 
 
 @end

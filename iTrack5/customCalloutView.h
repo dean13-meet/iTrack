@@ -25,13 +25,14 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UITextField *recipientField;
+/*
 @property (weak, nonatomic) IBOutlet UITextField *startField;
-@property (weak, nonatomic) IBOutlet UITextField *endField;
+@property (weak, nonatomic) IBOutlet UITextField *endField;*/
 @property (weak, nonatomic) IBOutlet UISegmentedControl *repeatControl;
 @property (weak, nonatomic) IBOutlet UISlider *radiusSlider;
 @property (weak, nonatomic) IBOutlet UIButton *createButton;
 
-
+/*
 @property (strong, nonatomic) UIDatePicker *datePicker1;
 @property (strong, nonatomic) NSDate *date1;
 @property (strong, nonatomic) UIToolbar *keyboardToolbar1;
@@ -39,10 +40,14 @@
 @property (strong, nonatomic) UIDatePicker *datePicker2;
 @property (strong, nonatomic) NSDate *date2;
 @property (strong, nonatomic) UIToolbar *keyboardToolbar2;
-
+*/
+@property (weak, nonatomic) IBOutlet UISwitch *arrivalSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *leaveSwitch;
 
 - (IBAction)createClicked:(id)sender;
 - (IBAction)sliderValueChanged:(id)sender;
+
+- (void) radiusValueChanged:(float)radius;//delegate method ( from calloutViewManagerDelegate)
 
 @property (nonatomic) id<customCalloutViewDelegate> delegate;
 

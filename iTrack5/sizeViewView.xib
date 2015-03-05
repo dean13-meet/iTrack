@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="sizeViewCalloutView">
             <connections>
+                <outlet property="slider" destination="BhG-sO-I2k" id="BYs-pX-EHL"/>
                 <outlet property="view" destination="aF1-ub-thd" id="ZVn-ss-lDR"/>
             </connections>
         </placeholder>
@@ -22,23 +23,16 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What size should region be?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mG-kn-XRO">
                     <rect key="frame" x="8" y="37" width="225" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="10" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="BhG-sO-I2k">
                     <rect key="frame" x="6" y="66" width="229" height="31"/>
-                </slider>
-                <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfS-4M-bXw">
-                    <rect key="frame" x="97" y="104" width="46" height="30"/>
-                    <state key="normal" title="Create">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
                     <connections>
-                        <action selector="clickedNext:" destination="-1" eventType="touchUpInside" id="pKm-gs-MO3"/>
+                        <action selector="radiusChange:" destination="-1" eventType="valueChanged" id="Xts-zC-O89"/>
                     </connections>
-                </button>
+                </slider>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEF-5d-8I4">
                     <rect key="frame" x="8" y="104" width="46" height="30"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -47,6 +41,16 @@
                     </state>
                     <connections>
                         <action selector="backClicked:" destination="-1" eventType="touchUpInside" id="RcC-S6-ITP"/>
+                    </connections>
+                </button>
+                <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfS-4M-bXw">
+                    <rect key="frame" x="97" y="104" width="46" height="30"/>
+                    <state key="normal" title="Create">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="clickedNext:" destination="-1" eventType="touchUpInside" id="pKm-gs-MO3"/>
                     </connections>
                 </button>
             </subviews>

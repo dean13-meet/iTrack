@@ -22,4 +22,17 @@
     return self;
 }
 
+- (void) setCoordinate:(CLLocationCoordinate2D)coord{
+    coordinate = coord;
+    [self updateAddressLabel];
+}
+
+- (void) updateAddressLabel
+{
+    CLGeocoder* geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:coordinate completionHandler:^(NSArray *placemarks, NSError *error) {
+        
+    }]
+}
+
 @end

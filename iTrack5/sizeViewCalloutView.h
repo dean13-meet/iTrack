@@ -11,6 +11,7 @@
 
 @interface sizeViewCalloutView : calloutViewClass
 @property (strong, nonatomic) IBOutlet UIView *view;
+@property (weak, nonatomic) IBOutlet UISlider *slider;
 
 
 

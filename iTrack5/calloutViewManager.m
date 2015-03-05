@@ -83,6 +83,35 @@
 - (void) createClicked
 {
     
+    float recurr = [self getReccurence];
+    NSInteger recipient = [((toViewCalloutView*)self.viewsToCycle[0]).recipients[0] integerValue];
+    float radius = ((sizeViewCalloutView*)self.viewsToCycle[2]).slider.value;
+    BOOL arrival = ((whenViewCalloutView*)self.viewsToCycle[1]).arrivalSwitch.on;
+    BOOL leave =((whenViewCalloutView*)self.viewsToCycle[1]).leaveSwitch.on;
+    
+    [self.delegate createClickedRecurr:recurr recipient:recipient radius:radius arrival:arrival leave:leave];
+    
+}
+
+- (float) getReccurence
+{
+    
+        switch (((whenViewCalloutView*)self.viewsToCycle[1]).recurr.selectedSegmentIndex) {
+            case 0://Never
+                return 0.0;
+                
+            case 1://Always
+                return 1.0;
+                
+            default:
+                return 0.0;
+        }
+    
+}
+
+- (void) radiusValueChanged:(float)radius
+{
+    [self.delegate radiusValueChanged:radius];
 }
 
 @end

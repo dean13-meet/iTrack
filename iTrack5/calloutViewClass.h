@@ -14,6 +14,7 @@
 
 - (void) nextWithSender:(id)sender;
 - (void) backWithSender:(id)sender;
+- (void) radiusValueChanged:(float)radius;
 
 @end
 

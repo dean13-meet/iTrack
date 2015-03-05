@@ -120,12 +120,12 @@ typedef enum {
 
 - (void) requestStatusForAllMonitoredRegions
 {
-
+/*Method is currently disabled.
     NSSet* regions = self.locationManager.monitoredRegions;
     for(CLRegion* region in regions)
     {
         [self.locationManager requestStateForRegion:region];
-    }
+    }*/
     
 }
 
@@ -152,16 +152,16 @@ typedef enum {
     
     if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]])
     {
-        if(![self expireFence:fence])
-        {
-            if([self isCurrentTimeInFenceTimeBounds:fence])
-                [self hitFence:fence];
-        }
-        else
-            [self save];//fence was set to expired. save this change.
+        
+        [self hitFence:fence];
+        
     }
     
     
+    
+}
+- (void) locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
+{
     
 }
 - (void) locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
@@ -169,6 +169,10 @@ typedef enum {
     if(state == CLRegionStateInside)
     {
         [self locationManager:manager didEnterRegion:region];
+    }
+    else if(state == CLRegionStateOutside)
+    {
+        [self locationManager:manager didExitRegion:region];
     }
 }
 
@@ -197,7 +201,7 @@ typedef enum {
 - (void) hitFence:(Geofence*)fence
 {
     
-    if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] && ![self expireFence:fence] && [self isCurrentTimeInFenceTimeBounds:fence]){//check again, even though it was supposed to be checked, because we are accessing async so 2 threads could have entered this method with same region being tracked (e.g. 1 from delegate method "didDetermineState" and other from "didEnterRegion"
+    if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] ){//check again, even though it was supposed to be checked, because we are accessing async so 2 threads could have entered this method with same region being tracked (e.g. 1 from delegate method "didDetermineState" and other from "didEnterRegion"
         [self setFenceCompleted:fence];
         [self sendMessageTo:fence.recipient address:fence.address];}
     
@@ -253,15 +257,13 @@ typedef enum {
     }
 }*/
 
-- (void) addFenceWithLong:(float)longtitude lat:(float)lat start:(float)start stop:(float)stop recurr:(float)recurr recipient:(NSInteger)rec address:(NSString*)address radius:(NSInteger)radius givenFence:(Geofence *)fence{
+- (void) addFenceWithLong:(float)longtitude lat:(float)lat recurr:(float)recurr recipient:(NSInteger)rec address:(NSString*)address radius:(NSInteger)radius givenFence:(Geofence *)fence arrival:(BOOL)arrival leave:(BOOL)leave{
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     if(!fence)//a given fence would mean "Update" the fence. If no given fence, "Create" the fence.
         fence = [NSEntityDescription insertNewObjectForEntityForName:@"Geofence"inManagedObjectContext:context];
     
     fence.longtitude = [NSNumber numberWithFloat:longtitude];
     fence.lat = [NSNumber numberWithFloat:lat];
-    fence.timestampStart = [NSNumber numberWithFloat:start];
-    fence.timestampEnd = [NSNumber numberWithFloat:stop];
     fence.recur = [NSNumber numberWithFloat:recurr];
     fence.recipient = [NSNumber numberWithInteger: rec];
     if(!fence.identifier)
@@ -269,6 +271,8 @@ typedef enum {
     fence.address = address;
     fence.setting = [NSNumber numberWithInt:kActive];
     fence.radius = [NSNumber numberWithInteger:radius];
+    fence.onArrival = [NSNumber numberWithBool:arrival];
+    fence.onLeave = [NSNumber numberWithBool:leave];
     
     [self setSetting:kSearch on:NO forceAnnotationUpdate:NO];
     [self setSetting:kAll on:YES forceAnnotationUpdate:NO];//set ALL to be on
@@ -365,7 +369,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestampStart" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"identifier" ascending:NO];
     NSArray *sortDescriptors = @[sortDescriptor];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
@@ -395,7 +399,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     
     NSMutableArray* regionsToIgnore = [[NSMutableArray alloc] init];//monitored doesnt update instantly
     NSMutableDictionary* allGeoMatchedToMonitored = [[NSMutableDictionary alloc] init];//just keeps track of which fences have regions being monitored
-    BOOL needToSave = NO;
+
     //weed out bad monitored regions: (BAD = doesn't appear in allGeofences)
     for(CLRegion* region in monitored)
     {
@@ -407,11 +411,6 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
                 continue;
             }
             
-            else if ([self expireFence:fence])//don't use expired fences
-            {
-                needToSave = YES;//need to save because fence was set on expired mode now
-                continue;
-            }
             
             if([fence.identifier isEqualToString:region.identifier])
             {
@@ -437,21 +436,19 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
         }
         
         if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]]){
-        if(![self expireFence:fence])//track only if fence isn't expired
+        
             [self startTrackingGeofence:fence];
-        else
-            needToSave = YES;
+        
         
         }
         
     }
-    if(needToSave)
-        [self save];
+    
     [self requestStatusForAllMonitoredRegions];
     [self dealWithSignificantLocationChanges];
 }
 
-
+/*
 //BOOL says whether or not fence is expired (checks both setting and time). If it should be expired, this method automatically sets its status to expired. NOTE: THIS METHOD DOES NOT SAVE THE CONTEXT IF IT IS BAD!!!! YOU MUST SAVE CONTEXT ON YOUR OWN! (IT DOES SAVE IF IT IS GOOD AND RECUR HAPPENED - this is b/c recurFence saves context)
 - (BOOL) expireFence:(Geofence*) fence
 {
@@ -470,8 +467,8 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
             fence.setting = [NSNumber numberWithInt:kExpired];
         return !recurSuccess;//recur worked = fence is good, recur fail = fence is bad
     }
-}
-
+}*/
+/*
 - (BOOL) isCurrentTimeInFenceTimeBounds:(Geofence*)fence
 {
     double start = [fence.timestampStart doubleValue];
@@ -480,7 +477,8 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     
     return start <= current && end >= current;
 }
-
+*/
+/*
 //BOOL = recur success
 - (BOOL) recurFence:(Geofence*)fence
 {
@@ -501,21 +499,24 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
         return NO;
     
 }
-
+*/
 - (void) setFenceCompleted:(Geofence*)fence
 {
-    BOOL recurSuccess = [self recurFence:fence];//if recur success, no need to do anything. if not success, set to completed
-    
-    if(!recurSuccess)
+    if([fence.recur intValue])
     {
-        fence.setting = [NSNumber numberWithInt:kCompleted];
-        [self save];
+        return;
     }
+    
+    fence.setting = [NSNumber numberWithInt:kCompleted];
+    [self save];
+    
 }
 
 - (void) startTrackingGeofence:(Geofence*)fence
 {
     CLCircularRegion* region = [[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake([fence.lat doubleValue], [fence.longtitude doubleValue]) radius:[fence.radius doubleValue] identifier:fence.identifier];
+    region.notifyOnEntry = fence.onArrival;
+    region.notifyOnExit = fence.onLeave;
     
     [self.locationManager startMonitoringForRegion:region];
 }
@@ -655,6 +656,8 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
                                                       reuseIdentifier:@"CustomPinAnnotationView"];
         pinView.animatesDrop = YES;
         pinView.mapVC = self;
+        pinView.draggable = YES;
+        annotation.pinView = pinView;
             
         // If appropriate, customize the callout by adding accessory views (code not shown).
         
@@ -691,22 +694,17 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
             Geofence* fence = annotation.fence;
             pinView.calloutView.addressLabel.text = fence.address;
             pinView.calloutView.recipientField.text = [NSString stringWithFormat:@"%@", fence.recipient];
-            pinView.calloutView.date1 = [NSDate dateWithTimeIntervalSince1970:[fence.timestampStart floatValue]];
-            pinView.calloutView.date2 = [NSDate dateWithTimeIntervalSince1970:[fence.timestampEnd floatValue]];\
+           
             
             switch ([fence.recur intValue]) {
                 case 0:
                     [pinView.calloutView.repeatControl setSelectedSegmentIndex:0];
                     break;
                     
-                case 60*60*24:
+                case 1:
                     [pinView.calloutView.repeatControl setSelectedSegmentIndex:1];
                     break;
-                    
-                case 60*60*24*7:
-                    [pinView.calloutView.repeatControl setSelectedSegmentIndex:2];
-                    break;
-                    
+                
                 default:
                     break;
             }
@@ -715,6 +713,9 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
             pinView.calloutView.recipientField.text = [NSString stringWithFormat:@"%@", fence.recipient];
             
             pinView.calloutView.fence = fence;
+            
+            pinView.calloutView.leaveSwitch.on = [fence.onLeave boolValue];
+            pinView.calloutView.arrivalSwitch.on = [fence.onArrival boolValue];
         }
         else
         {
@@ -727,7 +728,10 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     return nil;
     
 }
-
+- (void) mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState
+{
+    
+}
 - (void) setSearchBarShown:(BOOL)shown
 {
     [self setButtonsShown:shown];
