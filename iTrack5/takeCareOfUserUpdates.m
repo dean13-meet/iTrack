@@ -42,6 +42,10 @@
 }
 - (void) removeUpdates{
 	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer resignEvent:@"getUpdatesForUser" sender:self];
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* userUUID = [defaults valueForKey:userUUIDDefaultsURL];
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer resignDataUpdatesWithInfo:@{@"id" : userUUID, @"field" : @"updates"} sender:self];
 }
 - (void) dealloc
 {

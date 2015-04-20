@@ -42,6 +42,7 @@
 {
     [super setUpdateData:updateData];
 	[self createGeofenceView];
+	self.messageLabel.selectable = NO;//XCODE BUG! Read this: http://stackoverflow.com/questions/19049917/uitextview-font-is-being-reset-after-settext
 	if([self.messageLabel.text containsString:@"USERNAME"]){
 		self.messageLabel.text = [self.messageLabel.text stringByReplacingOccurrencesOfString:@"USERNAME" withString:[updateData valueForKey:@"requester"]];}
 }

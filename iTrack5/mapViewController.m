@@ -189,7 +189,7 @@
 {
 	//Fetch only after a while to ensure that if we sent over stuff to the server, we fetch the new info, not old.
 	[NSTimer
-	 scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dummySelector3) userInfo:nil repeats:NO];
+	 scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(dummySelector3) userInfo:nil repeats:NO];
 }
 - (void) dummySelector3
 {
@@ -201,7 +201,7 @@
 - (void) fetchAllRequestedGeofences
 {
 	[NSTimer
-	 scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dummySelector4) userInfo:nil repeats:NO];
+	 scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(dummySelector4) userInfo:nil repeats:NO];
 }
 - (void) dummySelector4
 {
@@ -512,7 +512,7 @@
     
     if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]]
 	   &&
-	   (isArrival ? fence.onArrival : fence.onLeave)
+	   (isArrival ? [fence.onArrival boolValue] : [fence.onLeave boolValue])
 	   ){//check again, even though it was supposed to be checked, because we are accessing async so 2 threads could have entered this method with same region being tracked (e.g. 1 from delegate method "didDetermineState" and other from "didEnterRegion"
 		
 		//first send the message, then wait a while to allow the server to finish processing the message sending request, and only then have it mark the fence as completed. Otherwise, the fence might be marked completed before the server sends the message, and that will block the server from sending the message!
