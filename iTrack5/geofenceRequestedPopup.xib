@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="geofenceRequestedPopup">
+            <connections>
+                <outlet property="messageLabel" destination="xQL-VX-ZVb" id="8wT-CY-C7g"/>
+                <outlet property="titleLabel" destination="ki8-SW-h19" id="XwY-Ph-dRI"/>
+                <outlet property="toolbar" destination="Xhf-hF-AtN" id="kvd-Kg-aoV"/>
+                <outlet property="view" destination="aNm-U3-gtl" id="L24-6m-zTD"/>
+                <outlet property="viewForGeofence" destination="370-P0-8uz" id="q5r-KF-NmP"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="yTY-aJ-fD5">
+            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        </activityIndicatorView>
+        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="pbw-cZ-gqo">
+            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        </activityIndicatorView>
+        <view contentMode="scaleToFill" id="aNm-U3-gtl">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="USERNAME requested to receive notifications from you regarding the following location.  Do you accept?" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQL-VX-ZVb">
+                    <rect key="frame" x="8" y="45" width="584" height="90"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="90" id="yOa-tk-eGh"/>
+                    </constraints>
+                    <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Request" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ki8-SW-h19">
+                    <rect key="frame" x="8" y="8" width="585" height="29"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xhf-hF-AtN">
+                    <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="lIA-zl-BM1"/>
+                    </constraints>
+                    <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Q2P-jS-F1t"/>
+                        <barButtonItem title="Accept" id="ek7-o8-LPw">
+                            <connections>
+                                <action selector="acceptClicked:" destination="-1" id="KjE-jq-4as"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Lp2-MD-w12"/>
+                        <barButtonItem title="Decline" id="X87-NJ-Ab5">
+                            <connections>
+                                <action selector="declineClicked:" destination="-1" id="Vwb-Ff-ikj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="F8W-ek-1Oq"/>
+                    </items>
+                </toolbar>
+                <view opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="370-P0-8uz">
+                    <rect key="frame" x="115" y="143" width="371" height="405"/>
+                    <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="263" id="Jb4-MN-uoU"/>
+                        <constraint firstAttribute="width" constant="241" id="P3L-cw-592"/>
+                        <constraint firstAttribute="width" constant="241" id="dcW-hU-EcC"/>
+                        <constraint firstAttribute="height" constant="263" id="e2c-No-Lsc"/>
+                        <constraint firstAttribute="width" secondItem="370-P0-8uz" secondAttribute="height" multiplier="241:263" id="iap-6h-lj0"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="9"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Jb4-MN-uoU"/>
+                            <exclude reference="P3L-cw-592"/>
+                            <exclude reference="dcW-hU-EcC"/>
+                            <exclude reference="e2c-No-Lsc"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="370-P0-8uz" secondAttribute="bottom" constant="169" id="6Uo-1L-Htl"/>
+                <constraint firstItem="Xhf-hF-AtN" firstAttribute="top" secondItem="370-P0-8uz" secondAttribute="bottom" constant="8" id="7mW-Fv-Kig"/>
+                <constraint firstAttribute="centerX" secondItem="370-P0-8uz" secondAttribute="centerX" id="8Yw-ho-G7D"/>
+                <constraint firstItem="xQL-VX-ZVb" firstAttribute="top" secondItem="ki8-SW-h19" secondAttribute="bottom" constant="8" id="9gA-Of-lwO"/>
+                <constraint firstItem="Xhf-hF-AtN" firstAttribute="centerX" secondItem="370-P0-8uz" secondAttribute="centerX" id="Bly-dm-ybF"/>
+                <constraint firstAttribute="centerX" secondItem="370-P0-8uz" secondAttribute="centerX" id="BsI-1f-LIj"/>
+                <constraint firstItem="ki8-SW-h19" firstAttribute="leading" secondItem="aNm-U3-gtl" secondAttribute="leadingMargin" id="Fgq-wJ-ucz"/>
+                <constraint firstItem="370-P0-8uz" firstAttribute="top" secondItem="xQL-VX-ZVb" secondAttribute="bottom" constant="8" id="OtC-Go-SR5"/>
+                <constraint firstItem="370-P0-8uz" firstAttribute="centerX" secondItem="ki8-SW-h19" secondAttribute="centerX" id="P3u-hb-VFd"/>
+                <constraint firstItem="xQL-VX-ZVb" firstAttribute="leading" secondItem="aNm-U3-gtl" secondAttribute="leading" constant="8" id="WvZ-as-Pnv"/>
+                <constraint firstItem="370-P0-8uz" firstAttribute="top" secondItem="xQL-VX-ZVb" secondAttribute="bottom" constant="8" id="YgN-Lp-0AA"/>
+                <constraint firstItem="ki8-SW-h19" firstAttribute="top" secondItem="aNm-U3-gtl" secondAttribute="topMargin" id="aw6-uq-rXt"/>
+                <constraint firstAttribute="centerX" secondItem="ki8-SW-h19" secondAttribute="centerX" id="bAB-Xt-OOD"/>
+                <constraint firstItem="370-P0-8uz" firstAttribute="top" secondItem="aNm-U3-gtl" secondAttribute="top" constant="168" id="bTx-dE-nDu"/>
+                <constraint firstItem="370-P0-8uz" firstAttribute="top" secondItem="xQL-VX-ZVb" secondAttribute="bottom" constant="8" id="czd-i2-5BF"/>
+                <constraint firstItem="Xhf-hF-AtN" firstAttribute="top" secondItem="370-P0-8uz" secondAttribute="bottom" constant="8" id="dZv-6t-Bzz"/>
+                <constraint firstItem="370-P0-8uz" firstAttribute="leading" secondItem="aNm-U3-gtl" secondAttribute="leading" constant="180" id="hWV-y9-Sel"/>
+                <constraint firstAttribute="centerY" secondItem="370-P0-8uz" secondAttribute="centerY" id="pFb-FU-1CB"/>
+                <constraint firstItem="Xhf-hF-AtN" firstAttribute="leading" secondItem="aNm-U3-gtl" secondAttribute="leading" id="qby-hn-HFE"/>
+                <constraint firstAttribute="trailing" secondItem="Xhf-hF-AtN" secondAttribute="trailing" id="rNk-DI-yYW"/>
+                <constraint firstAttribute="trailing" secondItem="xQL-VX-ZVb" secondAttribute="trailing" constant="8" id="ue1-6s-xQt"/>
+                <constraint firstAttribute="bottom" secondItem="Xhf-hF-AtN" secondAttribute="bottom" id="zC7-Be-oMz"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="6Uo-1L-Htl"/>
+                    <exclude reference="8Yw-ho-G7D"/>
+                    <exclude reference="OtC-Go-SR5"/>
+                    <exclude reference="P3u-hb-VFd"/>
+                    <exclude reference="bTx-dE-nDu"/>
+                    <exclude reference="czd-i2-5BF"/>
+                    <exclude reference="hWV-y9-Sel"/>
+                    <exclude reference="pFb-FU-1CB"/>
+                    <exclude reference="Bly-dm-ybF"/>
+                    <exclude reference="dZv-6t-Bzz"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="141" y="423"/>
+        </view>
+    </objects>
+</document>

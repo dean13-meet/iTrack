@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="keyboardComplexView">
+            <connections>
+                <outlet property="toolbar" destination="EDi-pr-klf" id="BCz-YD-Owt"/>
+                <outlet property="view" destination="iN0-l3-epB" id="gXW-Vl-KRl"/>
+                <outlet property="viewForKeyboard" destination="ttp-aY-nZt" id="7wK-9g-hTk"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EDi-pr-klf">
+                    <rect key="frame" x="0.0" y="172" width="320" height="44"/>
+                    <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="sXB-56-Eq6"/>
+                        <barButtonItem title="Keypad" id="zoH-0S-Cd8">
+                            <connections>
+                                <action selector="switchToKeypad:" destination="-1" id="Uix-j6-iC7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="oUw-MI-o3y"/>
+                        <barButtonItem title="Contacts" id="xY9-r8-GdE">
+                            <connections>
+                                <action selector="switchToContacts:" destination="-1" id="cjx-Yd-YRJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="TGz-uv-zBm"/>
+                    </items>
+                </toolbar>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ttp-aY-nZt">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="172"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="353" y="298"/>
+        </view>
+    </objects>
+</document>

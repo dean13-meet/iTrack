@@ -16,5 +16,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *arrivalSwitch;
 
 @property (weak, nonatomic) IBOutlet UISwitch *leaveSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelEditButton;
 
 @end

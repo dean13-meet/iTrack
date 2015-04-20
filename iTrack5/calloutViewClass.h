@@ -15,6 +15,7 @@
 - (void) nextWithSender:(id)sender;
 - (void) backWithSender:(id)sender;
 - (void) radiusValueChanged:(float)radius;
+- (void) cancelEdit;
 
 @end
 
@@ -25,5 +26,6 @@
 
 - (void) clickedNext;
 - (void) backClicked;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
 @end

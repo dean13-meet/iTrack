@@ -46,4 +46,7 @@
 {
     [super backClicked];
 }
+- (IBAction)cancelEdit:(id)sender {
+	[self.delegate cancelEdit];
+}
 @end

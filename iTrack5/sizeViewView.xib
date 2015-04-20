@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="sizeViewCalloutView">
             <connections>
+                <outlet property="addressLabel" destination="pB4-00-Kfy" id="VRq-hV-UGf"/>
+                <outlet property="finishButton" destination="xfS-4M-bXw" id="Dqe-Pi-QIQ"/>
                 <outlet property="slider" destination="BhG-sO-I2k" id="BYs-pX-EHL"/>
                 <outlet property="view" destination="aF1-ub-thd" id="ZVn-ss-lDR"/>
             </connections>
@@ -21,7 +23,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What size should region be?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mG-kn-XRO">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Choose region size:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mG-kn-XRO">
                     <rect key="frame" x="8" y="37" width="225" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -33,8 +35,8 @@
                         <action selector="radiusChange:" destination="-1" eventType="valueChanged" id="Xts-zC-O89"/>
                     </connections>
                 </slider>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEF-5d-8I4">
-                    <rect key="frame" x="8" y="104" width="46" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEF-5d-8I4">
+                    <rect key="frame" x="8" y="104" width="35" height="30"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title="Back">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,7 +45,7 @@
                         <action selector="backClicked:" destination="-1" eventType="touchUpInside" id="RcC-S6-ITP"/>
                     </connections>
                 </button>
-                <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfS-4M-bXw">
+                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfS-4M-bXw">
                     <rect key="frame" x="97" y="104" width="46" height="30"/>
                     <state key="normal" title="Create">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,6 +57,12 @@
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="xfS-4M-bXw" secondAttribute="centerX" id="1HA-Qr-qeL"/>
+                <constraint firstItem="jEF-5d-8I4" firstAttribute="leading" secondItem="aF1-ub-thd" secondAttribute="leading" constant="8" id="7OC-UT-QD3"/>
+                <constraint firstAttribute="bottom" secondItem="xfS-4M-bXw" secondAttribute="bottom" id="8Z8-S2-QFE"/>
+                <constraint firstAttribute="bottom" secondItem="jEF-5d-8I4" secondAttribute="bottom" id="Zdt-ig-Apw"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="470.5" y="5"/>

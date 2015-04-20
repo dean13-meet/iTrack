@@ -15,22 +15,25 @@
 
 @protocol customCalloutViewDelegate <NSObject>
 
--(void)radiusValueChanged;
+-(void)updateCircle;
 
 @end
 
 @interface customCalloutView : UIView <calloutViewManagerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *view;
+- (IBAction)deleteClicked;
 
-@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
-@property (weak, nonatomic) IBOutlet UITextField *recipientField;
+//@property (weak, nonatomic) IBOutlet UITextField *recipientField;
 /*
 @property (weak, nonatomic) IBOutlet UITextField *startField;
 @property (weak, nonatomic) IBOutlet UITextField *endField;*/
 @property (weak, nonatomic) IBOutlet UISegmentedControl *repeatControl;
-@property (weak, nonatomic) IBOutlet UISlider *radiusSlider;
+//@property (weak, nonatomic) IBOutlet UISlider *radiusSlider;
 @property (weak, nonatomic) IBOutlet UIButton *createButton;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+- (IBAction)editClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 
 /*
 @property (strong, nonatomic) UIDatePicker *datePicker1;
@@ -49,10 +52,11 @@
 
 - (void) radiusValueChanged:(float)radius;//delegate method ( from calloutViewManagerDelegate)
 
-@property (nonatomic) id<customCalloutViewDelegate> delegate;
+@property (nonatomic) id<customCalloutViewDelegate> delegate;//map pin view
 
 
 @property (nonatomic) BOOL editMode;
+@property (weak, nonatomic) IBOutlet UILabel *pendingLabel;
 
 
 //CalloutSetting
@@ -74,6 +78,11 @@ typedef enum {
  */
  #define editButtonTitle @"Save Changes"/*
 
+ Deactivate
+ */
+
+ #define deactivateButtonTitle @"Deactivate"/*
+
  Make Active
  */
  #define makeActiveButtonTitle @"Activate"/*
@@ -84,5 +93,12 @@ typedef enum {
 
 @property (strong, nonatomic) Geofence* fence;
 
+
+- (NSString*) getAddressLabelText;
+- (void) setAddresLabelText:(NSString*)text;
+
+@property (nonatomic, setter=radiusValueChanged:) float radius;
+
+- (void) showToViewCancelButton;
 
 @end

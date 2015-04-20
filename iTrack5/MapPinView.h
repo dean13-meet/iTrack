@@ -10,19 +10,27 @@
 #import <UIKit/UIKit.h>
 #import "customCalloutView.h"
 #import "mapViewController.h"
+#import "MapPin.h"
 
 
 
 
-@interface MapPinView : MKPinAnnotationView <customCalloutViewDelegate>
+@interface MapPinView : MKPinAnnotationView <customCalloutViewDelegate, MapPinDelegate>
 
 @property (strong, nonatomic) customCalloutView* calloutView;
 @property (nonatomic) mapViewController* mapVC;
 @property (strong, nonatomic) MKCircle* circle;
+@property (strong, nonatomic) MapPin* annotation;
 
 @property (nonatomic) BOOL forceCircleUpdate;
 
+- (void) updateCalloutView:(BOOL)force;
 
+- (void) updateCircle;
 
 - (void) repositionCalloutView;
+
+- (void) saveFence;
+
+- (void) showToViewCancelButton;
 @end

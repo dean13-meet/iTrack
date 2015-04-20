@@ -9,7 +9,6 @@
 #import "MapPinView.h"
 
 
-
 @implementation MapPinView
 
 - (instancetype) initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier
@@ -75,11 +74,7 @@
 {
     [super setSelected:selected animated:animated];
     [self.mapVC setSearchBarShown:!selected];
-    
-    if(selected)
-        [self.mapVC.mapView addOverlay:self.circle];
-    else
-        [self.mapVC.mapView removeOverlay:self.circle];
+    [self updateCircle];
     // Get the custom callout view.
     UIView *calloutView = self.calloutView;
     if (selected) {
@@ -120,7 +115,11 @@
 {
     if(!_circle || self.forceCircleUpdate)
     {
-        _circle = [MKCircle circleWithCenterCoordinate:self.annotation.coordinate radius:self.calloutView.radiusSlider.value];
+        if(_circle)
+        {
+            [self.mapVC.mapView removeOverlay:_circle];
+        }
+        _circle = [MKCircle circleWithCenterCoordinate:self.annotation.coordinate radius:self.calloutView.radius];
         self.forceCircleUpdate = NO;
     }
     return _circle;
@@ -137,6 +136,18 @@
     return _calloutView;
 }
 
+- (void) updateCircle
+{
+    if(self.isSelected)
+    {
+        [self radiusValueChanged];
+    }
+    else
+    {
+        [self.mapVC.mapView removeOverlay:self.circle];
+    }
+}
+
 - (void) radiusValueChanged
 {
     
@@ -145,6 +156,56 @@
     [self.mapVC.mapView addOverlay:self.circle];
 }
 
+- (void) updateCalloutView:(BOOL)force;//force dictates whether to fetch info from annotation.fence
+{
+    MapPinView* pinView = self;
+    MapPin* annotation = self.annotation;
+    
+    [pinView.calloutView setAddresLabelText:annotation.address];
+    if(force){
+    if(annotation.fence)
+    {
+        Geofence* fence = annotation.fence;
+        
+        
+        switch ([fence.recur intValue]) {
+            case 0:
+                [pinView.calloutView.repeatControl setSelectedSegmentIndex:0];
+                break;
+                
+            case 1:
+                [pinView.calloutView.repeatControl setSelectedSegmentIndex:1];
+                break;
+                
+            default:
+                break;
+        }
+        
+		pinView.calloutView.radius = [fence.radius floatValue];
+        NSArray* recs = [NSKeyedUnarchiver unarchiveObjectWithData:fence.recipients];
+        
+        pinView.calloutView.fence = fence;
+        
+        pinView.calloutView.leaveSwitch.on = [fence.onLeave boolValue];
+        pinView.calloutView.arrivalSwitch.on = [fence.onArrival boolValue];
+    }
+    else
+    {
+        pinView.calloutView.editMode = YES;
+    }
+    }
+    [self.calloutView setNeedsDisplay];
+    [self updateCircle];
+}
 
+- (void) saveFence
+{
+    [self.calloutView createClicked:[NSNumber numberWithInt:234567]];
+    
+}
+- (void) showToViewCancelButton
+{
+	[self.calloutView showToViewCancelButton];
+}
 
 @end

@@ -8,11 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "calloutViewClass.h"
+#import "keyboardComplexView.h"
+#import "recCell.h"
 
-@interface toViewCalloutView : calloutViewClass
+
+
+@interface toViewCalloutView : calloutViewClass<UITableViewDataSource, UITableViewDelegate, recCellDelegate, keyboardComplexViewDelegate>
 @property (strong, nonatomic) IBOutlet UIView *view;
 
-@property (strong, nonatomic) NSArray* recipients;
+@property (strong, nonatomic) NSMutableArray* recipients;
 @property (weak, nonatomic) IBOutlet UITextField *toBox;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+- (void) deleteSelfWithSender:(id)sender;
+- (void) addObjectToRecipients:(id)object;
+
+@property (weak, nonatomic) IBOutlet UIButton *cancelEditButton;
+
 
 @end

@@ -7,14 +7,23 @@
 //
 
 #import "mapViewController.h"
+#import "urls.m"
+#import "signInPopup.h"
+#import "AppDelegate.h"
+#import "socketDealer.h"
+#import "takeCareOfUserUpdates.h"
 #import "MapPinView.h"
+#import "Person.h"
+
+
+
 
 @interface mapViewController ()
 
-@property (strong, nonatomic) CLLocationManager* locationManager;
+
 @property (strong, nonatomic) CLLocation* lastKnownLocation;
 
-@property (strong, nonatomic) NSMutableArray* mapSettingEnums;
+@property (nonatomic, weak) CLLocationManager* locationManager;
 @property (strong, nonatomic) NSMutableArray* searchAnnotations;
 
 @property (weak, nonatomic) IBOutlet UIButton *allButton;
@@ -22,51 +31,36 @@
 @property (weak, nonatomic) IBOutlet UIButton *completeButton;
 @property (weak, nonatomic) IBOutlet UIButton *expiredButton;
 
+@property (strong, nonatomic) signInPopup* signInPopup;
+
+
+
 @property (nonatomic) BOOL isSearching;
+
+@property (strong, nonatomic) takeCareOfUserUpdates* updateCaretaker;
 
 
 @end
 
-//Map Enum
-typedef enum {
-    kAll, //Will show ALL pins, except for search pins
-    kSearch, //Will show ONLY search pins
-    kActive,
-    kCompleted,
-    kExpired,
-    numberOfEnumItems//counts above items (because top item = 0 and we increment by 1)
-} MapSetting;
-//Overriding chain: Search overrides All which overrides ANY OTHER setting
-
-/*
- Types of Pins:
- 
- 
- Search
-    Not stored in core memory
-    Only active when search bar is searching for locations
-    */
-    #define searchPinColor MKPinAnnotationColorPurple/*
- 
- Active
-    Stored in memory as status:active
-    */
-    #define activePinColor MKPinAnnotationColorGreen/*
-
- Completed
-    Stored in memory as status:completed
-    */
-    #define completedPinColor MKPinAnnotationColorRed/*
- 
- Expired
-    Stored in memory as status:expired
-    */
-    #define expiredPinColor MKPinAnnotationColorRed/*
-
-
- */
 
 @implementation mapViewController
+
+- (CLLocationManager*)locationManager
+{
+	if(!_locationManager)
+	{
+		_locationManager = ((AppDelegate*)[UIApplication sharedApplication].delegate).locationManager;//pull it from the app delegate
+		_locationManager.delegate = self;
+	}
+	return _locationManager;
+}
+- (void) locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+	if(status != kCLAuthorizationStatusAuthorizedAlways)
+	{
+		[((AppDelegate*)[UIApplication sharedApplication].delegate) showLocationAlert];
+	}
+}
 
 - (NSMutableArray*) mapSettingEnums
 {
@@ -82,8 +76,9 @@ typedef enum {
 }
 
 - (void)viewDidLoad
-{
+{	mapVCFromAppDelegate = self;
     [super viewDidLoad];
+	
     [self dealWithSignificantLocationChanges];
     self.mapView.delegate = self;
     self.mapView.showsUserLocation = YES;
@@ -97,8 +92,301 @@ typedef enum {
     [self setSetting:kAll on:YES forceAnnotationUpdate:YES];
     
     
+    MapPinView* pinView;
+    pinView = [[MapPinView alloc] initWithAnnotation:[[MapPin alloc] initWithCoordinates:CLLocationCoordinate2DMake(0, 0) placeName:nil description:nil mapVC:nil] reuseIdentifier:@"test"];
+    CGRect prevFrame = pinView.frame;
+    pinView.pinColor = searchPinColor;
+    
+    pinView.frame = CGRectMake((self.searchBarPinBox.frame.size.width-prevFrame.size.width)/2, (self.searchBarPinBox.frame.size.height-prevFrame.size.height)/2, prevFrame.size.width, prevFrame.size.height);
+    pinView.userInteractionEnabled = YES;
+    
+    UIPanGestureRecognizer* pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveSearchBarPin:)];
+    [pinView addGestureRecognizer:pan];
+    
+    
+    [self.searchBarPinBox addSubview:pinView];
+	
+	[self dealWithLogin];
+	[self registerTrackerForGeofences];
+	
+	self.modeButton.selected = YES;//just looks better
+	
+	[self getUserUpdates];
+	[self prepareServerForCoreData];
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]) showLocationAlert];
+	
+	
 }
 
+- (void) dealWithLogin
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* userUUID = [defaults valueForKey:userUUIDDefaultsURL];
+	if(!userUUID)
+	{//create popup to create username or login:
+		
+		self.signInPopup =  [[signInPopup alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*.90, self.view.frame.size.height*.90)];
+		signInPopup* popup = self.signInPopup;//just easier to write "popup"
+		popup.center = self.view.center;
+		popup.transform = CGAffineTransformMakeScale(2, 2);
+		[self.view addSubview:popup];
+		[UIView animateWithDuration:.2 animations:^{
+			popup.transform = CGAffineTransformMakeScale(1, 1);
+		}];
+		
+	}
+
+}
+- (void) dismissSignInPopup
+{
+	[UIView animateWithDuration:.1
+					 animations:^{
+						 //self.frame = CGRectMake(self.center.x - 350, self.center.y - 350, 700,700);
+						 self.signInPopup.transform = CGAffineTransformMakeScale(.1, .1);
+					 } completion:^(BOOL finished) {
+						 self.signInPopup.transform = CGAffineTransformMakeScale(1, 1);//so that next time the view is loaded, its back to normal
+						 [self.signInPopup removeFromSuperview];
+					 }];
+	
+	
+	[self registerTrackerForGeofences];
+	[self getUserUpdates];
+}
+
+- (void) getUserUpdates
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* userUUID = [defaults valueForKey:userUUIDDefaultsURL];
+	if(!userUUID)return;
+	self.updateCaretaker = [[takeCareOfUserUpdates alloc] init];
+	self.updateCaretaker.mapVC = self;
+}
+
+
+- (void) registerTrackerForGeofences
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* userUUID = [defaults valueForKey:userUUIDDefaultsURL];
+	if(!userUUID)return;//its ok - after sign in, all geofences will be fetched. For now, as long as not signed in, there is nothing we can do.
+	//register for created/deleted geofences
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer signUpForDataWithInfo:@{@"id" : userUUID, @"field" : @"geofences"} sender:self withSelector:@selector(fetchAllGeofences)];
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer signUpForDataWithInfo:@{@"id" : userUUID, @"field" : @"requestedGeofences"} sender:self withSelector:@selector(fetchAllRequestedGeofences)];
+	
+	//register for getting updated fences:
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer signUpForEvent:@"getGeofencesForUserUUID" sender:self withSelector:@selector(updateAllGeofences:)];
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer signUpForEvent:@"getRequestedGeofencesForUserUUID" sender:self withSelector:@selector(updateAllRequestedGeofences:)];
+}
+- (void) unRegisterTrackerForGeofences
+{
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer resignEvent:@"getGeofencesForUserUUID" sender:self];
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer resignEvent:@"getRequestedGeofencesForUserUUID" sender:self];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* userUUID = [defaults valueForKey:userUUIDDefaultsURL];
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer resignDataUpdatesWithInfo: @{@"id" : userUUID, @"field" : @"geofences"} sender:self];
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer resignDataUpdatesWithInfo: @{@"id" : userUUID, @"field" : @"requestedGeofences"} sender:self];
+}
+- (void) fetchAllGeofences
+{
+	//Fetch only after a while to ensure that if we sent over stuff to the server, we fetch the new info, not old.
+	[NSTimer
+	 scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dummySelector3) userInfo:nil repeats:NO];
+}
+- (void) dummySelector3
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* userUUID = [defaults valueForKey:userUUIDDefaultsURL];
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer sendEvent:@"/itrack/getgeofencesforuseruuid" withData:@{@"userUUID":userUUID}];
+}
+
+- (void) fetchAllRequestedGeofences
+{
+	[NSTimer
+	 scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dummySelector4) userInfo:nil repeats:NO];
+}
+- (void) dummySelector4
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* userUUID = [defaults valueForKey:userUUIDDefaultsURL];
+	[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer sendEvent:@"/itrack/getrequestedgeofencesforuseruuid" withData:@{@"userUUID":userUUID}];
+}
+
+- (void) updateAllGeofences:(NSNotification*)notification
+{
+	NSDictionary* desc = [notification userInfo];
+	NSMutableDictionary* geofences = @{}.mutableCopy;
+	NSArray* rows = [desc objectForKey:@"rows"];
+	for(NSDictionary* dic in rows)
+	{
+		NSObject* doc = [dic valueForKey:@"doc"];
+		if([doc isEqual:[NSNull null]])continue;
+		[geofences setObject:[dic objectForKey:@"doc"] forKey:[[dic objectForKey:@"doc"] objectForKey:@"userKnownIdentifier"]];
+	}
+	
+	[self updateAGeofenceSet:geofences mode:NO];
+	
+	
+}
+
+- (void) updateAllRequestedGeofences:(NSNotification*)notification
+{
+	NSDictionary* desc = [notification userInfo];
+	NSMutableDictionary* geofences = @{}.mutableCopy;
+	NSArray* rows = [desc objectForKey:@"rows"];
+	for(NSDictionary* dic in rows)
+	{
+		if(![dic valueForKey:@"doc"] || [[dic valueForKey:@"doc"] isEqual:[NSNull null]])continue;
+		[geofences setObject:[dic objectForKey:@"doc"] forKey:[[dic objectForKey:@"doc"] objectForKey:@"userKnownIdentifier"]];
+	}
+	
+	[self updateAGeofenceSet:geofences mode:YES];
+	
+	
+}
+
+
+- (void) updateAGeofenceSet:(NSMutableDictionary*)geofences mode:(BOOL)mode
+{
+	//mode: 0 = normal, 1 = requested
+	NSArray* allGeofences = [self.fetchedResultsController fetchedObjects];
+	
+	BOOL needToSave = NO;
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* username = [defaults valueForKey:usernameDefaultsURL];
+	for(Geofence* fence in allGeofences)
+	{
+		if([fence.owner isEqualToString:username] == mode)continue;
+		NSDictionary* serverVersion = [geofences objectForKey:fence.identifier];
+		
+		
+		if(!serverVersion)
+		{
+			[self deleteFence:fence notifyServer:NO];
+			needToSave = NO;//Delete fence already ran a save - reset needToSave
+			continue;
+		}
+		
+		//if there is a server version:
+		[geofences removeObjectForKey:fence.identifier];//after we check this, no need for it to stay in geofences.
+		
+		
+		//check if there where any changes
+		//reason we check for changes instead of outright automatically replacing data and saving is b/c every save causes map to reload - don't wanna do extra reloads and disturb user if many geofences weren't updated
+		
+		BOOL a = [fence.owner isEqualToString:[serverVersion objectForKey:@"owner"]];
+		BOOL b = ([fence.requester isEqualToString:[serverVersion objectForKey:@"requestedBy"]]||([[serverVersion objectForKey:@"requestedBy"] isEqualToString:@"" ] && fence.requester == nil));
+		BOOL c = [fence.requestApproved isEqualToString:[serverVersion objectForKey:@"requestApproved"]];
+		BOOL d = [fence.leaveMessage isEqualToString:[serverVersion objectForKey:@"leaveMessage"]];
+		BOOL e = [fence.arrivalMessage isEqualToString:[serverVersion objectForKey:@"arrivalMessage"]];
+		BOOL f = [fence.setting isEqualToNumber:[NSNumber numberWithInt:[self stringToSettingInt:[serverVersion objectForKey:@"status"]]]];
+		BOOL g = [fence.recur isEqualToNumber:[serverVersion objectForKey:@"repeat"]];
+		BOOL h = [fence.radius isEqualToNumber:[serverVersion objectForKey:@"radius"]];
+		BOOL i = [fence.recipients isEqualToData:[NSKeyedArchiver archivedDataWithRootObject:[serverVersion objectForKey:@"recs"]]];
+		BOOL j = [fence.leavesSent isEqualToData:[NSKeyedArchiver archivedDataWithRootObject:[serverVersion objectForKey:@"leavesSent"]]];
+		BOOL k = [fence.arrivalsSent isEqualToData:[NSKeyedArchiver archivedDataWithRootObject:[serverVersion objectForKey:@"arrivalsSent"]]];
+		BOOL l = [fence.onArrival isEqualToNumber:[serverVersion objectForKey:@"onArrival"]];
+		BOOL m = [fence.onLeave isEqualToNumber:[serverVersion objectForKey:@"onLeave"]];
+		BOOL n = [fence.longtitude isEqualToNumber:[NSNumber numberWithFloat:[[serverVersion objectForKey:@"long"] floatValue]]];
+		BOOL o = [fence.lat isEqualToNumber:[NSNumber numberWithFloat:[[serverVersion objectForKey:@"lat"] floatValue]]];
+		BOOL p =[fence.address isEqualToString:[serverVersion objectForKey:@"address"]];
+		
+		if(!(p
+			 &&
+			 o
+			 &&
+			 n
+			 &&
+			 l
+			 &&
+			 m
+			 &&
+			 k
+			 &&
+			 j
+			 &&
+			 i
+			 &&
+			 h
+			 &&
+			 g
+			 &&
+			 f
+			 &&
+			 e
+			 &&
+			 d
+			 &&
+			 a
+			 &&
+			 b
+			 &&
+			 c
+			 ))
+		{
+			//means at least 1 thing changed:
+			
+			[self setFencePropertiesToMatchDic:fence withDic:serverVersion];
+			needToSave = YES;
+		}
+	}
+	
+	//if anything left in server response, create new fences with it:
+	
+	for(NSString* key in geofences)
+	{
+		NSDictionary* fenceDic = [geofences objectForKey:key];
+		
+		[self addFenceWithLong:[[fenceDic objectForKey:@"long"]floatValue] lat:[[fenceDic objectForKey:@"lat"]floatValue] recurr:[[fenceDic valueForKey:@"repeat"]floatValue] recipients:[fenceDic objectForKey:@"recs"] address:[fenceDic objectForKey:@"address"] radius:[[fenceDic objectForKey:@"radius"]integerValue] givenFence:nil arrival:[[fenceDic objectForKey:@"onArrival"]boolValue] leave:[[fenceDic objectForKey:@"onLeave"]boolValue] shouldChangeMapSetting:NO optionalIdentifier:[fenceDic objectForKey:@"userKnownIdentifier"] arrivalMessage:[fenceDic objectForKey:@"arrivalMessage"] leaveMessage:[fenceDic objectForKey:@"leaveMessage"] arrivalsSent:[fenceDic objectForKey:@"arrivalsSent"] leavesSent:[fenceDic objectForKey:@"leavesSent"] forceSave:YES optionalSetSetting:[NSNumber numberWithInt:[self stringToSettingInt:[fenceDic objectForKey:@"status"]]] owner:[fenceDic objectForKey:@"owner"] requester:[fenceDic objectForKey:@"requestedBy"] optionalRequestApproved:[fenceDic valueForKey:@"requestApproved"] fenceWasSyncedDownFromServer:YES];
+		needToSave = YES;
+		
+	}
+	
+	if(needToSave){
+		[self save];
+	}
+
+}
+
+
+- (void) moveSearchBarPin:(UIPanGestureRecognizer*)pan
+{
+    MapPinView* pinView = self.searchBarPinBox.subviews[0];
+    CGPoint currentLocation = [pan locationInView:self.searchBarPinBox];
+    pinView.frame = CGRectMake(currentLocation.x, currentLocation.y, pinView.frame.size.width, pinView.frame.size.height);
+    
+    if(pan.state == UIGestureRecognizerStateEnded)
+    {
+        CGRect prevFrame = pinView.frame;
+        pinView.frame = CGRectMake((self.searchBarPinBox.frame.size.width-prevFrame.size.width)/2, (self.searchBarPinBox.frame.size.height-prevFrame.size.height)/2, prevFrame.size.width, prevFrame.size.height);
+        CLLocationCoordinate2D leavePoint = [self.mapView convertPoint:currentLocation toCoordinateFromView:self.searchBarPinBox];
+        MapPin* annotation = [[MapPin alloc] initWithCoordinates:leavePoint placeName:@"" description:@"" mapVC:self];
+        
+        if(self.currentlyDraggedAnnotation)
+        {
+            [self.additionalAnnotationsToShow removeObject:self.currentlyDraggedAnnotation];
+        }
+        self.currentlyDraggedAnnotation = annotation;
+        [self.additionalAnnotationsToShow addObject:annotation];
+        
+        annotation.setting = [NSNumber numberWithInt:kSearch];
+        [self setSetting:kSearch on:YES forceAnnotationUpdate:NO];
+        annotation.blockToRunOnceAddressUpdates = ^void(UIViewController* mapVC, MapPin* annotation)
+        {
+            [((mapViewController*)mapVC).mapView selectAnnotation:annotation animated:YES];
+        };
+        [annotation setCoordinate:leavePoint];//causes everything to load
+        
+		[self updateMapAnnotaions];
+    }
+}
+
+- (NSMutableArray*)additionalAnnotationsToShow
+{
+    if(!_additionalAnnotationsToShow)
+    {
+        _additionalAnnotationsToShow = [[NSMutableArray alloc] init];
+    }
+    return _additionalAnnotationsToShow;
+}
 
 
 - (void) closeKeyboard
@@ -106,17 +394,7 @@ typedef enum {
     [self.view endEditing:YES];
 }
 
-- (CLLocationManager*) locationManager
-{
-    if(!_locationManager)
-    {
-        _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        [_locationManager requestAlwaysAuthorization];
-        _locationManager.delegate = self;
-    }
-    return _locationManager;
-}
+
 
 - (void) requestStatusForAllMonitoredRegions
 {
@@ -131,7 +409,19 @@ typedef enum {
 
 - (void) locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
 {
-    [self.locationManager requestStateForRegion:region];
+	//give it 2 seconds before doing anything. This is to make sure the server has time to react and
+	//get the new geofence changes, incase a message must be fired immedietally (the server must first
+	//know of the existance of the geofence before sending messages for it)
+	[NSTimer
+	 scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dummySelector:) userInfo:region repeats:NO];
+	
+	
+}
+
+- (void) dummySelector:(NSTimer*)timer
+{
+	CLRegion* region = [timer userInfo];
+	[self.locationManager requestStateForRegion:region];
 }
 
 - (void) locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
@@ -150,10 +440,12 @@ typedef enum {
     
     //check fence active && whether to expire:
     
-    if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]])
+    if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] && [self fenceTimeoutOK:fence withCode:0]
+	   &&
+	   fence.onArrival)
     {
         
-        [self hitFence:fence];
+        [self hitFence:fence mode:YES];
         
     }
     
@@ -162,7 +454,24 @@ typedef enum {
 }
 - (void) locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    
+	Geofence* fence = [self getFenceFromRegion:region];
+	if(!fence)//if for some reason we recieved "didEnterRegion", but we are not looking to track that region, just remove it from monitoring
+	{
+		[self.locationManager stopMonitoringForRegion:region];
+		return;
+	}
+	
+	//check fence active && whether to expire:
+	
+	if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] && [self fenceTimeoutOK:fence withCode:1]
+	   &&
+	   fence.onLeave)
+	{
+		
+		[self hitFence:fence mode:NO];
+		
+	}
+
 }
 - (void) locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
@@ -198,18 +507,61 @@ typedef enum {
     return retval;
 }
 
-- (void) hitFence:(Geofence*)fence
+- (void) hitFence:(Geofence*)fence mode:(BOOL)isArrival
 {
     
-    if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] ){//check again, even though it was supposed to be checked, because we are accessing async so 2 threads could have entered this method with same region being tracked (e.g. 1 from delegate method "didDetermineState" and other from "didEnterRegion"
-        [self setFenceCompleted:fence];
-        [self sendMessageTo:fence.recipient address:fence.address];}
-    
-    
+    if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]]
+	   &&
+	   (isArrival ? fence.onArrival : fence.onLeave)
+	   ){//check again, even though it was supposed to be checked, because we are accessing async so 2 threads could have entered this method with same region being tracked (e.g. 1 from delegate method "didDetermineState" and other from "didEnterRegion"
+		
+		//first send the message, then wait a while to allow the server to finish processing the message sending request, and only then have it mark the fence as completed. Otherwise, the fence might be marked completed before the server sends the message, and that will block the server from sending the message!
+		[self sendMessageWithFence:fence mode:isArrival];
+		[NSTimer
+		 scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dummySelector2:) userInfo:fence repeats:NO];
+		
+	}
+	
 }
 
+- (void) dummySelector2:(NSTimer*)timer
+{
+	Geofence* fence = [timer userInfo];
+	[self setFenceCompleted:fence];
+}
 
+- (void) sendMessageWithFence:(Geofence*)fence mode:(BOOL)isArrival
+{
+	dispatch_queue_t q = dispatch_queue_create("Q8", NULL);
+	dispatch_async(q, ^{
+		
+		NSURL *url = [NSURL URLWithString:@"http://dean-leitersdorf.herokuapp.com/itrack/sendfencemessage"];
+		NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+		
+		
+		NSDictionary* thisMessage = @{@"userKnownIdentifier":fence.identifier, @"lat":fence.lat, @"long":fence.longtitude, @"mode":[NSNumber numberWithBool:isArrival]};
+		/*NSString *messageBody = [NSString stringWithFormat:@"number=%@&message=%@",rec, message];
+		 NSData* dataToSend = [messageBody dataUsingEncoding:NSUTF8StringEncoding];*/
+		NSData* dataToSend = [NSJSONSerialization dataWithJSONObject:thisMessage options:kNilOptions error:NULL];
+		request.HTTPBody = dataToSend;
+		request.HTTPMethod = @"POST";
+		NSError* error;
+		NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
+		NSDictionary* response = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+		BOOL success = [[response valueForKey:@"success"] boolValue];
+		
+		
+		UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+		localNotification.fireDate = [NSDate date];
+		localNotification.alertBody = success ? [NSString stringWithFormat:@"Sent message successfully!"] : [NSString stringWithFormat:@"Failed to send message."];
+		localNotification.soundName = UILocalNotificationDefaultSoundName;
+		localNotification.applicationIconBadgeNumber = 1;
+		[[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+	});
 
+}
+
+/*
 - (void) sendMessageTo:(NSNumber*)rec address:(NSString*)address
 {
     dispatch_queue_t q = dispatch_queue_create("Q5", NULL);
@@ -220,8 +572,8 @@ typedef enum {
         
         NSString* message = [NSString stringWithFormat: @"You have been notified that ___ arrived at: %@.", address];
         NSDictionary* thisMessage = @{@"number":rec, @"message":message};
-        /*NSString *messageBody = [NSString stringWithFormat:@"number=%@&message=%@",rec, message];
-        NSData* dataToSend = [messageBody dataUsingEncoding:NSUTF8StringEncoding];*/
+        NSString *messageBody = [NSString stringWithFormat:@"number=%@&message=%@",rec, message];
+        NSData* dataToSend = [messageBody dataUsingEncoding:NSUTF8StringEncoding];
         NSData* dataToSend = [NSJSONSerialization dataWithJSONObject:thisMessage options:kNilOptions error:NULL];
         request.HTTPBody = dataToSend;
         request.HTTPMethod = @"POST";
@@ -239,6 +591,60 @@ typedef enum {
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     });
     
+}*/
+
+- (BOOL) fenceTimeoutOK:(Geofence*)fence withCode:(int)code
+{
+    //code: 0 = arrival, !0 = leave;
+    //retval: BOOL ok to proceed (YES = timeout has passed, NO = still waiting on cooldown
+    /*
+#define timeout 30.0 //seconds
+    
+    NSMutableArray* useArray;
+    
+    if(!code)//arrival
+    {
+        useArray = ((NSArray*) [NSKeyedUnarchiver unarchiveObjectWithData:fence.arrivalsSent] ).mutableCopy;
+    }
+    else
+    {
+        useArray = ((NSArray*)[NSKeyedUnarchiver unarchiveObjectWithData:fence.leavesSent]).mutableCopy;
+    }
+    
+    BOOL retval;
+    
+    if(![useArray count])
+        retval = YES;
+    else
+    {
+        NSSortDescriptor *lowestToHighest = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+        [useArray sortedArrayUsingDescriptors:@[lowestToHighest]];
+        
+        float currentTime = [[NSDate date] timeIntervalSince1970];
+        float timedif = currentTime - [useArray[0] floatValue];
+        retval = timedif >=timeout;
+    }*/
+    /*
+    if(retval)//add entry to log
+    {
+        if(!useArray)
+        {
+            useArray = [[NSMutableArray alloc] init];
+        }
+        
+        [useArray addObject:[NSNumber numberWithFloat:[[NSDate date] timeIntervalSince1970]]];
+        if(!code)//arrival
+        {
+            fence.arrivalsSent = [NSKeyedArchiver archivedDataWithRootObject:useArray];
+        }
+        else
+        {
+            fence.leavesSent = [NSKeyedArchiver archivedDataWithRootObject:useArray];
+        }
+        [self save];
+    }*/
+    
+	return true;//retval;
 }
 
 #pragma mark - Segues
@@ -257,29 +663,121 @@ typedef enum {
     }
 }*/
 
-- (void) addFenceWithLong:(float)longtitude lat:(float)lat recurr:(float)recurr recipient:(NSInteger)rec address:(NSString*)address radius:(NSInteger)radius givenFence:(Geofence *)fence arrival:(BOOL)arrival leave:(BOOL)leave{
+- (void) addFenceWithLong:(float)longtitude lat:(float)lat recurr:(float)recurr recipients:(NSArray*)recs address:(NSString*)address radius:(NSInteger)radius givenFence:(Geofence *)fence arrival:(BOOL)arrival leave:(BOOL)leave shouldChangeMapSetting:(BOOL)settingChange optionalIdentifier:(NSString*)identifier arrivalMessage:(NSString*) arrivalMessage leaveMessage:(NSString*)leaveMessage arrivalsSent:(NSArray*)arrivalsSent leavesSent:(NSArray*)leavesSent forceSave:(BOOL)forceSave optionalSetSetting:(NSNumber*)setting owner:(NSString*)owner requester:(NSString*)requester optionalRequestApproved:(NSString*)requestApproved fenceWasSyncedDownFromServer:(BOOL)syncDown{
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+	BOOL shouldLaterCreateNewFenceOnServer = !fence;
     if(!fence)//a given fence would mean "Update" the fence. If no given fence, "Create" the fence.
-        fence = [NSEntityDescription insertNewObjectForEntityForName:@"Geofence"inManagedObjectContext:context];
+		fence = [NSEntityDescription insertNewObjectForEntityForName:@"Geofence"inManagedObjectContext:context];
     
     fence.longtitude = [NSNumber numberWithFloat:longtitude];
     fence.lat = [NSNumber numberWithFloat:lat];
     fence.recur = [NSNumber numberWithFloat:recurr];
-    fence.recipient = [NSNumber numberWithInteger: rec];
+	
+	recs = [mapViewController personsToDics:recs.mutableCopy];
+	
+    fence.recipients = [NSKeyedArchiver archivedDataWithRootObject:recs];
     if(!fence.identifier)
-        fence.identifier = [self randomStringWithLength:10];
+		fence.identifier = identifier ? identifier :[self randomStringWithLength:30];
     fence.address = address;
-    fence.setting = [NSNumber numberWithInt:kActive];
     fence.radius = [NSNumber numberWithInteger:radius];
     fence.onArrival = [NSNumber numberWithBool:arrival];
     fence.onLeave = [NSNumber numberWithBool:leave];
-    
+	fence.arrivalsSent = [NSKeyedArchiver archivedDataWithRootObject:arrivalsSent?arrivalsSent: [[NSMutableArray alloc] init]];
+	fence.leavesSent = [NSKeyedArchiver archivedDataWithRootObject: leavesSent ? leavesSent : [[NSMutableArray alloc] init]];
+	fence.arrivalMessage = arrivalMessage?arrivalMessage: @"I have arrived!";
+	fence.leaveMessage = leaveMessage ? leaveMessage: @"I have left!";
+	fence.owner = owner;
+	fence.requester = requester;//requester isn't always yourself - if loading a requested pin, the requester is someone else
+	if(setting)
+	{
+		fence.setting = setting;
+	}
+	
+	if(requestApproved)
+		fence.requestApproved = requestApproved;
+	else
+		fence.requestApproved = (requester && ![requester isEqualToString:@""])? @"Pending" : @"N/A";
+	
+    if(settingChange){
+        fence.setting = [NSNumber numberWithInt:kActive];
     [self setSetting:kSearch on:NO forceAnnotationUpdate:NO];
     [self setSetting:kAll on:YES forceAnnotationUpdate:NO];//set ALL to be on
-    [self save];
+    }
+	if(forceSave)
+		[self save];
     //No need to updateMapAnnotations/trackers - when save changes context, updateMapAnnotations/trackers already get called.
     //[self updateMapAnnotaions];
     //[self updateTrackers];
+	
+	//send update to server:
+	
+	
+	if(shouldLaterCreateNewFenceOnServer && !syncDown)//shouldLater.. is "edit", syncDown is we just got this fence off the server - dont create a new one -_-
+	{
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		NSString* userUUID = [defaults valueForKey:userUUIDDefaultsURL];
+		if(requester)//means we are requesting
+		{
+			[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer sendEvent:@"/itrack/requestgeofence" withData:@{@"owner":owner, @"arrivalMessage":fence.arrivalMessage, @"leaveMessage":fence.leaveMessage, @"lat":fence.lat, @"long":fence.longtitude, @"onArrival":fence.onArrival, @"onLeave":fence.onLeave, @"radius":fence.radius, @"requester":userUUID, @"repeat":fence.recur, @"address":fence.address, @"userKnownIdentifier":fence.identifier}];
+		}
+		else{
+		
+			[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer sendEvent:@"/itrack/creategeofence" withData:@{@"owner":userUUID, @"arrivalMessage":fence.arrivalMessage, @"leaveMessage":fence.leaveMessage, @"lat":fence.lat, @"long":fence.longtitude, @"onArrival":fence.onArrival, @"onLeave":fence.onLeave, @"radius":fence.radius, @"recs":recs, @"repeat":fence.recur, @"address":fence.address, @"userKnownIdentifier":fence.identifier}];}
+	}
+	
+}
+
+
+- (void) prepareServerForCoreData
+{
+	[[NSNotificationCenter defaultCenter]
+	 addObserver:self
+	 selector:@selector(handleDataModelChange:)
+	 name:NSManagedObjectContextDidSaveNotification
+	 object:[self.fetchedResultsController managedObjectContext]];
+}
+
+- (void)handleDataModelChange:(NSNotification *)note
+{
+	NSSet *updatedObjects = [[note userInfo] objectForKey:NSUpdatedObjectsKey];
+	
+	//NSSet *deletedObjects = [[note userInfo] objectForKey:NSDeletedObjectsKey];
+	//NSSet *insertedObjects = [[note userInfo] objectForKey:NSInsertedObjectsKey];
+	
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* username = [defaults valueForKey:usernameDefaultsURL];
+	NSString* userUUID = [defaults valueForKey:userUUIDDefaultsURL];
+	
+	for(NSManagedObject* obj in updatedObjects)
+	{
+		if([obj isKindOfClass:[Geofence class]])
+		{
+			Geofence* fence = (Geofence*)obj;
+			BOOL amIOwner = [username isEqualToString:fence.owner];
+			NSArray* recs =[mapViewController personsToDics:[mapViewController recsFromFenceData:fence.recipients].mutableCopy ];
+			//send to server geofence edit:
+			[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer sendEvent:@"/itrack/editgeofence" withData:@{@"owner":amIOwner?userUUID:fence.owner, @"arrivalMessage":fence.arrivalMessage, @"leaveMessage":fence.leaveMessage, @"lat":fence.lat, @"long":fence.longtitude, @"onArrival":fence.onArrival, @"onLeave":fence.onLeave, @"radius":fence.radius, @"requester":amIOwner?(fence.requester?fence.requester:@""):userUUID, @"repeat":fence.recur, @"address":fence.address, @"userKnownIdentifier":fence.identifier, @"recs":(recs?recs:@[]) , @"status":[self settingIntToString:[fence.setting intValue]], @"amIOwner":[NSNumber numberWithBool:amIOwner]}];
+		}
+	}
+	
+	// Do something in response to this
+}
+
+
+- (void) deleteFence:(Geofence*) fence notifyServer:(BOOL)notify
+{
+	if(!fence)return;
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    [context deleteObject:fence];
+	
+	if(notify)
+	{	//notify server the fence is deleted
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* userUUID = [defaults valueForKey:userUUIDDefaultsURL];
+		[((AppDelegate*)[[UIApplication sharedApplication] delegate]).socketDealer sendEvent:@"/itrack/deletegeofence" withData:@{@"userUUID":userUUID,  @"userKnownIdentifier":fence.identifier}];}
+
+    [self save];
 }
 
 - (void) setSetting:(int)setting on:(BOOL)on forceAnnotationUpdate:(BOOL)force
@@ -325,6 +823,45 @@ typedef enum {
     
 }
 
+- (NSString*) settingIntToString:(int)setting
+{
+	switch (setting) {
+		case kAll:
+			return @"All";
+			break;
+			
+		case kActive:
+			return @"Active";
+			break;
+			
+		case kCompleted:
+			return @"Completed";
+			break;
+			
+		case kExpired:
+			return @"Expired";
+			break;
+			
+		default:
+			return @"Error";
+	}
+
+}
+
+- (int) stringToSettingInt:(NSString*)string
+{
+	if([string isEqualToString:@"All"])
+		return kAll;
+	else if([string isEqualToString:@"Active"])
+		return kActive;
+	else if([string isEqualToString:@"Completed"])
+		return kCompleted;
+	else if ([string isEqualToString:@"Expired"])
+		return kExpired;
+	else
+		return -1;
+}
+
 - (void) save
 {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
@@ -336,7 +873,10 @@ typedef enum {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    
+	[self dealWithSignificantLocationChanges];
+	[self updateMapAnnotaions];
+	[self updateTrackers];
+	
 }
 
 NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -435,7 +975,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
             continue;
         }
         
-        if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]]){
+        if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] && (!fence.requester || [fence.requester isEqualToString:@""] || [fence.requestApproved isEqualToString:@"Accepted"])){
         
             [self startTrackingGeofence:fence];
         
@@ -531,14 +1071,14 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
-    [self updateMapAnnotaions];
+    //[self updateMapAnnotaions];
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self dealWithSignificantLocationChanges];
+    /*[self dealWithSignificantLocationChanges];
     [self updateMapAnnotaions];
-    [self updateTrackers];
+    [self updateTrackers];*/
 }
 
 - (void) dealWithSignificantLocationChanges
@@ -579,7 +1119,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 {
     if([searchBar.text isEqualToString:@""])
     {
-        [self setSetting:kSearch on:NO forceAnnotationUpdate:YES];
+        [self setSetting:kSearch on:NO forceAnnotationUpdate:self.searchAnnotations.count>0];//only force annotation update if there are searchAnnotations on the map!
         return;
     }
     
@@ -597,7 +1137,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
                          self.mapView.centerCoordinate = aPlacemark.location.coordinate;
                          NSArray *lines = aPlacemark.addressDictionary[ @"FormattedAddressLines"];
                          NSString *addressString = [lines componentsJoinedByString:@"\n"];
-                         MapPin* annotation = [[MapPin alloc] initWithCoordinates:aPlacemark.location.coordinate placeName:addressString description:addressString];
+                         MapPin* annotation = [[MapPin alloc] initWithCoordinates:aPlacemark.location.coordinate placeName:addressString description:addressString mapVC:self];
                          annotation.address = addressString;
                          annotation.setting = [NSNumber numberWithInt: kSearch];
                          [self.searchAnnotations addObject:annotation];
@@ -625,6 +1165,10 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 - (void) mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
     [mapView setCenterCoordinate:view.annotation.coordinate animated:YES];
+    //1° Longitude = cos (33.1519) * 69.172 mi
+    //1° of latitude = 69.172 miles
+    MKCoordinateRegion region = MKCoordinateRegionMake(view.annotation.coordinate, MKCoordinateSpanMake(1/69.172, 1/(0.8372236*69.172)));
+    [mapView setRegion:region animated:YES];
     /*
     make this work according to different enum settings
     self.selectedLocation = view.annotation.coordinate;
@@ -639,6 +1183,11 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     return circleView;
 }
 
+-(NSString*) writablePath {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = [paths objectAtIndex:0];
+	return documentsDirectory;
+}
 
 - (MKAnnotationView*)mapView:(MKMapView *)mapView viewForAnnotation:(MapPin*)annotation
 {
@@ -651,14 +1200,45 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     if ([annotation isKindOfClass:[MapPin class]])
     {
         
+        if(annotation.delegate)
+            return (MapPinView*)annotation.delegate;
+        
         MapPinView* pinView;
         pinView = [[MapPinView alloc] initWithAnnotation:annotation
                                                       reuseIdentifier:@"CustomPinAnnotationView"];
+		if([annotation.fence.requestApproved isEqualToString:@"Pending"])
+		{
+			//pinView.image = [UIImage imageNamed:@"orangePin.png"];
+			/*
+			pinView.pinColor=MKPinAnnotationColorPurple;
+			UIImage* image = nil;
+			// 2.0 is for retina. Use 3.0 for iPhone6+, 1.0 for "classic" res.
+			UIGraphicsBeginImageContextWithOptions(pinView.frame.size, NO, 2.0);
+			[pinView.layer renderInContext: UIGraphicsGetCurrentContext()];
+			image = UIGraphicsGetImageFromCurrentImageContext();
+			UIGraphicsEndImageContext();
+			NSData* imgData = UIImagePNGRepresentation(image);
+			NSString* targetPath = [NSString stringWithFormat:@"%@/%@", [self writablePath], @"orangePin.png" ];
+			[imgData writeToFile:targetPath atomically:YES];*/
+			//from: http://stackoverflow.com/questions/1185611/mkpinannotationview-are-there-more-than-three-colors-available
+			
+			//Note: this is covering the normal green icon. See if you can replace it.
+			UIImage * image = [UIImage imageNamed:@"orangePin.png"];
+			UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+			[pinView addSubview:imageView];
+		}
+		
+		
         pinView.animatesDrop = YES;
         pinView.mapVC = self;
-        pinView.draggable = YES;
+		pinView.draggable = [annotation.setting intValue]==kSearch;
         annotation.pinView = pinView;
-            
+		
+		if(annotation == self.currentlyDraggedAnnotation)
+		{
+			[((MapPinView*)annotation.pinView) showToViewCancelButton];
+		}
+			
         // If appropriate, customize the callout by adding accessory views (code not shown).
         
         pinView.annotation = annotation;
@@ -688,46 +1268,114 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
         }
         pinView.pinColor = pinColor;
         
-        pinView.calloutView.addressLabel.text = ((MapPin*)annotation).address;
-        if(annotation.fence)
-        {
-            Geofence* fence = annotation.fence;
-            pinView.calloutView.addressLabel.text = fence.address;
-            pinView.calloutView.recipientField.text = [NSString stringWithFormat:@"%@", fence.recipient];
-           
-            
-            switch ([fence.recur intValue]) {
-                case 0:
-                    [pinView.calloutView.repeatControl setSelectedSegmentIndex:0];
-                    break;
-                    
-                case 1:
-                    [pinView.calloutView.repeatControl setSelectedSegmentIndex:1];
-                    break;
-                
-                default:
-                    break;
-            }
-            
-            [pinView.calloutView.radiusSlider setValue:[fence.radius floatValue] animated:YES];
-            pinView.calloutView.recipientField.text = [NSString stringWithFormat:@"%@", fence.recipient];
-            
-            pinView.calloutView.fence = fence;
-            
-            pinView.calloutView.leaveSwitch.on = [fence.onLeave boolValue];
-            pinView.calloutView.arrivalSwitch.on = [fence.onArrival boolValue];
-        }
-        else
-        {
-            pinView.calloutView.editMode = YES;
-        }
+        pinView.annotation = annotation;
+        annotation.delegate = pinView;
+        [pinView updateCalloutView:true];
         
         return pinView;
     }
     
     return nil;
+   
     
 }
+
+- (MKAnnotationView*) getMapAnnotationForGeofenceIdentifier:(NSString*)identifier orData:(NSDictionary*)data
+{
+	Geofence* fence;
+	
+	if(data){
+		
+		NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+		NSEntityDescription *entity = [NSEntityDescription entityForName:@"Geofence" inManagedObjectContext:context];
+		fence = (Geofence*)[[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+		[self setFencePropertiesToMatchDic:fence withDic:data];
+		
+	}
+	else{
+	
+	for(NSManagedObject* object in self.fetchedResultsController.fetchedObjects)
+	{
+		if([object isKindOfClass:[Geofence class]])
+		{
+			Geofence* testFence = (Geofence*)object;
+			if([testFence.identifier isEqualToString: identifier])
+			{
+				fence = testFence;
+				break;
+			}
+		}
+	}}
+	
+	
+	MapPin* pin = [self pinFromFence:fence];
+	MapPinView* ret = (MapPinView*)[self mapView:self.mapView viewForAnnotation:pin];
+	return ret;
+}
+
+- (Geofence*) setFencePropertiesToMatchDic:(Geofence*)fence withDic:(NSDictionary*)dic
+{
+	fence.address = [dic objectForKey:@"address"];
+	fence.arrivalsSent =[NSKeyedArchiver archivedDataWithRootObject:[dic objectForKey:@"arrivalsSent"]];
+	fence.lat =[dic objectForKey:@"lat"];
+	fence.leavesSent =[NSKeyedArchiver archivedDataWithRootObject:[dic objectForKey:@"leavesSent"]];
+	fence.longtitude =[dic objectForKey:@"long"];
+	fence.onArrival =[dic objectForKey:@"onArrival"];
+	fence.onLeave =[dic objectForKey:@"onLeave"];
+	fence.radius =[dic objectForKey:@"radius"];
+	
+	NSArray* recs = [dic objectForKey:@"recs"];
+	//recs = [mapViewController personsToDics:recs.mutableCopy]; -- recs here are from server and thus already in dic form
+	fence.recipients = [NSKeyedArchiver archivedDataWithRootObject:recs];
+	fence.recur =[dic objectForKey:@"repeat"];
+	fence.setting =[NSNumber numberWithInt:[self stringToSettingInt:[dic objectForKey:@"status"]]];
+	fence.arrivalMessage =[dic objectForKey:@"arrivalMessage"];
+	fence.leaveMessage =[dic objectForKey:@"leaveMessage"];
+	fence.owner = [dic objectForKey:@"owner"];
+	fence.requester = [dic objectForKey:@"requestedBy"];
+	fence.requestApproved = [dic objectForKey:@"requestApproved"];
+	return fence;
+}
+
++ (NSArray*) personsToDics:(NSMutableArray*)recs
+{
+	NSMutableArray* recsMutable = recs;
+	for(int i = 0; i < recs.count; i++)
+	{
+		id rec = recsMutable[i];
+		if([rec isKindOfClass:[Person class]])
+		{
+			rec = [((Person*)rec) dicForm];
+		}
+		recsMutable[i] = rec;
+	}
+	return recsMutable;
+}
+
++ (NSArray*) dicsToPersons:(NSMutableArray*)recs
+{
+	NSMutableArray* recsMutable = recs;
+	for(int i = 0; i < recs.count; i++)
+	{
+		id rec = recsMutable[i];
+		if([rec isKindOfClass:[NSDictionary class]])
+		{
+			Person* p = [[Person alloc] init];
+			[p setValuesForKeysWithDictionary:(NSDictionary*)rec];
+			rec = p;
+		}
+		recsMutable[i] = rec;
+	}
+	return recsMutable;
+
+}
++ (NSArray*) recsFromFenceData:(NSData*)data
+{
+	NSArray* recs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+	recs = [mapViewController dicsToPersons:recs.mutableCopy];
+	return recs;
+}
+
 - (void) mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState
 {
     
@@ -736,7 +1384,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 {
     [self setButtonsShown:shown];
     [UIView animateWithDuration:0.1 animations:^{
-        self.searchBar.alpha = [[NSNumber numberWithBool:shown] doubleValue];
+        self.topBar.alpha = [[NSNumber numberWithBool:shown] doubleValue];
     }];
 }
 
@@ -773,25 +1421,29 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     BOOL isSearch = [ self.mapSettingEnums[kSearch] boolValue ];
     if(isSearch)
     {
-        annotationsToShow = self.searchAnnotations;
+        annotationsToShow = self.searchAnnotations.mutableCopy;
     }
     else
     {
         NSArray* geofencesFromCoreData = self.fetchedResultsController.fetchedObjects;
         NSMutableArray* geofencesInAnnotationForm = [[NSMutableArray alloc] init];
+		
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		NSString* username = [defaults valueForKey:usernameDefaultsURL];
         
         for(Geofence* fence in geofencesFromCoreData)
         {
-            MapPin* pin = [[MapPin alloc] initWithCoordinates:CLLocationCoordinate2DMake([fence.lat doubleValue], [fence.longtitude doubleValue]) placeName:fence.address description:fence.address];
-            pin.address = fence.address;
-            pin.setting = fence.setting;
-            pin.fence = fence;
-            [geofencesInAnnotationForm addObject:pin];
+			if([fence.owner isEqualToString:username] != self.mode)
+			{
+				MapPin* pin = [self pinFromFence:fence];
+				[geofencesInAnnotationForm addObject:pin];
+			}
+			
         }
-        
+		
         if([self.mapSettingEnums[kAll] boolValue])
         {
-            annotationsToShow = geofencesInAnnotationForm;
+            annotationsToShow = geofencesInAnnotationForm.mutableCopy;
         }
         
         else
@@ -809,18 +1461,32 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
         
         
         
+        
     }
     [self.mapView removeAnnotations:self.mapView.annotations];
     
+    [annotationsToShow addObjectsFromArray:self.additionalAnnotationsToShow];
     for(MapPin* pin in annotationsToShow)
     {
         [self.mapView addAnnotation:pin];
     }
     
     [self zoomToAnnotationsBounds];
+	if(isSearch && self.searchAnnotations.count ==1)//directly open that one
+	{
+		[self.mapView selectAnnotation:self.searchAnnotations[0] animated:YES];
+	}
 }
 
+- (MapPin*) pinFromFence:(Geofence*)fence
+{
+	MapPin* pin = [[MapPin alloc] initWithCoordinates:CLLocationCoordinate2DMake([fence.lat doubleValue], [fence.longtitude doubleValue]) placeName:fence.address description:fence.address mapVC:self];
+	pin.address = fence.address;
+	pin.setting = fence.setting;
+	pin.fence = fence;
 
+	return pin;
+}
 
 
 
@@ -890,9 +1556,20 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     [self.mapView setRegion:region animated:YES];
 }
 
+- (IBAction)zoomout:(id)sender
+{
+    [self zoomToAnnotationsBounds];
+}
 
 - (void)zoomToFitMapAnnotations:(MKMapView *)theMapView {
     if ([theMapView.annotations count] == 0) return;
+	
+	[theMapView showAnnotations:self.mapView.annotations animated:YES];
+	for(MapPin* pin in self.mapView.annotations)
+	{
+		[self.mapView deselectAnnotation:pin animated:YES];
+	}
+	return;
     
     CLLocationCoordinate2D topLeftCoord;
     topLeftCoord.latitude = -180;
@@ -917,6 +1594,76 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     region.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.4;
     
     region = [theMapView regionThatFits:region];
+	
+	if(region.center.latitude == -180.00 || region.center.longitude == -180.00)
+	{
+		NSLog(@"invalid region");
+		return;
+	}
     [theMapView setRegion:region animated:YES];
 }
+
+//Mode Setting
+- (IBAction)toggleMode:(id)sender
+{
+	self.mode = !self.mode;
+}
+
+- (void) setMode:(BOOL)mode
+{
+	if(_mode==mode)return;
+	
+	_mode = mode;
+	[self.modeButton setTitle:mode?@"Requesting Mode":@"Sending Mode" forState:UIControlStateNormal];
+	[self updateMapAnnotaions];
+}
+- (IBAction)logoutClicked:(id)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Log out of app?"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:@"Logout"
+                                                    otherButtonTitles: nil];
+	actionSheet.tag = 20;
+	[actionSheet showInView:self.view];
+
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+	if (actionSheet.tag == 20) {
+		if([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Logout"])
+		{
+			[self logout];
+		}
+	}
+}
+- (void) logout
+{
+	[self removeAllGeofences];
+	self.updateCaretaker = nil;
+	[self unRegisterTrackerForGeofences];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:nil forKey:userUUIDDefaultsURL];
+	[defaults setObject:nil forKey:usernameDefaultsURL];
+	[defaults synchronize];
+	
+	[self dealWithLogin];
+
+}
+- (void) removeAllGeofences
+{
+	for(Geofence* fence in self.fetchedResultsController.fetchedObjects)
+	{
+		[self deleteFence:fence notifyServer:NO];
+	}
+}
+- (void) destoryDraggedSearchPin
+{
+	
+	[self.additionalAnnotationsToShow removeObject:self.currentlyDraggedAnnotation];
+	self.currentlyDraggedAnnotation = nil;
+	[self setSetting:kSearch on:NO forceAnnotationUpdate:YES];
+}
+
+
 @end

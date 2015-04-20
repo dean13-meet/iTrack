@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="geofenceDeletedByOwner">
+            <connections>
+                <outlet property="messageLabel" destination="gsH-kM-9MO" id="83u-NS-dDy"/>
+                <outlet property="toolbar" destination="5U6-UE-pTK" id="fbD-HA-wOU"/>
+                <outlet property="view" destination="BNi-iE-frV" id="BHa-jw-okP"/>
+                <outlet property="viewForGeofence" destination="1TS-FC-2dI" id="FAp-iy-UoF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="BNi-iE-frV">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="USERNAME has deleted the location notification you asked them for." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsH-kM-9MO">
+                    <rect key="frame" x="8" y="45" width="584" height="90"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="90" id="jch-e0-Xch"/>
+                    </constraints>
+                    <color key="textColor" red="0.071644599310000001" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification Deleted" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BP3-5G-FEG">
+                    <rect key="frame" x="8" y="8" width="585" height="29"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5U6-UE-pTK">
+                    <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="eMF-lx-llT"/>
+                    </constraints>
+                    <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Zo5-FX-s4L"/>
+                        <barButtonItem title="Ok" id="EhK-44-Jep">
+                            <connections>
+                                <action selector="okClicked" destination="-1" id="rvB-am-tUU"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="uBr-kQ-byQ"/>
+                    </items>
+                </toolbar>
+                <view opaque="NO" userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1TS-FC-2dI">
+                    <rect key="frame" x="115" y="143" width="371" height="405"/>
+                    <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="241" id="6yx-Vd-vYG"/>
+                        <constraint firstAttribute="height" constant="263" id="Cin-1e-PRS"/>
+                        <constraint firstAttribute="height" constant="263" id="evV-xG-0Wm"/>
+                        <constraint firstAttribute="width" constant="241" id="oXa-5v-JCQ"/>
+                        <constraint firstAttribute="width" secondItem="1TS-FC-2dI" secondAttribute="height" multiplier="241:263" id="viC-Ml-cXV"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="9"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="6yx-Vd-vYG"/>
+                            <exclude reference="Cin-1e-PRS"/>
+                            <exclude reference="evV-xG-0Wm"/>
+                            <exclude reference="oXa-5v-JCQ"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="1TS-FC-2dI" firstAttribute="centerX" secondItem="BP3-5G-FEG" secondAttribute="centerX" id="5Sy-95-36p"/>
+                <constraint firstAttribute="bottom" secondItem="1TS-FC-2dI" secondAttribute="bottom" constant="169" id="HX4-2k-kzq"/>
+                <constraint firstItem="5U6-UE-pTK" firstAttribute="leading" secondItem="BNi-iE-frV" secondAttribute="leading" id="KH8-yu-HsJ"/>
+                <constraint firstItem="1TS-FC-2dI" firstAttribute="top" secondItem="BNi-iE-frV" secondAttribute="top" constant="168" id="MS9-z2-G8c"/>
+                <constraint firstItem="1TS-FC-2dI" firstAttribute="top" secondItem="gsH-kM-9MO" secondAttribute="bottom" constant="8" id="MmX-aF-bKl"/>
+                <constraint firstAttribute="bottom" secondItem="5U6-UE-pTK" secondAttribute="bottom" id="Nra-hI-S0a"/>
+                <constraint firstItem="BP3-5G-FEG" firstAttribute="leading" secondItem="BNi-iE-frV" secondAttribute="leadingMargin" id="RGs-Hi-Svu"/>
+                <constraint firstItem="5U6-UE-pTK" firstAttribute="centerX" secondItem="1TS-FC-2dI" secondAttribute="centerX" id="U0e-NN-dYf"/>
+                <constraint firstItem="gsH-kM-9MO" firstAttribute="leading" secondItem="BNi-iE-frV" secondAttribute="leading" constant="8" id="UWP-DB-ogZ"/>
+                <constraint firstItem="gsH-kM-9MO" firstAttribute="top" secondItem="BP3-5G-FEG" secondAttribute="bottom" constant="8" id="VNK-3s-uhu"/>
+                <constraint firstItem="BP3-5G-FEG" firstAttribute="top" secondItem="BNi-iE-frV" secondAttribute="topMargin" id="VVN-Kx-Z4S"/>
+                <constraint firstAttribute="centerX" secondItem="1TS-FC-2dI" secondAttribute="centerX" id="XDW-8p-Tct"/>
+                <constraint firstAttribute="centerX" secondItem="1TS-FC-2dI" secondAttribute="centerX" id="aPz-x1-A17"/>
+                <constraint firstItem="5U6-UE-pTK" firstAttribute="top" secondItem="1TS-FC-2dI" secondAttribute="bottom" constant="8" id="bFP-Vu-zBZ"/>
+                <constraint firstItem="1TS-FC-2dI" firstAttribute="leading" secondItem="BNi-iE-frV" secondAttribute="leading" constant="180" id="bQ0-sF-Drd"/>
+                <constraint firstAttribute="trailing" secondItem="gsH-kM-9MO" secondAttribute="trailing" constant="8" id="cgF-aP-dRQ"/>
+                <constraint firstAttribute="centerY" secondItem="1TS-FC-2dI" secondAttribute="centerY" id="d4Z-0P-jdi"/>
+                <constraint firstItem="1TS-FC-2dI" firstAttribute="top" secondItem="gsH-kM-9MO" secondAttribute="bottom" constant="8" id="iLC-Ae-fJj"/>
+                <constraint firstAttribute="centerX" secondItem="BP3-5G-FEG" secondAttribute="centerX" id="iw5-vb-11b"/>
+                <constraint firstAttribute="trailing" secondItem="5U6-UE-pTK" secondAttribute="trailing" id="lUx-Iq-DyJ"/>
+                <constraint firstItem="1TS-FC-2dI" firstAttribute="top" secondItem="gsH-kM-9MO" secondAttribute="bottom" constant="8" id="slL-sz-Hys"/>
+                <constraint firstItem="5U6-UE-pTK" firstAttribute="top" secondItem="1TS-FC-2dI" secondAttribute="bottom" constant="8" id="yrh-h0-BLg"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="5Sy-95-36p"/>
+                    <exclude reference="HX4-2k-kzq"/>
+                    <exclude reference="MS9-z2-G8c"/>
+                    <exclude reference="MmX-aF-bKl"/>
+                    <exclude reference="aPz-x1-A17"/>
+                    <exclude reference="bQ0-sF-Drd"/>
+                    <exclude reference="d4Z-0P-jdi"/>
+                    <exclude reference="iLC-Ae-fJj"/>
+                    <exclude reference="U0e-NN-dYf"/>
+                    <exclude reference="yrh-h0-BLg"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="-50" y="391"/>
+        </view>
+    </objects>
+</document>

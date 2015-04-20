@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="whenViewCalloutView">
             <connections>
+                <outlet property="addressLabel" destination="HLM-un-KUL" id="NnQ-5d-OoF"/>
                 <outlet property="arrivalSwitch" destination="6hC-XQ-gRz" id="lZP-Af-YeS"/>
+                <outlet property="backButton" destination="R2Z-G2-BuD" id="nhx-m7-B36"/>
+                <outlet property="cancelEditButton" destination="7Jm-bA-z5X" id="6PF-1I-qki"/>
                 <outlet property="leaveSwitch" destination="Epl-iE-G3T" id="N67-PA-tQW"/>
                 <outlet property="recurr" destination="nSM-QG-X1o" id="VCg-Zg-05v"/>
                 <outlet property="view" destination="PKK-yw-Wga" id="8sd-1d-O7X"/>
@@ -41,11 +44,11 @@
                 </label>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6hC-XQ-gRz">
                     <rect key="frame" x="184" y="87" width="51" height="31"/>
-                    <color key="onTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="onTintColor" red="0.071644599310000001" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </switch>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Epl-iE-G3T">
                     <rect key="frame" x="184" y="132" width="51" height="31"/>
-                    <color key="onTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="onTintColor" red="0.071644599310000001" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </switch>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On Leave" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vp2-Eo-7ad">
                     <rect key="frame" x="8" y="137" width="84" height="21"/>
@@ -53,10 +56,10 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nSM-QG-X1o">
+                <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="nSM-QG-X1o">
                     <rect key="frame" x="8" y="200" width="225" height="29"/>
                     <segments>
-                        <segment title="Never"/>
+                        <segment title="Only Once"/>
                         <segment title="Always"/>
                     </segments>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -79,13 +82,23 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R2Z-G2-BuD">
-                    <rect key="frame" x="8" y="236" width="53" height="30"/>
+                    <rect key="frame" x="8" y="236" width="35" height="30"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title="Back">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="backClicked:" destination="-1" eventType="touchUpInside" id="6MA-RJ-jyV"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Jm-bA-z5X">
+                    <rect key="frame" x="8" y="236" width="48" height="30"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelEdit:" destination="-1" eventType="touchUpInside" id="oan-XL-DrW"/>
                     </connections>
                 </button>
             </subviews>
@@ -105,6 +118,7 @@
                 <constraint firstItem="eyJ-nu-dPS" firstAttribute="top" secondItem="HLM-un-KUL" secondAttribute="bottom" constant="8" symbolic="YES" id="VTj-7r-t3c"/>
                 <constraint firstItem="Sba-KP-D6L" firstAttribute="top" secondItem="Epl-iE-G3T" secondAttribute="bottom" constant="8" symbolic="YES" id="WeO-zR-vrN"/>
                 <constraint firstItem="Sba-KP-D6L" firstAttribute="top" secondItem="HLM-un-KUL" secondAttribute="bottom" constant="8" symbolic="YES" id="Wvb-iO-wf9"/>
+                <constraint firstAttribute="bottom" secondItem="7Jm-bA-z5X" secondAttribute="bottom" id="Xzp-Li-bBQ"/>
                 <constraint firstItem="6hC-XQ-gRz" firstAttribute="leading" secondItem="BfD-2z-I84" secondAttribute="trailing" constant="73" id="Ycr-za-QRt"/>
                 <constraint firstItem="Sba-KP-D6L" firstAttribute="leading" secondItem="nSM-QG-X1o" secondAttribute="leading" id="ZsV-fl-pWC"/>
                 <constraint firstItem="HLM-un-KUL" firstAttribute="leading" secondItem="eyJ-nu-dPS" secondAttribute="leading" id="ceK-0j-FjP"/>
@@ -120,6 +134,8 @@
                 <constraint firstItem="9tW-C9-aYH" firstAttribute="baseline" secondItem="R2Z-G2-BuD" secondAttribute="baseline" id="lD0-TR-j2k"/>
                 <constraint firstItem="HLM-un-KUL" firstAttribute="trailing" secondItem="Sba-KP-D6L" secondAttribute="trailing" id="qqr-Hc-rUP"/>
                 <constraint firstItem="9tW-C9-aYH" firstAttribute="top" secondItem="nSM-QG-X1o" secondAttribute="bottom" constant="8" symbolic="YES" id="u51-G9-1w1"/>
+                <constraint firstItem="7Jm-bA-z5X" firstAttribute="leading" secondItem="PKK-yw-Wga" secondAttribute="leading" constant="8" id="wnv-hu-O1m"/>
+                <constraint firstItem="R2Z-G2-BuD" firstAttribute="leading" secondItem="PKK-yw-Wga" secondAttribute="leading" constant="8" id="xpG-gi-9as"/>
                 <constraint firstItem="nSM-QG-X1o" firstAttribute="leading" secondItem="R2Z-G2-BuD" secondAttribute="leading" id="yV1-fl-nw7"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
@@ -129,6 +145,7 @@
                     <exclude reference="VTj-7r-t3c"/>
                     <exclude reference="WeO-zR-vrN"/>
                     <exclude reference="Wvb-iO-wf9"/>
+                    <exclude reference="d3I-1i-k1i"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="502.5" y="9"/>
