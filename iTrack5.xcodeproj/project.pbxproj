@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D00B14D1AE72500006FDBCE /* welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D00B14C1AE72500006FDBCE /* welcome.xib */; };
+		3D00B1501AE72622006FDBCE /* welcome.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D00B14F1AE72622006FDBCE /* welcome.m */; };
 		3D0EEF251ADB305A0040AA7A /* takeCareOfUserUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EEF241ADB305A0040AA7A /* takeCareOfUserUpdates.m */; };
 		3D0EEF281ADB363A0040AA7A /* updateDealerPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EEF271ADB363A0040AA7A /* updateDealerPopup.m */; };
 		3D0EEF2C1ADB37130040AA7A /* geofenceRequestedPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EEF2B1ADB37130040AA7A /* geofenceRequestedPopup.m */; };
@@ -14,7 +16,7 @@
 		3D0EEF301ADD687D0040AA7A /* geofenceDeletedByOwner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D0EEF2F1ADD687C0040AA7A /* geofenceDeletedByOwner.xib */; };
 		3D0EEF331ADD69470040AA7A /* geofenceDeletedByOwner.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EEF321ADD69470040AA7A /* geofenceDeletedByOwner.m */; };
 		3D1445EF1A93AC92000B6F35 /* mapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1445EE1A93AC92000B6F35 /* mapViewController.m */; };
-		3D1445F41A943F34000B6F35 /* customCalloutXIB2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D1445F31A943F34000B6F35 /* customCalloutXIB2.xib */; };
+		3D1445F41A943F34000B6F35 /* customCalloutXIB.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D1445F31A943F34000B6F35 /* customCalloutXIB.xib */; };
 		3D1445F71A9440A3000B6F35 /* customCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1445F61A9440A3000B6F35 /* customCalloutView.m */; };
 		3D1445FD1A9443D4000B6F35 /* MapPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D1445FC1A9443D4000B6F35 /* MapPinView.m */; };
 		3D14460C1A9D0B88000B6F35 /* UTCtoHumanTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D14460B1A9D0B88000B6F35 /* UTCtoHumanTime.m */; };
@@ -83,6 +85,7 @@
 		3D95AD661AABE3BC00467C96 /* recCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D95AD651AABE3BC00467C96 /* recCell.m */; };
 		3DAA0C371AD9E0180006FA22 /* Geofence.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DAA0C361AD9E0180006FA22 /* Geofence.m */; };
 		3DAA0C391AD9E1AB0006FA22 /* orangePin.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DAA0C381AD9E1AB0006FA22 /* orangePin.png */; };
+		3DC041611AE5DAB500734ADE /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC041601AE5DAB500734ADE /* icon.png */; };
 		3DDF2FC71AE2E3B5002206DB /* Eject-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DDF2FC61AE2E3B5002206DB /* Eject-50.png */; };
 		3DE102551A911DFB002591FA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102541A911DFB002591FA /* main.m */; };
 		3DE102581A911DFB002591FA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE102571A911DFB002591FA /* AppDelegate.m */; };
@@ -107,6 +110,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D00B14C1AE72500006FDBCE /* welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = welcome.xib; sourceTree = "<group>"; };
+		3D00B14E1AE72622006FDBCE /* welcome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = welcome.h; sourceTree = "<group>"; };
+		3D00B14F1AE72622006FDBCE /* welcome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = welcome.m; sourceTree = "<group>"; };
 		3D0EEF231ADB305A0040AA7A /* takeCareOfUserUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = takeCareOfUserUpdates.h; sourceTree = "<group>"; };
 		3D0EEF241ADB305A0040AA7A /* takeCareOfUserUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = takeCareOfUserUpdates.m; sourceTree = "<group>"; };
 		3D0EEF261ADB363A0040AA7A /* updateDealerPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = updateDealerPopup.h; sourceTree = "<group>"; };
@@ -119,7 +125,7 @@
 		3D0EEF321ADD69470040AA7A /* geofenceDeletedByOwner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = geofenceDeletedByOwner.m; sourceTree = "<group>"; };
 		3D1445ED1A93AC92000B6F35 /* mapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mapViewController.h; sourceTree = "<group>"; };
 		3D1445EE1A93AC92000B6F35 /* mapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mapViewController.m; sourceTree = "<group>"; };
-		3D1445F31A943F34000B6F35 /* customCalloutXIB2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = customCalloutXIB2.xib; sourceTree = "<group>"; };
+		3D1445F31A943F34000B6F35 /* customCalloutXIB.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = customCalloutXIB.xib; sourceTree = "<group>"; };
 		3D1445F51A9440A3000B6F35 /* customCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = customCalloutView.h; sourceTree = "<group>"; };
 		3D1445F61A9440A3000B6F35 /* customCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = customCalloutView.m; sourceTree = "<group>"; };
 		3D1445FB1A9443D4000B6F35 /* MapPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPinView.h; sourceTree = "<group>"; };
@@ -219,8 +225,9 @@
 		3DAA0C351AD9E0180006FA22 /* Geofence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geofence.h; sourceTree = "<group>"; };
 		3DAA0C361AD9E0180006FA22 /* Geofence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geofence.m; sourceTree = "<group>"; };
 		3DAA0C381AD9E1AB0006FA22 /* orangePin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orangePin.png; sourceTree = "<group>"; };
+		3DC041601AE5DAB500734ADE /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		3DDF2FC61AE2E3B5002206DB /* Eject-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Eject-50.png"; sourceTree = "<group>"; };
-		3DE1024F1A911DFB002591FA /* iTrack5.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTrack5.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DE1024F1A911DFB002591FA /* Here-N-There.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Here-N-There.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DE102531A911DFB002591FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DE102541A911DFB002591FA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3DE102561A911DFB002591FA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -585,6 +592,9 @@
 		3D6D921A1AD7471500E2CE55 /* Log In/Sign Up */ = {
 			isa = PBXGroup;
 			children = (
+				3D00B14C1AE72500006FDBCE /* welcome.xib */,
+				3D00B14E1AE72622006FDBCE /* welcome.h */,
+				3D00B14F1AE72622006FDBCE /* welcome.m */,
 				3D170BA51AD7392C00A875F4 /* signInPopup.xib */,
 				3D6D92171AD7409A00E2CE55 /* signInPopup.h */,
 				3D6D92181AD7409A00E2CE55 /* signInPopup.m */,
@@ -626,7 +636,7 @@
 				3D73770D1AA4D80A006CB9DF /* whenViewCalloutView.m */,
 				3D73770F1AA4D81F006CB9DF /* sizeViewCalloutView.h */,
 				3D7377101AA4D81F006CB9DF /* sizeViewCalloutView.m */,
-				3D1445F31A943F34000B6F35 /* customCalloutXIB2.xib */,
+				3D1445F31A943F34000B6F35 /* customCalloutXIB.xib */,
 				3D1445F51A9440A3000B6F35 /* customCalloutView.h */,
 				3D1445F61A9440A3000B6F35 /* customCalloutView.m */,
 				3D2CEBA31AC76ACF00544C5A /* Trash-50.png */,
@@ -686,7 +696,7 @@
 		3DE102501A911DFB002591FA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3DE1024F1A911DFB002591FA /* iTrack5.app */,
+				3DE1024F1A911DFB002591FA /* Here-N-There.app */,
 				3DE1026E1A911DFB002591FA /* iTrack5Tests.xctest */,
 			);
 			name = Products;
@@ -717,6 +727,7 @@
 				3DE102651A911DFB002591FA /* Images.xcassets */,
 				3DAA0C381AD9E1AB0006FA22 /* orangePin.png */,
 				3DE102671A911DFB002591FA /* LaunchScreen.xib */,
+				3DC041601AE5DAB500734ADE /* icon.png */,
 				3DE102591A911DFB002591FA /* iTrack5.xcdatamodeld */,
 				3DE102521A911DFB002591FA /* Supporting Files */,
 			);
@@ -753,9 +764,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3DE1024E1A911DFB002591FA /* iTrack5 */ = {
+		3DE1024E1A911DFB002591FA /* Here-N-There */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3DE102781A911DFB002591FA /* Build configuration list for PBXNativeTarget "iTrack5" */;
+			buildConfigurationList = 3DE102781A911DFB002591FA /* Build configuration list for PBXNativeTarget "Here-N-There" */;
 			buildPhases = (
 				3DE1024B1A911DFB002591FA /* Sources */,
 				3DE1024C1A911DFB002591FA /* Frameworks */,
@@ -765,9 +776,9 @@
 			);
 			dependencies = (
 			);
-			name = iTrack5;
+			name = "Here-N-There";
 			productName = iTrack5;
-			productReference = 3DE1024F1A911DFB002591FA /* iTrack5.app */;
+			productReference = 3DE1024F1A911DFB002591FA /* Here-N-There.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3DE1026D1A911DFB002591FA /* iTrack5Tests */ = {
@@ -808,6 +819,7 @@
 					};
 					3DE1026D1A911DFB002591FA = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = CUV9Y7J47P;
 						TestTargetID = 3DE1024E1A911DFB002591FA;
 					};
 				};
@@ -825,7 +837,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3DE1024E1A911DFB002591FA /* iTrack5 */,
+				3DE1024E1A911DFB002591FA /* Here-N-There */,
 				3DE1026D1A911DFB002591FA /* iTrack5Tests */,
 			);
 		};
@@ -839,12 +851,13 @@
 				3DDF2FC71AE2E3B5002206DB /* Eject-50.png in Resources */,
 				3D6D92241AD74B5400E2CE55 /* login.xib in Resources */,
 				3D6D92281AD758CE00E2CE55 /* verifyNumber.xib in Resources */,
+				3DC041611AE5DAB500734ADE /* icon.png in Resources */,
 				3D4546F91ACAF90A00FEEFE7 /* .gitignore in Resources */,
 				3D6D922D1AD766DC00E2CE55 /* Approve Filled-50.png in Resources */,
 				3D2CEBA61AC76B1B00544C5A /* Trash-50 (1).png in Resources */,
 				3D711C721ADD6E2A00FF13F2 /* geofenceAccepted.xib in Resources */,
 				3D7377171AA4D8C0006CB9DF /* sizeViewView.xib in Resources */,
-				3D1445F41A943F34000B6F35 /* customCalloutXIB2.xib in Resources */,
+				3D1445F41A943F34000B6F35 /* customCalloutXIB.xib in Resources */,
 				3DE102641A911DFB002591FA /* Main.storyboard in Resources */,
 				3D4683671AD9A08B00C6DC8F /* requestFrom.xib in Resources */,
 				3D6D921E1AD7480A00E2CE55 /* Administrator2-50.png in Resources */,
@@ -859,6 +872,7 @@
 				3D2CEBA41AC76ACF00544C5A /* Trash-50.png in Resources */,
 				3D4547041ACAF90A00FEEFE7 /* .gitignore in Resources */,
 				3D7377131AA4D88C006CB9DF /* toViewView.xib in Resources */,
+				3D00B14D1AE72500006FDBCE /* welcome.xib in Resources */,
 				3DE102661A911DFB002591FA /* Images.xcassets in Resources */,
 				3D6D92141AD73C1400E2CE55 /* Sign Up-50.png in Resources */,
 				3D95AD631AABE2A400467C96 /* recCell2.xib in Resources */,
@@ -892,6 +906,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D73770E1AA4D80A006CB9DF /* whenViewCalloutView.m in Sources */,
+				3D00B1501AE72622006FDBCE /* welcome.m in Sources */,
 				3D6D92361AD786C300E2CE55 /* signUp.m in Sources */,
 				3D0EEF281ADB363A0040AA7A /* updateDealerPopup.m in Sources */,
 				3D44E6EF1AC07D6C00DDEEB0 /* personNumbersView.m in Sources */,
@@ -949,7 +964,7 @@
 /* Begin PBXTargetDependency section */
 		3DE102701A911DFB002591FA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3DE1024E1A911DFB002591FA /* iTrack5 */;
+			target = 3DE1024E1A911DFB002591FA /* Here-N-There */;
 			targetProxy = 3DE1026F1A911DFB002591FA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -974,7 +989,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		3DE102761A911DFB002591FA /* Debug */ = {
+		3DC041621AE5E17800734ADE /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -991,7 +1006,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1011,6 +1027,88 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
+				SDKROOT = iphoneos;
+			};
+			name = Distribution;
+		};
+		3DC041631AE5E17800734ADE /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
+				INFOPLIST_FILE = iTrack5/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "Here-N-There";
+				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Distribution;
+		};
+		3DC041641AE5E17800734ADE /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = iTrack5Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iTrack5.app/iTrack5";
+			};
+			name = Distribution;
+		};
+		3DE102761A911DFB002591FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1032,7 +1130,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1045,6 +1144,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1055,13 +1155,13 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
 				INFOPLIST_FILE = iTrack5/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = "Here-N-There";
+				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1071,13 +1171,13 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Iris Leitersdorf (CUV9Y7J47P)";
 				INFOPLIST_FILE = iTrack5/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = "Here-N-There";
+				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1086,6 +1186,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1097,6 +1199,7 @@
 				INFOPLIST_FILE = iTrack5Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iTrack5.app/iTrack5";
 			};
 			name = Debug;
@@ -1105,6 +1208,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1112,6 +1217,7 @@
 				INFOPLIST_FILE = iTrack5Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iTrack5.app/iTrack5";
 			};
 			name = Release;
@@ -1123,15 +1229,17 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3DE102761A911DFB002591FA /* Debug */,
+				3DC041621AE5E17800734ADE /* Distribution */,
 				3DE102771A911DFB002591FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3DE102781A911DFB002591FA /* Build configuration list for PBXNativeTarget "iTrack5" */ = {
+		3DE102781A911DFB002591FA /* Build configuration list for PBXNativeTarget "Here-N-There" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3DE102791A911DFB002591FA /* Debug */,
+				3DC041631AE5E17800734ADE /* Distribution */,
 				3DE1027A1A911DFB002591FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1141,6 +1249,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3DE1027C1A911DFB002591FA /* Debug */,
+				3DC041641AE5E17800734ADE /* Distribution */,
 				3DE1027D1A911DFB002591FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

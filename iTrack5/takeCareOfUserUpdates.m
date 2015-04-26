@@ -156,7 +156,7 @@
 		popup = [[geofenceAccepted alloc] initWithFrame:[geofenceAccepted presentFrameWithMapVC:self.mapVC]];
 		((geofenceAccepted*)popup).messageLabel.text = [((geofenceAccepted*)popup).messageLabel.text stringByReplacingOccurrencesOfString:@"accepted" withString:@"declined"];
 		
-		((geofenceAccepted*)popup).titleLabel.text = @"Location Request Declined";
+		((geofenceAccepted*)popup).titleLabel.text = @"Request Declined";
 		
 		self.mapVC.mode = YES;//go to req mode in order for user to see lack of requested pin
 

@@ -21,10 +21,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="USERNAME has accepted the location request you asked them for!" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Lgn-x9-Juf">
-                    <rect key="frame" x="8" y="45" width="584" height="90"/>
+                    <rect key="frame" x="8" y="45" width="584" height="65"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="90" id="L3k-He-0Bu"/>
+                        <constraint firstAttribute="height" constant="65" id="L3k-He-0Bu"/>
                     </constraints>
                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -52,7 +52,7 @@
                     </items>
                 </toolbar>
                 <view opaque="NO" userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EYB-3D-JtD">
-                    <rect key="frame" x="115" y="143" width="371" height="405"/>
+                    <rect key="frame" x="103" y="118" width="395" height="430"/>
                     <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="263" id="0a4-HL-xvK"/>

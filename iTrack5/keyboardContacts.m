@@ -40,6 +40,7 @@
         [self loadContacts];
         self.picker.dataSource = self;
         self.picker.delegate = self;
+		self.settingsButton.selected = YES;
         
         
     }
@@ -48,7 +49,6 @@
 
 -(void) loadContacts
 {
-    
     
     CFErrorRef error = NULL;
     ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
@@ -64,8 +64,16 @@
         
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     }
-    
-    
+	
+ 
+	if(ABAddressBookGetAuthorizationStatus()==kABAuthorizationStatusDenied || ABAddressBookGetAuthorizationStatus()==kABAuthorizationStatusRestricted|| ABAddressBookGetAuthorizationStatus()==kABAuthorizationStatusNotDetermined || !accessGranted)
+	{
+		self.settingsView.hidden = NO;
+		self.settingsView.userInteractionEnabled = YES;
+		return;
+	}
+		
+		
     if (addressBook != nil){
         NSLog(@"Succesful.");
         
@@ -168,6 +176,7 @@
 
 - (void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+	if(row>=self.sortedKeys.count)return;
     [self.delegate setTextBoxText:self.sortedKeys[row]];
     self.prevSelectedNumber = row;
 	[self.slider setValue:(((double)row/(self.sortedKeys.count -1))*self.slider.maximumValue) animated:YES];
@@ -177,7 +186,12 @@
     NSInteger row = (sender.value/sender.maximumValue)*(self.sortedKeys.count-1);
     if(row == self.prevSelectedNumber)return;//if sliding didn't change rows, just return. Also, I'm storing prevSelectedNumber as a property, so that I don't have to call self.pickerView selectedRow.... every time.
     //if(abs([[NSNumber numberWithInteger:row - [[NSNumber numberWithInteger:[self.picker selectedRowInComponent:0]] integerValue]] intValue])<1)return;//if the slider hasn't changed more than 10 contacts apart from current row, dont scroll.
+	if(row>=self.sortedKeys.count || row < 0)return;
     [self.picker selectRow:row inComponent:0 animated:NO];
     [self pickerView:self.picker didSelectRow:row inComponent:0];
+}
+- (IBAction)settingsClicked:(id)sender
+{
+	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 @end

@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3DE1024E1A911DFB002591FA"
-               BuildableName = "iTrack5.app"
-               BlueprintName = "iTrack5"
+               BuildableName = "Here-N-There.app"
+               BlueprintName = "Here-N-There"
                ReferencedContainer = "container:iTrack5.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,8 +57,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3DE1024E1A911DFB002591FA"
-            BuildableName = "iTrack5.app"
-            BlueprintName = "iTrack5"
+            BuildableName = "Here-N-There.app"
+            BlueprintName = "Here-N-There"
             ReferencedContainer = "container:iTrack5.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -72,12 +72,13 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3DE1024E1A911DFB002591FA"
-            BuildableName = "iTrack5.app"
-            BlueprintName = "iTrack5"
+            BuildableName = "Here-N-There.app"
+            BlueprintName = "Here-N-There"
             ReferencedContainer = "container:iTrack5.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -90,12 +91,13 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3DE1024E1A911DFB002591FA"
-            BuildableName = "iTrack5.app"
-            BlueprintName = "iTrack5"
+            BuildableName = "Here-N-There.app"
+            BlueprintName = "Here-N-There"
             ReferencedContainer = "container:iTrack5.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -105,6 +107,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "Here-N-There"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

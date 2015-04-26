@@ -54,7 +54,7 @@
                 </view>
                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nS6-Tx-3as">
                     <rect key="frame" x="8" y="296" width="584" height="8"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rZy-IV-YWS">
                     <rect key="frame" x="8" y="304" width="584" height="46"/>
@@ -132,14 +132,21 @@
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="TMN-VQ-CBV"/>
-                            <exclude reference="zMA-tP-c9t"/>
                             <exclude reference="PYI-gp-Pwf"/>
+                            <exclude reference="TMN-VQ-CBV"/>
                             <exclude reference="wTn-IF-qxq"/>
+                            <exclude reference="zMA-tP-c9t"/>
                             <exclude reference="2Zr-jo-aaS"/>
                         </mask>
                     </variation>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="WOp-Lk-UBv">
+                    <rect key="frame" x="8" y="542" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="BAZ-Zd-kNC"/>
+                        <constraint firstAttribute="height" constant="50" id="Drt-rm-xN8"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -166,11 +173,13 @@
                 <constraint firstItem="na8-hY-OS4" firstAttribute="top" secondItem="KdL-nW-XXu" secondAttribute="topMargin" id="WM5-ng-0Ov"/>
                 <constraint firstItem="4Lk-yB-A4E" firstAttribute="centerX" secondItem="xTY-OY-uN7" secondAttribute="centerX" id="aEk-5Q-3do"/>
                 <constraint firstItem="4Lk-yB-A4E" firstAttribute="top" secondItem="xTY-OY-uN7" secondAttribute="top" id="bs7-3W-cE9"/>
+                <constraint firstItem="WOp-Lk-UBv" firstAttribute="leading" secondItem="KdL-nW-XXu" secondAttribute="leading" constant="8" id="dcx-ml-LeE"/>
                 <constraint firstItem="6em-kS-aOa" firstAttribute="top" secondItem="KdL-nW-XXu" secondAttribute="top" constant="250" id="dw3-Md-Eon"/>
                 <constraint firstItem="rZy-IV-YWS" firstAttribute="trailing" secondItem="nS6-Tx-3as" secondAttribute="trailing" id="h7v-Vv-SEF"/>
                 <constraint firstItem="6em-kS-aOa" firstAttribute="top" secondItem="KdL-nW-XXu" secondAttribute="top" constant="250" id="m2r-bt-GlE"/>
                 <constraint firstItem="6em-kS-aOa" firstAttribute="trailing" secondItem="nS6-Tx-3as" secondAttribute="trailing" id="qj1-n7-swr"/>
                 <constraint firstAttribute="bottom" secondItem="4Lk-yB-A4E" secondAttribute="bottom" constant="172" id="rDh-Ra-1Ho"/>
+                <constraint firstAttribute="bottom" secondItem="WOp-Lk-UBv" secondAttribute="bottom" constant="8" id="sSO-cK-VUJ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <variation key="default">
@@ -179,10 +188,10 @@
                     <exclude reference="dw3-Md-Eon"/>
                     <exclude reference="m2r-bt-GlE"/>
                     <exclude reference="NOS-Qf-N7Y"/>
-                    <exclude reference="Vzg-c6-CDs"/>
                     <exclude reference="Rs2-yG-S44"/>
-                    <exclude reference="rDh-Ra-1Ho"/>
+                    <exclude reference="Vzg-c6-CDs"/>
                     <exclude reference="6ej-L8-DRR"/>
+                    <exclude reference="rDh-Ra-1Ho"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="374" y="326"/>
@@ -192,5 +201,6 @@
         <image name="Administrator2-50.png" width="50" height="50"/>
         <image name="Advance-50.png" width="50" height="50"/>
         <image name="Error-50.png" width="50" height="50"/>
+        <image name="icon.png" width="512" height="512"/>
     </resources>
 </document>

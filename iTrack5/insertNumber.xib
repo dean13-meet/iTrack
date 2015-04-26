@@ -46,7 +46,7 @@
                 </view>
                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1nT-jq-NlU">
                     <rect key="frame" x="8" y="296" width="584" height="8"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjN-80-AFf">
                     <rect key="frame" x="8" y="304" width="584" height="46"/>
@@ -134,6 +134,13 @@
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qKO-vb-4vI">
                     <rect key="frame" x="290" y="358" width="20" height="20"/>
                 </activityIndicatorView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="CQk-7r-VAo">
+                    <rect key="frame" x="8" y="542" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="GpJ-Zx-F8D"/>
+                        <constraint firstAttribute="height" constant="50" id="wb8-Hn-zcq"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -141,9 +148,11 @@
                 <constraint firstItem="DMh-PO-Jfr" firstAttribute="leading" secondItem="u8n-fl-eda" secondAttribute="leading" id="1Q9-c3-m0F"/>
                 <constraint firstItem="8MM-Lr-B1o" firstAttribute="bottom" secondItem="1Yp-0h-I7z" secondAttribute="bottomMargin" id="505-KP-JbW"/>
                 <constraint firstAttribute="bottom" secondItem="KeP-MQ-2lQ" secondAttribute="bottom" constant="172" id="5o6-ML-m4Z"/>
+                <constraint firstItem="CQk-7r-VAo" firstAttribute="leading" secondItem="1Yp-0h-I7z" secondAttribute="leading" constant="8" id="5r9-VQ-XmC"/>
                 <constraint firstItem="DMh-PO-Jfr" firstAttribute="top" secondItem="1Yp-0h-I7z" secondAttribute="top" constant="250" id="95m-gb-xuZ"/>
                 <constraint firstItem="1nT-jq-NlU" firstAttribute="leading" secondItem="1Yp-0h-I7z" secondAttribute="leadingMargin" id="AMd-cM-7J4"/>
                 <constraint firstItem="1nT-jq-NlU" firstAttribute="top" secondItem="DMh-PO-Jfr" secondAttribute="bottom" id="B7W-mz-brg"/>
+                <constraint firstAttribute="bottom" secondItem="CQk-7r-VAo" secondAttribute="bottom" constant="8" id="D4f-xq-yIX"/>
                 <constraint firstItem="1nT-jq-NlU" firstAttribute="top" secondItem="DMh-PO-Jfr" secondAttribute="bottom" id="DCJ-9D-EwP"/>
                 <constraint firstItem="qKO-vb-4vI" firstAttribute="top" secondItem="bjN-80-AFf" secondAttribute="bottom" constant="8" id="DeB-PV-5HC"/>
                 <constraint firstItem="KeP-MQ-2lQ" firstAttribute="leading" secondItem="1Yp-0h-I7z" secondAttribute="leading" constant="200" id="NeQ-4I-C3J"/>
@@ -191,5 +200,6 @@
     <resources>
         <image name="Advance-50.png" width="50" height="50"/>
         <image name="Error-50.png" width="50" height="50"/>
+        <image name="icon.png" width="512" height="512"/>
     </resources>
 </document>

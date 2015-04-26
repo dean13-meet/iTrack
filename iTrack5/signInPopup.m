@@ -86,5 +86,13 @@
 	signUp* popupSignUp = [[signUp alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
 	[self addSubview: popupSignUp];
 }
+- (IBAction)openPrivacyPolicy:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://generator.appprivacy.net/export/5535967e474af/"]];
+}
+- (IBAction)creditsClicked:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://dean-leitersdorf.herokuapp.com/itrack/credits"]];
+    
+}
 
 @end

@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="requestFrom">
             <connections>
+                <outlet property="addressLabel" destination="sW5-Qz-BH2" id="Kld-qA-IuN"/>
                 <outlet property="cancelButton" destination="TkO-lC-yL2" id="MlE-RL-dLf"/>
                 <outlet property="resultLabel" destination="b2X-qh-QUi" id="8rB-Hc-TFz"/>
                 <outlet property="toBox" destination="SvS-qh-klM" id="Y91-gG-dSy"/>

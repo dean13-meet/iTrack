@@ -67,7 +67,7 @@ Stored in memory as status:expired
 
 
 
-@interface mapViewController : UIViewController <NSFetchedResultsControllerDelegate, CLLocationManagerDelegate, geofenceCreator, MKMapViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+@interface mapViewController : UIViewController <NSFetchedResultsControllerDelegate, CLLocationManagerDelegate, geofenceCreator, MKMapViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 - (void) deleteFence:(Geofence*) fence notifyServer:(BOOL)notify;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
@@ -84,7 +84,9 @@ Stored in memory as status:expired
 
 - (void) save;
 - (void) dismissSignInPopup;
+- (IBAction)closeSearchResults:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 //mode setting:
 
 @property (nonatomic)BOOL mode;//NO = normal, YES = request
@@ -101,8 +103,11 @@ Stored in memory as status:expired
 + (NSArray*) recsFromFenceData:(NSData*)data;
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 
+@property (weak, nonatomic) IBOutlet UIView *searchResultsView;
 
 @property (strong, nonatomic) NSMutableArray* mapSettingEnums;
 - (void) destoryDraggedSearchPin;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewForSearchResults;
+@property (weak, nonatomic) IBOutlet UIButton *closeSearchButton;
 
 @end

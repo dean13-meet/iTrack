@@ -54,7 +54,7 @@
                 </view>
                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfX-0b-59l">
                     <rect key="frame" x="8" y="296" width="584" height="8"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsh-mM-67Q">
                     <rect key="frame" x="8" y="304" width="584" height="46"/>
@@ -138,6 +138,13 @@
                         </mask>
                     </variation>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="x0X-14-YUg">
+                    <rect key="frame" x="8" y="542" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="QWT-Bp-hZN"/>
+                        <constraint firstAttribute="width" constant="50" id="cTc-rF-98Y"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -154,6 +161,7 @@
                 <constraint firstAttribute="bottom" secondItem="lsh-mM-67Q" secondAttribute="bottom" constant="250" id="Ujt-tO-ITm"/>
                 <constraint firstAttribute="bottom" secondItem="lsh-mM-67Q" secondAttribute="bottom" constant="250" id="Uzf-Vb-BgQ"/>
                 <constraint firstItem="K78-Jp-1zY" firstAttribute="centerX" secondItem="lsh-mM-67Q" secondAttribute="centerX" id="V7x-WE-fzW"/>
+                <constraint firstItem="x0X-14-YUg" firstAttribute="leading" secondItem="Py4-YN-9Yo" secondAttribute="leading" constant="8" id="YVD-bY-49b"/>
                 <constraint firstItem="qfX-0b-59l" firstAttribute="top" secondItem="S29-5o-WE1" secondAttribute="bottom" id="Yns-5e-sOY"/>
                 <constraint firstItem="bep-g0-LcF" firstAttribute="top" secondItem="Py4-YN-9Yo" secondAttribute="topMargin" id="Yyv-pS-0o6"/>
                 <constraint firstItem="qfX-0b-59l" firstAttribute="top" secondItem="S29-5o-WE1" secondAttribute="bottom" id="bcI-NS-dHv"/>
@@ -165,6 +173,7 @@
                 <constraint firstItem="qfX-0b-59l" firstAttribute="leading" secondItem="lsh-mM-67Q" secondAttribute="leading" id="nQw-Hd-B1U"/>
                 <constraint firstItem="S29-5o-WE1" firstAttribute="top" secondItem="Py4-YN-9Yo" secondAttribute="top" constant="250" id="oR9-GI-gtb"/>
                 <constraint firstItem="IQY-AM-Qvj" firstAttribute="leading" secondItem="Py4-YN-9Yo" secondAttribute="leading" constant="155" id="qqn-de-LgM"/>
+                <constraint firstAttribute="bottom" secondItem="x0X-14-YUg" secondAttribute="bottom" constant="8" id="sVi-lw-hy3"/>
                 <constraint firstItem="Ikz-4R-dnc" firstAttribute="centerX" secondItem="lsh-mM-67Q" secondAttribute="centerX" id="sh2-Cw-6Ow"/>
                 <constraint firstItem="S29-5o-WE1" firstAttribute="trailing" secondItem="qfX-0b-59l" secondAttribute="trailing" id="u3U-kT-Txl"/>
                 <constraint firstItem="S29-5o-WE1" firstAttribute="leading" secondItem="bep-g0-LcF" secondAttribute="leading" id="u4b-sr-zoI"/>
@@ -190,5 +199,6 @@
         <image name="Administrator2-50.png" width="50" height="50"/>
         <image name="Advance-50.png" width="50" height="50"/>
         <image name="Error-50.png" width="50" height="50"/>
+        <image name="icon.png" width="512" height="512"/>
     </resources>
 </document>

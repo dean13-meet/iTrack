@@ -54,29 +54,53 @@
 	//position the calloutView centered between the toolbar and the text bubble
 	
 	
-	pinView.calloutView.pendingLabel.hidden = YES;//we know it's pending if its in this update... - better to show user the full address
+	pinView.calloutView.pendingLabel.alpha = 0;//we know it's pending if its in this update... - better to show user the full address
 	pinView.calloutView.userInteractionEnabled = NO;
 	
 	//self.messageLabel.backgroundColor = [UIColor orangeColor];
 	[self.view addSubview:pinView.calloutView];
 	pinView.calloutView.alpha = 1;
 	[self.viewForGeofence removeFromSuperview];
-	self.viewForGeofence = pinView.calloutView;
+	//self.viewForGeofence = pinView.calloutView;
+	
 	
 	customCalloutView* ccV = pinView.calloutView;
+	
 	CGPoint centerPoint = CGPointMake(self.view.center.x, self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height + 8 + ccV.frame.size.height/2);
+	ccV.center = centerPoint;
 	CGRect ccVRect = CGRectMake(centerPoint.x - ccV.frame.size.width/2, centerPoint.y - ccV.frame.size.height/2, ccV.frame.size.width, ccV.frame.size.height);
-	ccV.frame = ccVRect;
+	//ccV.frame = ccVRect;
 	
 	//now verify that we fit:
-	int permittedHeight = self.toolbar.frame.origin.y - (self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height) - 8*2;
+	int permittedHeight = self.frame.size.height - self.toolbar.frame.size.height - (self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height) - 8*2;
 	
 	if(ccV.frame.size.height>permittedHeight)
 	{
 		CGFloat heightScale = permittedHeight/ccV.frame.size.height;
-		ccV.transform = CGAffineTransformMakeScale(heightScale, heightScale);
+		//float scale = heightScale;
+		CGAffineTransform transform =CGAffineTransformScale(ccV.transform, heightScale, heightScale);
+		//ccV.view.transform = transform;
+		//[ccV removeConstraints:ccV.constraints];
+		for(UIView* view in ccV.view.subviews)
+		{
+			//view.transform = transform;
+			//[view removeConstraints:view.constraints];
+		}
+		
+		
+		//ccV.translatesAutoresizingMaskIntoConstraints = YES;
+		int width =ccV.bounds.size.width*heightScale;//*heightScale;
+		ccV.bounds = CGRectMake(0, 0, width*heightScale, ccV.bounds.size.height*heightScale);
+		ccV.frame = CGRectMake((self.frame.size.width-width)/2, self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height+8, width, permittedHeight);
+		//ccV.transform = CGAffineTransformMakeScale(heightScale, heightScale);
+		[ccV.deleteButton removeFromSuperview];
+		[ccV.createButton removeFromSuperview];
+		[ccV.editButton removeFromSuperview];
+		ccV.tableView.frame = CGRectMake(ccV.tableView.frame.origin.x, ccV.frame.origin.y, ccV.tableView.frame.size.width, ccV.tableView.frame.size.width*.6);
+	
 	}
 	
+	[ccV setNeedsDisplay];
 	//ccV.backgroundColor = [UIColor orangeColor];
 	
 	

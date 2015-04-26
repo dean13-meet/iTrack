@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>AAF9D59E-114F-4F48-9D41-35849B4AB188</string>
 	<key>IDESourceControlProjectName</key>
-	<string>iTrack5</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>B1E1106926F81B31FCC42E3A8347D9148852AD67</key>
 		<string>github.com:dean13-meet/iTrack.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>iTrack5.xcodeproj</string>
+	<string>iTrack5.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>B1E1106926F81B31FCC42E3A8347D9148852AD67</key>

@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *resultLabel;
 - (IBAction)searchButtonClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 
 @end

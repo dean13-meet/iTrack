@@ -24,5 +24,8 @@
 @property (strong, nonatomic) id<keyboardContactsDelegate> delegate;
 @property (strong, nonatomic) NSArray* sortedKeys;//first last name
 @property (strong, nonatomic) NSArray* sortedValues;//phone numbers
+@property (weak, nonatomic) IBOutlet UIView *settingsView;
+@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
+- (IBAction)settingsClicked:(id)sender;
 
 @end

@@ -7,6 +7,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="keyboardContacts">
             <connections>
                 <outlet property="picker" destination="18n-I0-Olu" id="NEp-FM-lPa"/>
+                <outlet property="settingsButton" destination="1Wn-f0-TuK" id="hLw-X0-hkV"/>
+                <outlet property="settingsView" destination="lGS-aH-VUK" id="9Do-0x-sCs"/>
                 <outlet property="slider" destination="4Gh-CB-Sgt" id="2Sm-VO-tQw"/>
                 <outlet property="view" destination="iN0-l3-epB" id="BAO-72-8DL"/>
             </connections>
@@ -35,14 +37,43 @@
                         <action selector="sliderChanged:" destination="-1" eventType="valueChanged" id="au8-IM-ZbK"/>
                     </connections>
                 </slider>
+                <view hidden="YES" userInteractionEnabled="NO" alpha="0.89999999999999991" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lGS-aH-VUK">
+                    <rect key="frame" x="80" y="48" width="160" height="75"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contacts are off!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jfb-YF-qbS">
+                            <rect key="frame" x="8" y="8" width="144" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Wn-f0-TuK">
+                            <rect key="frame" x="49" y="37" width="62" height="30"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Settings">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="settingsClicked:" destination="-1" eventType="touchUpInside" id="bRn-cu-JfL"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="OJy-fZ-hCr"/>
+                        <constraint firstAttribute="height" constant="75" id="uLt-hl-QsS"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="4Gh-CB-Sgt" secondAttribute="trailing" constant="-32" id="4Xj-nJ-GyM"/>
+                <constraint firstAttribute="centerY" secondItem="lGS-aH-VUK" secondAttribute="centerY" id="TSn-0c-ge0"/>
                 <constraint firstItem="18n-I0-Olu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Vn8-M3-Zfp"/>
                 <constraint firstAttribute="trailing" secondItem="4Gh-CB-Sgt" secondAttribute="trailing" constant="-50" id="WVE-te-upS"/>
                 <constraint firstAttribute="bottom" secondItem="18n-I0-Olu" secondAttribute="bottom" id="ZG0-97-owJ"/>
                 <constraint firstItem="18n-I0-Olu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="bre-tQ-uPI"/>
+                <constraint firstAttribute="centerX" secondItem="lGS-aH-VUK" secondAttribute="centerX" id="l0U-V7-c8L"/>
                 <constraint firstItem="4Gh-CB-Sgt" firstAttribute="centerY" secondItem="18n-I0-Olu" secondAttribute="centerY" id="npu-s4-whe"/>
                 <constraint firstItem="18n-I0-Olu" firstAttribute="centerY" secondItem="4Gh-CB-Sgt" secondAttribute="centerY" id="wfQ-gH-MaT"/>
             </constraints>

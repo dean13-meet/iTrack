@@ -19,13 +19,13 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>7</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Always allow location services.</string>
+	<string>Location services must always be allowed for the app to function!</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow location when in use.</string>
+	<string>Location services must always be allowed for the app to function!</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

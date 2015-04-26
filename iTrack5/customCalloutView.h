@@ -34,7 +34,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)editClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
-
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 /*
 @property (strong, nonatomic) UIDatePicker *datePicker1;
 @property (strong, nonatomic) NSDate *date1;

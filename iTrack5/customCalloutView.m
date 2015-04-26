@@ -29,6 +29,7 @@
 @property (nonatomic) double lastCircleChangeTime;
 
 
+
 @end
 
 
@@ -40,7 +41,7 @@
     if(self)
     {
         
-        [[NSBundle mainBundle] loadNibNamed:@"customCalloutXIB2" owner:self options:nil];
+        [[NSBundle mainBundle] loadNibNamed:@"customCalloutXIB" owner:self options:nil];
         
         self.bounds = self.view.bounds;
         

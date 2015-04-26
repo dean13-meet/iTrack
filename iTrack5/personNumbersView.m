@@ -42,6 +42,7 @@
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@",((Person*)self.person).numbers.allKeys[indexPath.row]];
     cell.accessoryType = [((Person*)self.person).numbers.allValues[indexPath.row] boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }

@@ -50,7 +50,7 @@
                 </view>
                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dg2-Gn-Kkw">
                     <rect key="frame" x="8" y="296" width="584" height="8"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJa-Y0-fGF">
                     <rect key="frame" x="8" y="304" width="584" height="46"/>
@@ -204,6 +204,13 @@
                         </mask>
                     </variation>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="guu-6h-kaG">
+                    <rect key="frame" x="8" y="542" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="JgQ-8e-sUu"/>
+                        <constraint firstAttribute="height" constant="50" id="Z2E-PM-WUD"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -218,6 +225,7 @@
                 <constraint firstItem="mJa-Y0-fGF" firstAttribute="top" secondItem="XJV-X8-NmM" secondAttribute="bottom" constant="8" symbolic="YES" id="BDq-mQ-032"/>
                 <constraint firstItem="dg2-Gn-Kkw" firstAttribute="leading" secondItem="ngm-YM-vRA" secondAttribute="leadingMargin" id="BgB-Ln-MGE"/>
                 <constraint firstItem="dg2-Gn-Kkw" firstAttribute="top" secondItem="XJV-X8-NmM" secondAttribute="bottom" id="CYA-mc-9Ah"/>
+                <constraint firstItem="guu-6h-kaG" firstAttribute="leading" secondItem="ngm-YM-vRA" secondAttribute="leading" constant="8" id="Civ-e3-Q60"/>
                 <constraint firstItem="gSd-b0-Dmg" firstAttribute="top" secondItem="IfT-SN-iKQ" secondAttribute="bottom" constant="8" symbolic="YES" id="Cpa-Kb-5hf"/>
                 <constraint firstAttribute="bottom" secondItem="mJa-Y0-fGF" secondAttribute="bottom" constant="250" id="DDo-PR-cQP"/>
                 <constraint firstItem="IfT-SN-iKQ" firstAttribute="centerX" secondItem="mJa-Y0-fGF" secondAttribute="centerX" id="Ers-yC-KeL"/>
@@ -247,6 +255,7 @@
                 <constraint firstItem="Tie-B3-Q2n" firstAttribute="centerX" secondItem="mJa-Y0-fGF" secondAttribute="centerX" id="h79-ws-eeR"/>
                 <constraint firstItem="XJV-X8-NmM" firstAttribute="leading" secondItem="zeh-Nb-avl" secondAttribute="leading" id="hE7-kX-Xg6"/>
                 <constraint firstAttribute="centerY" secondItem="dg2-Gn-Kkw" secondAttribute="centerY" id="hlK-ka-ofR"/>
+                <constraint firstAttribute="bottom" secondItem="guu-6h-kaG" secondAttribute="bottom" constant="8" id="lGg-w7-077"/>
                 <constraint firstItem="IfT-SN-iKQ" firstAttribute="leading" secondItem="AcE-SS-ayv" secondAttribute="trailing" constant="77" id="m1F-m5-sQB"/>
                 <constraint firstAttribute="centerX" secondItem="AcE-SS-ayv" secondAttribute="centerX" id="maF-Yy-1wl"/>
                 <constraint firstItem="XJV-X8-NmM" firstAttribute="top" secondItem="ngm-YM-vRA" secondAttribute="top" constant="250" id="mqk-2k-cn8"/>
@@ -292,5 +301,6 @@
         <image name="Advance-50.png" width="50" height="50"/>
         <image name="Approve Filled-50.png" width="50" height="50"/>
         <image name="Error-50.png" width="50" height="50"/>
+        <image name="icon.png" width="512" height="512"/>
     </resources>
 </document>

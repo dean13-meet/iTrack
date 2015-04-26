@@ -14,7 +14,7 @@
 #import "takeCareOfUserUpdates.h"
 #import "MapPinView.h"
 #import "Person.h"
-
+#import "welcome.h"
 
 
 
@@ -32,12 +32,17 @@
 @property (weak, nonatomic) IBOutlet UIButton *expiredButton;
 
 @property (strong, nonatomic) signInPopup* signInPopup;
-
+@property (strong, nonatomic) welcome* welcomeSign;
 
 
 @property (nonatomic) BOOL isSearching;
+@property (strong, nonatomic) NSMutableDictionary* searchResultsCache;
 
 @property (strong, nonatomic) takeCareOfUserUpdates* updateCaretaker;
+
+@property (nonatomic) CGRect searchBarDefaultFrame;
+@property (strong, nonatomic) NSString* lastestQuery;
+@property (strong, nonatomic) UIColor* defaultSearchBarColor;
 
 
 @end
@@ -86,6 +91,7 @@
     [self requestStatusForAllMonitoredRegions];
     
     UITapGestureRecognizer* closeKeyboardsTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closeKeyboard)] ;
+	closeKeyboardsTap.cancelsTouchesInView = NO;
     closeKeyboardsTap.numberOfTouchesRequired=1;
     [self.view addGestureRecognizer:closeKeyboardsTap];
     
@@ -114,6 +120,8 @@
 	[self getUserUpdates];
 	[self prepareServerForCoreData];
 	[((AppDelegate*)[[UIApplication sharedApplication] delegate]) showLocationAlert];
+	[self showWelcomeSign];
+	
 	
 	
 }
@@ -125,7 +133,7 @@
 	if(!userUUID)
 	{//create popup to create username or login:
 		
-		self.signInPopup =  [[signInPopup alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*.90, self.view.frame.size.height*.90)];
+		self.signInPopup =  [[signInPopup alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*.92, self.view.frame.size.height*.92)];
 		signInPopup* popup = self.signInPopup;//just easier to write "popup"
 		popup.center = self.view.center;
 		popup.transform = CGAffineTransformMakeScale(2, 2);
@@ -133,6 +141,9 @@
 		[UIView animateWithDuration:.2 animations:^{
 			popup.transform = CGAffineTransformMakeScale(1, 1);
 		}];
+		
+		[self removeAllGeofences];
+		[self ensureNotTrackingAnyFence];
 		
 	}
 
@@ -151,6 +162,36 @@
 	
 	[self registerTrackerForGeofences];
 	[self getUserUpdates];
+	[self showWelcomeSign];
+}
+
+
+- (void) showWelcomeSign
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* username = [defaults valueForKey:usernameDefaultsURL];
+	if(!username)return;
+	self.welcomeSign = [[welcome alloc]init];
+	self.welcomeSign.center = self.view.center;
+	[self.view addSubview:self.welcomeSign];
+	
+}
+- (void) dismissWelcomeSign
+{
+	if(self.welcomeSign.superview)//it's presented
+	{
+		[self.welcomeSign enterClicked:nil];
+	}
+}
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	[self dismissWelcomeSign];
+	[super touchesBegan:touches withEvent:event];
+}
+
+- (void) removeWelcomeSign
+{
+	[self.welcomeSign enterClicked:nil];
 }
 
 - (void) getUserUpdates
@@ -188,8 +229,8 @@
 - (void) fetchAllGeofences
 {
 	//Fetch only after a while to ensure that if we sent over stuff to the server, we fetch the new info, not old.
-	[NSTimer
-	 scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(dummySelector3) userInfo:nil repeats:NO];
+	//[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(dummySelector3) userInfo:nil repeats:NO];
+	[self dummySelector3];
 }
 - (void) dummySelector3
 {
@@ -200,8 +241,8 @@
 
 - (void) fetchAllRequestedGeofences
 {
-	[NSTimer
-	 scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(dummySelector4) userInfo:nil repeats:NO];
+	//[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(dummySelector4) userInfo:nil repeats:NO];
+	[self dummySelector4];
 }
 - (void) dummySelector4
 {
@@ -687,7 +728,7 @@
 	fence.arrivalMessage = arrivalMessage?arrivalMessage: @"I have arrived!";
 	fence.leaveMessage = leaveMessage ? leaveMessage: @"I have left!";
 	fence.owner = owner;
-	fence.requester = requester;//requester isn't always yourself - if loading a requested pin, the requester is someone else
+	fence.requester = (requester && ![requester isEqualToString:@""])?requester:fence.requester;//requester isn't always yourself - if loading a requested pin, the requester is someone else
 	if(setting)
 	{
 		fence.setting = setting;
@@ -966,7 +1007,9 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
         }
         
     }
-    
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString* username = [defaults valueForKey:usernameDefaultsURL];
     //Loop through geofences
     for(Geofence* fence in allGeofences)
     {
@@ -975,7 +1018,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
             continue;
         }
         
-        if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] && (!fence.requester || [fence.requester isEqualToString:@""] || [fence.requestApproved isEqualToString:@"Accepted"])){
+        if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] && (!fence.requester || [fence.requester isEqualToString:@""] || [fence.requestApproved isEqualToString:@"Accepted"]) && [fence.owner isEqualToString:username]){
         
             [self startTrackingGeofence:fence];
         
@@ -1115,48 +1158,190 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
     return _searchAnnotations;
 }
 
+-(void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+	[self lookupQuery:searchBar];
+}
+
+- (void) cancelSearch
+{
+	[self setSetting:kSearch on:NO forceAnnotationUpdate:self.searchAnnotations.count>0];//only force annotation update if there are searchAnnotations on the map!
+	[self.searchAnnotations removeAllObjects];
+	[self setSearchResultsViewVisible:NO];
+}
+
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
     if([searchBar.text isEqualToString:@""])
     {
-        [self setSetting:kSearch on:NO forceAnnotationUpdate:self.searchAnnotations.count>0];//only force annotation update if there are searchAnnotations on the map!
-        return;
+		[self cancelSearch];
+		return;
     }
     
-    
-    NSString* query = searchBar.text;
-    [searchBar resignFirstResponder];
-    CLGeocoder* geocoder = [[CLGeocoder alloc] init];
-    [geocoder geocodeAddressString:query
-                 completionHandler:^(NSArray* placemarks, NSError* error){
-                     
-                    [self.searchAnnotations removeAllObjects];
-                     
-                    for (CLPlacemark* aPlacemark in placemarks)
-                     {
-                         self.mapView.centerCoordinate = aPlacemark.location.coordinate;
-                         NSArray *lines = aPlacemark.addressDictionary[ @"FormattedAddressLines"];
-                         NSString *addressString = [lines componentsJoinedByString:@"\n"];
-                         MapPin* annotation = [[MapPin alloc] initWithCoordinates:aPlacemark.location.coordinate placeName:addressString description:addressString mapVC:self];
-                         annotation.address = addressString;
-                         annotation.setting = [NSNumber numberWithInt: kSearch];
-                         [self.searchAnnotations addObject:annotation];
-                         
-                     }
-                     
-                     [self setSetting:kSearch on:YES forceAnnotationUpdate:YES];
-                     
-                 }];
-    
+	[self lookupQuery:searchBar];
+	
+	
 }
 
+- (void) lookupQuery:(UISearchBar*)searchBar
+{
+	NSString* query = searchBar.text;
+	if(![self.searchResultsCache objectForKey:query])
+	{
+		//[searchBar resignFirstResponder];
+		CLGeocoder* geocoder = [[CLGeocoder alloc] init];
+		[geocoder geocodeAddressString:query
+					 completionHandler:^(NSArray* placemarks, NSError* error){
+						 
+						 //[self.searchAnnotations removeAllObjects];
+						 NSMutableArray* annotations = [[NSMutableArray alloc] init];
+						 
+						 for (CLPlacemark* aPlacemark in placemarks)
+						 {
+							 self.mapView.centerCoordinate = aPlacemark.location.coordinate;
+							 NSArray *lines = aPlacemark.addressDictionary[ @"FormattedAddressLines"];
+							 NSString *addressString = [lines componentsJoinedByString:@"\n"];
+							 MapPin* annotation = [[MapPin alloc] initWithCoordinates:aPlacemark.location.coordinate placeName:addressString description:addressString mapVC:self];
+							 annotation.address = addressString;
+							 annotation.setting = [NSNumber numberWithInt: kSearch];
+							 [annotations addObject:annotation];
+							 //[self.searchAnnotations addObject:annotation];
+							 
+						 }
+						 [self.searchResultsCache setObject:annotations forKey:query];
+						 //[self setSetting:kSearch on:YES forceAnnotationUpdate:YES];
+						 self.lastestQuery = query;
+					 }];
+		
+	}
+	else
+	{
+		self.lastestQuery = query;
+	}
+}
+
+- (void) setLastestQuery:(NSString *)lastestQuery
+{
+	if([lastestQuery isEqualToString:_lastestQuery])return;
+	_lastestQuery = lastestQuery;
+	[self.tableViewForSearchResults reloadData];
+}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
 }
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+	[self dismissWelcomeSign];
+	[self setSearchResultsViewVisible:YES];
+}
 
+- (void) setSearchResultsViewVisible:(BOOL)visible
+{
+	[UIView animateWithDuration:.3 animations:^{
+		if(visible)
+		{
+			if(CGRectIsEmpty(self.searchBarDefaultFrame))
+			{
+				self.searchBarDefaultFrame = self.searchBar.frame;
+			}
+			self.searchBar.frame = CGRectMake(8, self.searchBar.frame.origin.y, self.view.frame.size.width-16 - self.closeSearchButton.frame.size.width - 8, self.searchBar.frame.size.height);
+		}
+		else
+		{
+			self.searchBar.frame = self.searchBarDefaultFrame;
+		}
+
+		
+		self.searchResultsView.alpha = visible;
+		self.searchResultsView.userInteractionEnabled = visible;
+		
+		self.logoutButton.alpha = !visible;
+		self.logoutButton.userInteractionEnabled = !visible;
+		self.searchBarPinBox.alpha = !visible;
+		self.searchBarPinBox.userInteractionEnabled = !visible;
+		
+		self.closeSearchButton.alpha = visible;
+		self.closeSearchButton.userInteractionEnabled = visible;
+		
+		self.topBar.alpha = visible ? 1 : .9;
+		self.topBar.backgroundColor = visible ? self.searchResultsView.backgroundColor : [UIColor whiteColor];
+		
+		UITextField *textField;
+		UISearchBar* searchBar = self.searchBar;
+		NSUInteger numViews = [searchBar.subviews count];
+		for(int i = 0; i < numViews; i++) {
+			if([self.searchBar.subviews[i] isKindOfClass:[UITextField class]]) {
+				textField = [searchBar.subviews objectAtIndex:i];
+				break;
+			}
+		}
+		
+		if(visible){
+		if(!self.defaultSearchBarColor)
+		{
+			self.defaultSearchBarColor = textField.backgroundColor;
+		}
+			textField.backgroundColor = [UIColor whiteColor];
+			self.searchBar.barTintColor = [UIColor whiteColor];
+		}
+		else
+		{
+			textField.backgroundColor = self.defaultSearchBarColor;
+		}}
+		];
+	
+}
+
+- (NSMutableDictionary*)searchResultsCache
+{
+	if(!_searchResultsCache)
+	{
+		_searchResultsCache = [[NSMutableDictionary alloc] init];
+	}
+	return _searchResultsCache;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	static NSString *cellIdentifier = @"searchCell";
+	UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+
+	MapPin* annotation = [self.searchResultsCache objectForKey:self.lastestQuery][indexPath.row];
+	cell.textLabel.text = annotation.address;
+	cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return [[self.searchResultsCache objectForKey:self.lastestQuery] count];
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	return 1;
+}
+
+- (BOOL) tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return YES;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	self.searchAnnotations  = @[[self.searchResultsCache objectForKey:self.lastestQuery][indexPath.row]].mutableCopy;
+	[self setSetting:kSearch on:YES forceAnnotationUpdate:YES];
+	[self setSearchResultsViewVisible:NO];
+	[self.searchBar resignFirstResponder];
+}
+
+- (IBAction)closeSearchResults:(id)sender
+{
+	[self setSearchResultsViewVisible:NO];
+	[self.searchBar resignFirstResponder];
+}
 
 #pragma mark Manage Map
 
@@ -1558,6 +1743,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 
 - (IBAction)zoomout:(id)sender
 {
+	[self dismissWelcomeSign];
     [self zoomToAnnotationsBounds];
 }
 
@@ -1606,6 +1792,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 //Mode Setting
 - (IBAction)toggleMode:(id)sender
 {
+	[self dismissWelcomeSign];
 	self.mode = !self.mode;
 }
 
@@ -1619,6 +1806,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 }
 - (IBAction)logoutClicked:(id)sender
 {
+	[self dismissWelcomeSign];
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Log out of app?"
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
@@ -1640,12 +1828,14 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 - (void) logout
 {
 	[self removeAllGeofences];
+	[self ensureNotTrackingAnyFence];
 	self.updateCaretaker = nil;
 	[self unRegisterTrackerForGeofences];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:nil forKey:userUUIDDefaultsURL];
 	[defaults setObject:nil forKey:usernameDefaultsURL];
 	[defaults synchronize];
+	[self removeWelcomeSign];
 	
 	[self dealWithLogin];
 
@@ -1655,6 +1845,14 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 	for(Geofence* fence in self.fetchedResultsController.fetchedObjects)
 	{
 		[self deleteFence:fence notifyServer:NO];
+	}
+}
+- (void) ensureNotTrackingAnyFence
+{
+	NSSet* regions = self.locationManager.monitoredRegions;
+	for(CLRegion* region in regions)
+	{
+		[self.locationManager stopMonitoringForRegion:region];
 	}
 }
 - (void) destoryDraggedSearchPin

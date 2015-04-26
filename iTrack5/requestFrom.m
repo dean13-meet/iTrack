@@ -114,7 +114,7 @@
 	if(self.toBox.text.length!=0)
 	{
 		NSString* stringQuery;
-		if(!self.mode)//keypad
+		if(!self.mode || [self.keyboard.contactsKeyboard.picker numberOfRowsInComponent:0]==0)//we are keypad OR our contacts are empty
 			stringQuery = self.toBox.text;
 		else
 		{
@@ -145,9 +145,9 @@
 			}
 			
 		}
-			[self.keyboard.contactsKeyboard buttonClicked:nil];//will tell contacts keyboard to add selected row
+			//[self.keyboard.contactsKeyboard buttonClicked:nil];//will tell contacts keyboard to add selected row
 
-		
+		if([stringQuery isEqualToString:@""])return;
 		stringQuery = [[stringQuery componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
 		
 		[self signUpForTrackersOnQuery:stringQuery];

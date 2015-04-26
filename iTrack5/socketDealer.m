@@ -28,6 +28,7 @@
     {
         _socketIO = [[SocketIO alloc] initWithDelegate:self];
         [self.delegate setNoConnectionBannerOnOff:YES];
+		_socketIO.useSecure = YES;//SSL
         if(!_socketIO.isConnected)
         {
             [self connectSocketIOWithCompletion:nil];
