@@ -184,6 +184,10 @@
 	
     [self.toBox endEditing:YES];
 }
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return NO;
+}
 
 - (void) deleteSelfWithSender:(id)sender
 {

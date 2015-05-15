@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "mapViewController.h"
+#import "GSTouchesShowingWindow.h"
+
 
 #define defaultBarHeight 20
 
@@ -223,4 +225,30 @@
     }
     return _locationManager;
 }
+
+#pragma mark map
+
+- (void) setMapEnabled:(BOOL)enabled excluding:(NSArray *)excluding
+{
+    mapViewController* mapVC = (mapViewController*)self.mapVC;
+    mapVC.mapView.userInteractionEnabled = enabled;
+    [UIView animateWithDuration:.5 animations:^{
+        mapVC.blackMapViewCover.alpha = enabled ? 0 : .5;
+    }];
+    
+    if(![excluding containsObject:@"zoom"])mapVC.zoomfitButton.userInteractionEnabled = enabled;
+    if(![excluding containsObject:@"plus"])mapVC.plusButton.userInteractionEnabled = enabled;
+    
+}
+
+
+#pragma mark GSTouchesShowingWindow
+/*
+- (GSTouchesShowingWindow *)window {
+    static GSTouchesShowingWindow *window = nil;
+    if (!window) {
+        window = [[GSTouchesShowingWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    }
+    return window;
+}*/
 @end

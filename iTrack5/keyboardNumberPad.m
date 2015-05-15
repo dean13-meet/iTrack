@@ -8,6 +8,12 @@
 
 #import "keyboardNumberPad.h"
 
+@interface keyboardNumberPad()
+
+@property (strong, nonatomic) NSTimer* deleteTimer;
+
+@end
+
 @implementation keyboardNumberPad
 
 - (instancetype) initWithFrame:(CGRect)frame
@@ -17,9 +23,10 @@
     {
         
         [[NSBundle mainBundle] loadNibNamed:@"keyboardNumberPad" owner:self options:nil];
-        
-        self.bounds = self.view.bounds;
-        
+		
+		self.frame = frame;
+		self.view.frame = self.bounds;
+		
         [self addSubview:self.view];
         
         
@@ -27,11 +34,15 @@
     return self;
 }
 
-- (IBAction)buttonClicked:(UIButton *)sender
+- (IBAction)buttonClicked:(id)sender
 {
-    [[UIDevice currentDevice] playInputClick];
-    NSString* btnTitle = sender.titleLabel.text;
-    [btnTitle isEqualToString:@"Delete"] ? [self.delegate backspaceTapped] : [self.delegate keyTapped:btnTitle];
+	
+		UIButton* button = sender;
+		[[UIDevice currentDevice] playInputClick];
+		NSString* btnTitle = button.titleLabel.text;
+		[btnTitle isEqualToString:@"Delete"] ? [self.delegate backspaceTapped] : [self.delegate keyTapped:btnTitle];
+	
+	
 }
 
 - (void) positionButtons
@@ -51,4 +62,31 @@
     }*/
 }
 
+- (void) performDelete
+{
+	if([self.deleteTimer isValid])
+	{
+		[self buttonClicked:self.deleteButton];
+	}
+}
+
+- (IBAction)deleteDown:(UIButton *)sender
+{
+	self.deleteTimer;//creates delete timer
+}
+
+- (IBAction)deleteUpOutside:(id)sender
+{
+	[self.deleteTimer invalidate];
+	self.deleteTimer = nil;
+}
+
+- (NSTimer*)deleteTimer
+{
+	if(!_deleteTimer)
+	{
+		_deleteTimer = [NSTimer scheduledTimerWithTimeInterval:.15 target:self selector:@selector(performDelete) userInfo:nil repeats:YES];
+	}
+	return _deleteTimer;
+}
 @end

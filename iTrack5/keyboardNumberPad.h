@@ -23,6 +23,9 @@
 - (void) positionButtons;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttons;
 
+- (IBAction)deleteDown:(UIButton *)sender;
+- (IBAction)deleteUpOutside:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (strong, nonatomic) id<numberPadDelegate> delegate;
 @end

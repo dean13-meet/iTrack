@@ -29,5 +29,8 @@
 - (void) showLocationAlert;
 @property (strong, nonatomic) CLLocationManager* locationManager;
 
+
+- (void) setMapEnabled:(BOOL)enabled excluding:(NSArray*)excluding;
+
 @end
 

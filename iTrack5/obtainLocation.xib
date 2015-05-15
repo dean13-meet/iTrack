@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="obtainLocation">
+            <connections>
+                <outlet property="view" destination="0pQ-Uo-oKL" id="F2W-GV-IC3"/>
+                <outlet property="viewForSearchBar" destination="M7z-np-4QN" id="MFM-2h-9IS"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view alpha="0.89999997615814209" contentMode="scaleToFill" id="0pQ-Uo-oKL">
+            <rect key="frame" x="0.0" y="0.0" width="310" height="224"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="707-wC-tWs">
+                    <rect key="frame" x="8" y="0.0" width="225" height="0.0"/>
+                    <constraints>
+                        <constraint firstAttribute="height" id="qDF-GG-OlZ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Choose Location:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9n6-TX-fav">
+                    <rect key="frame" x="8" y="8" width="214" height="21"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-ss-ekZ">
+                    <rect key="frame" x="8" y="37" width="42" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="2kE-iS-FUa"/>
+                        <constraint firstAttribute="width" constant="42" id="tYo-SS-aCm"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Back">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="backButtonClicked:" destination="-1" eventType="touchUpInside" id="2n1-M3-C3U"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M7z-np-4QN">
+                    <rect key="frame" x="8" y="79" width="294" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="oji-75-MJE"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="707-wC-tWs" firstAttribute="leading" secondItem="0pQ-Uo-oKL" secondAttribute="leadingMargin" id="02S-Ue-wvC"/>
+                <constraint firstItem="qFh-ss-ekZ" firstAttribute="leading" secondItem="0pQ-Uo-oKL" secondAttribute="leading" constant="8" id="9dX-9V-XHh"/>
+                <constraint firstItem="qFh-ss-ekZ" firstAttribute="leading" secondItem="0pQ-Uo-oKL" secondAttribute="leading" constant="8" id="Dxq-9V-KwN"/>
+                <constraint firstItem="707-wC-tWs" firstAttribute="leading" secondItem="9n6-TX-fav" secondAttribute="leading" id="IwC-qL-cGV"/>
+                <constraint firstAttribute="trailing" secondItem="M7z-np-4QN" secondAttribute="trailing" constant="8" id="PHo-34-Gee"/>
+                <constraint firstItem="M7z-np-4QN" firstAttribute="leading" secondItem="0pQ-Uo-oKL" secondAttribute="leading" constant="8" id="PRt-4e-Ww1"/>
+                <constraint firstItem="9n6-TX-fav" firstAttribute="top" secondItem="707-wC-tWs" secondAttribute="bottom" constant="8" symbolic="YES" id="TCg-0F-kIQ"/>
+                <constraint firstItem="M7z-np-4QN" firstAttribute="top" secondItem="qFh-ss-ekZ" secondAttribute="bottom" constant="8" id="d9i-lT-SDG"/>
+                <constraint firstItem="707-wC-tWs" firstAttribute="top" secondItem="0pQ-Uo-oKL" secondAttribute="topMargin" constant="-8" id="kjV-Qf-sae"/>
+                <constraint firstItem="qFh-ss-ekZ" firstAttribute="top" secondItem="9n6-TX-fav" secondAttribute="bottom" constant="8" id="mgT-wQ-u2A"/>
+                <constraint firstAttribute="trailing" secondItem="9n6-TX-fav" secondAttribute="trailing" constant="19" id="pJ8-7n-VCx"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Dxq-9V-KwN"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="116" y="-38"/>
+        </view>
+    </objects>
+</document>

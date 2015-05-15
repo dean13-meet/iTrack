@@ -101,7 +101,8 @@ Stored in memory as status:expired
 + (NSArray*) dicsToPersons:(NSMutableArray*)recs;
 + (NSArray*) personsToDics:(NSMutableArray*)recs;
 + (NSArray*) recsFromFenceData:(NSData*)data;
-@property (weak, nonatomic) IBOutlet UIView *topBar;
+@property (strong, nonatomic) IBOutlet UIView *topBar;
+//Hold topBar strong - we may remove it from this view for other purposes, so make sure it's not dealloced
 
 @property (weak, nonatomic) IBOutlet UIView *searchResultsView;
 
@@ -109,5 +110,9 @@ Stored in memory as status:expired
 - (void) destoryDraggedSearchPin;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewForSearchResults;
 @property (weak, nonatomic) IBOutlet UIButton *closeSearchButton;
+@property (weak, nonatomic) IBOutlet UIButton *plusButton;
+- (IBAction)plusClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *zoomfitButton;
+@property (weak, nonatomic) IBOutlet UIView *blackMapViewCover;
 
 @end

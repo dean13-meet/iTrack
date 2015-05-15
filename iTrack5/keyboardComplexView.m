@@ -21,6 +21,14 @@
         self.bounds = self.view.bounds;
         
         [self addSubview:self.view];
+		
+		CGRect screenRect = [[UIScreen mainScreen] bounds];
+		
+		CGFloat width = screenRect.size.width;
+		
+		CGRect target = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, width, self.bounds.size.height);
+		self.bounds = self.view.bounds = target;
+		self.viewForKeyboard.frame = CGRectMake(0, 0, width, self.viewForKeyboard.bounds.size.height);
         
         self.originalKeypad = [[keyboardNumberPad alloc] initWithFrame:self.viewForKeyboard.frame];
         [self.originalKeypad positionButtons];

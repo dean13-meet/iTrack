@@ -35,6 +35,8 @@
 	
 	BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
 	
+	if(!returnKey && newLength > AUTHLENGTH)return NO;
+	
 	if(newLength==AUTHLENGTH)
 	{//enable proceed
 		self.proceedDisabled = NO;
@@ -46,7 +48,7 @@
 		self.proceedView.alpha = .5;
 
 	}
-	return newLength <= AUTHLENGTH || returnKey;
+	return YES;
 }
 - (void) setLast4DigitsString:(NSString *)last4DigitsString
 {
@@ -75,6 +77,8 @@
 		self.activityIndicator.alpha = self.wrongAuth.alpha =self.goodAuth.alpha= 0;
 		self.proceedDisabled = YES;//lets first wait till 4 digits are in!!!
 		self.proceedView.alpha = .5;
+		
+		[self.textField becomeFirstResponder];
 		
 		
 	}
@@ -148,6 +152,12 @@
 		self.hardDisableRetry = NO;
 		self.textField.enabled = YES;
 		self.proceedView.alpha = 1;//enabled
+		
+		if([[desc valueForKey:@"reason"] isEqualToString:@"too many tries"])
+		{
+			UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Please Wait!" message:@"You have attempted to input your verification code too many times! Please wait 60 seconds before trying again." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles: nil];
+			[alert show];
+		}
 	}
 	else{
 		self.goodAuth.alpha = 1;

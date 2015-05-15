@@ -25,6 +25,9 @@
 
 @property (strong, nonatomic) NSArray* recs;
 
+@property (strong, nonatomic) UIImage* checkmark;
+@property (strong, nonatomic) UIImage* x;
+
 
 @property (nonatomic) double lastCircleChangeTime;
 
@@ -50,6 +53,7 @@
         [self createDatePickers];
 		
 		[self updateTableView];
+		
         
         
     }
@@ -230,6 +234,10 @@
 
 - (float) getReccurence
 {
+	if(self.repeat)
+		return 1.0;
+	return 0.0;
+	/*
     switch (self.repeatControl.selectedSegmentIndex) {
         case 0://Never
             return 0.0;
@@ -239,7 +247,7 @@
         
         default:
             return 0.0;
-    }
+    }*/
 }
 
 - (IBAction)sliderValueChanged:(id)sender {
@@ -475,5 +483,45 @@
 - (void) showToViewCancelButton
 {
 	[self.calloutViewManager showToViewCancelButton];
+}
+
+- (UIImage*)x
+{
+	if(!_x)
+	{
+		_x = [UIImage imageNamed:@"Delete Sign-50 red"];
+	}
+	return _x;
+}
+- (UIImage*)checkmark
+{
+	if(!_checkmark)
+	{
+		_checkmark = [UIImage imageNamed:@"Checkmark-50"];
+	}
+	return _checkmark;
+}
+
+- (void) setArrival:(BOOL)arrival
+{
+	if(_arrival == arrival)return;
+	_arrival = arrival;
+	
+	self.onArrivalMark.image = arrival ? self.checkmark : self.x;
+}
+
+- (void) setLeave:(BOOL)leave
+{
+	if(_leave == leave)return;
+	_leave = leave;
+	
+	self.onLeaveMark.image = leave ? self.checkmark : self.x;
+}
+- (void) setRepeat:(BOOL)repeat
+{
+	if(_repeat == repeat)return;
+	_repeat = repeat;
+	
+	self.repeatMark.image = repeat ? self.checkmark : self.x;
 }
 @end

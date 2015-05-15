@@ -81,6 +81,21 @@
 	
 }
 
+#define AUTHLENGTH 25 // this is max username length
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	
+	NSUInteger oldLength = [textField.text length];
+	NSUInteger replacementLength = [string length];
+	NSUInteger rangeLength = range.length;
+	
+	NSUInteger newLength = oldLength - rangeLength + replacementLength;
+	
+	BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+	
+	
+	return newLength <= AUTHLENGTH || returnKey;
+}
+
 - (void) proceedTapped
 {
 	if(self.proceedDisabled || self.textView.text.length == 0)return;

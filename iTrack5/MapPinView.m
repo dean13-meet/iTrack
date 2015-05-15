@@ -170,11 +170,11 @@
         
         switch ([fence.recur intValue]) {
             case 0:
-                [pinView.calloutView.repeatControl setSelectedSegmentIndex:0];
+                pinView.calloutView.repeat = NO;
                 break;
                 
             case 1:
-                [pinView.calloutView.repeatControl setSelectedSegmentIndex:1];
+				pinView.calloutView.repeat = YES;
                 break;
                 
             default:
@@ -182,12 +182,12 @@
         }
         
 		pinView.calloutView.radius = [fence.radius floatValue];
-        NSArray* recs = [NSKeyedUnarchiver unarchiveObjectWithData:fence.recipients];
+        //NSArray* recs = [NSKeyedUnarchiver unarchiveObjectWithData:fence.recipients];
         
         pinView.calloutView.fence = fence;
         
-        pinView.calloutView.leaveSwitch.on = [fence.onLeave boolValue];
-        pinView.calloutView.arrivalSwitch.on = [fence.onArrival boolValue];
+        pinView.calloutView.leave = [fence.onLeave boolValue];
+        pinView.calloutView.arrival = [fence.onArrival boolValue];
     }
     else
     {

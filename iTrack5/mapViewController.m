@@ -15,7 +15,7 @@
 #import "MapPinView.h"
 #import "Person.h"
 #import "welcome.h"
-
+#import "LocationFactory.h"
 
 
 @interface mapViewController ()
@@ -33,6 +33,8 @@
 
 @property (strong, nonatomic) signInPopup* signInPopup;
 @property (strong, nonatomic) welcome* welcomeSign;
+
+@property (strong, nonatomic) LocationFactory* locationFactory;
 
 
 @property (nonatomic) BOOL isSearching;
@@ -472,57 +474,58 @@
 
 - (void) locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    Geofence* fence = [self getFenceFromRegion:region];
-    if(!fence)//if for some reason we recieved "didEnterRegion", but we are not looking to track that region, just remove it from monitoring
-    {
-        [self.locationManager stopMonitoringForRegion:region];
-        return;
-    }
-    
-    //check fence active && whether to expire:
-    
-    if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] && [self fenceTimeoutOK:fence withCode:0]
-	   &&
-	   fence.onArrival)
-    {
-        
-        [self hitFence:fence mode:YES];
-        
-    }
-    
-    
+	
+	[self.locationManager requestStateForRegion:region];//request state to verify we actually are in the region
     
 }
 - (void) locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-	Geofence* fence = [self getFenceFromRegion:region];
-	if(!fence)//if for some reason we recieved "didEnterRegion", but we are not looking to track that region, just remove it from monitoring
-	{
-		[self.locationManager stopMonitoringForRegion:region];
-		return;
-	}
-	
-	//check fence active && whether to expire:
-	
-	if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] && [self fenceTimeoutOK:fence withCode:1]
-	   &&
-	   fence.onLeave)
-	{
-		
-		[self hitFence:fence mode:NO];
-		
-	}
-
+	[self.locationManager requestStateForRegion:region];//request state to verify we actually are outside the region
 }
 - (void) locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
     if(state == CLRegionStateInside)
     {
-        [self locationManager:manager didEnterRegion:region];
+		
+		Geofence* fence = [self getFenceFromRegion:region];
+		if(!fence)//if for some reason we recieved "didEnterRegion", but we are not looking to track that region, just remove it from monitoring
+		{
+			[self.locationManager stopMonitoringForRegion:region];
+			return;
+		}
+		
+		//check fence active && whether to expire:
+		
+		if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] && [self fenceTimeoutOK:fence withCode:0]
+		   &&
+		   fence.onArrival)
+		{
+			
+			[self hitFence:fence mode:YES];
+			
+		}
+		
+
     }
     else if(state == CLRegionStateOutside)
     {
-        [self locationManager:manager didExitRegion:region];
+		Geofence* fence = [self getFenceFromRegion:region];
+		if(!fence)//if for some reason we recieved "didEnterRegion", but we are not looking to track that region, just remove it from monitoring
+		{
+			[self.locationManager stopMonitoringForRegion:region];
+			return;
+		}
+		
+		//check fence active && whether to expire:
+		
+		if([fence.setting isEqualToNumber:[NSNumber numberWithInt:kActive]] && [self fenceTimeoutOK:fence withCode:1]
+		   &&
+		   fence.onLeave)
+		{
+			
+			[self hitFence:fence mode:NO];
+			
+		}
     }
 }
 
@@ -1862,6 +1865,33 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 	self.currentlyDraggedAnnotation = nil;
 	[self setSetting:kSearch on:NO forceAnnotationUpdate:YES];
 }
+
+
+- (IBAction)plusClicked:(id)sender
+{
+	[self dismissWelcomeSign];
+	if(!self.locationFactory){
+		self.locationFactory = [[LocationFactory alloc] init];
+		[self.plusButton setBackgroundImage:[UIImage imageNamed:@"Close"] forState:UIControlStateNormal];
+	}
+	else
+	{
+		UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Cancel" message:@"Cancel the new location?" delegate:self cancelButtonTitle:@"No" otherButtonTitles: @"Yes", nil];
+		alert.delegate = self;
+		alert.tag=10;
+		[alert show];
+	}
+}
+
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex  {
+	if (alertView.tag==10 ){
+		if (buttonIndex == 1) {
+			self.locationFactory = nil;
+			[self.plusButton setBackgroundImage:[UIImage imageNamed:@"Plus Filled-50"] forState:UIControlStateNormal];
+		}
+	}
+}
+
 
 
 @end

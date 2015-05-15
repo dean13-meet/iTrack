@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3D00B14D1AE72500006FDBCE /* welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D00B14C1AE72500006FDBCE /* welcome.xib */; };
 		3D00B1501AE72622006FDBCE /* welcome.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D00B14F1AE72622006FDBCE /* welcome.m */; };
+		3D06A52D1AED8C040044A3FD /* GSTouchesShowingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D06A52C1AED8C040044A3FD /* GSTouchesShowingWindow.m */; };
+		3D06A5301AED8C210044A3FD /* GSTouchImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D06A52E1AED8C210044A3FD /* GSTouchImage.png */; };
+		3D06A5311AED8C210044A3FD /* GSTouchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D06A52F1AED8C210044A3FD /* GSTouchImage@2x.png */; };
 		3D0EEF251ADB305A0040AA7A /* takeCareOfUserUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EEF241ADB305A0040AA7A /* takeCareOfUserUpdates.m */; };
 		3D0EEF281ADB363A0040AA7A /* updateDealerPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EEF271ADB363A0040AA7A /* updateDealerPopup.m */; };
 		3D0EEF2C1ADB37130040AA7A /* geofenceRequestedPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D0EEF2B1ADB37130040AA7A /* geofenceRequestedPopup.m */; };
@@ -54,6 +57,8 @@
 		3D45470A1ACAFC0200FEEFE7 /* socketDealer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4547091ACAFC0200FEEFE7 /* socketDealer.m */; };
 		3D4683671AD9A08B00C6DC8F /* requestFrom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D4683661AD9A08B00C6DC8F /* requestFrom.xib */; };
 		3D46836A1AD9A1F200C6DC8F /* requestFrom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4683691AD9A1F200C6DC8F /* requestFrom.m */; };
+		3D5DE25C1AF5888B00F96C63 /* Delete Sign-50 red.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D5DE25B1AF5888B00F96C63 /* Delete Sign-50 red.png */; };
+		3D5DE25E1AF5889600F96C63 /* Checkmark-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D5DE25D1AF5889600F96C63 /* Checkmark-50.png */; };
 		3D6D92141AD73C1400E2CE55 /* Sign Up-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D6D92131AD73C1400E2CE55 /* Sign Up-50.png */; };
 		3D6D92161AD73C1900E2CE55 /* Login-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D6D92151AD73C1900E2CE55 /* Login-50.png */; };
 		3D6D92191AD7409A00E2CE55 /* signInPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6D92181AD7409A00E2CE55 /* signInPopup.m */; };
@@ -83,6 +88,19 @@
 		3D73771D1AA51AAE006CB9DF /* calloutViewClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D73771C1AA51AAE006CB9DF /* calloutViewClass.m */; };
 		3D95AD631AABE2A400467C96 /* recCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D95AD621AABE2A400467C96 /* recCell2.xib */; };
 		3D95AD661AABE3BC00467C96 /* recCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D95AD651AABE3BC00467C96 /* recCell.m */; };
+		3D9E84161B025792006EFF46 /* LocationFactoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9E84151B025792006EFF46 /* LocationFactoryView.m */; };
+		3D9E841E1B026071006EFF46 /* vToView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9E841D1B026071006EFF46 /* vToView.xib */; };
+		3D9E84211B026090006EFF46 /* vToView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9E84201B026090006EFF46 /* vToView.m */; };
+		3D9E84231B0264D6006EFF46 /* vRequestFrom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9E84221B0264D6006EFF46 /* vRequestFrom.xib */; };
+		3D9E84261B0264ED006EFF46 /* vRequestFrom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9E84251B0264ED006EFF46 /* vRequestFrom.m */; };
+		3D9E84291B050818006EFF46 /* obtainLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9E84281B050818006EFF46 /* obtainLocation.m */; };
+		3D9E842B1B05082D006EFF46 /* obtainLocation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9E842A1B05082D006EFF46 /* obtainLocation.xib */; };
+		3DA2579A1AF7DB370004EC67 /* Plus Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DA257991AF7DB370004EC67 /* Plus Filled-50.png */; };
+		3DA2579C1AF7DC4A0004EC67 /* sendOrAsk.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA2579B1AF7DC4A0004EC67 /* sendOrAsk.xib */; };
+		3DA2579F1AF811930004EC67 /* sendOrAsk.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA2579E1AF811930004EC67 /* sendOrAsk.m */; };
+		3DA257A21AF812540004EC67 /* UIView+HeightResize.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA257A11AF812540004EC67 /* UIView+HeightResize.m */; };
+		3DA257A51AF816F70004EC67 /* LocationFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA257A41AF816F70004EC67 /* LocationFactory.m */; };
+		3DA257A71AF869110004EC67 /* Close-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DA257A61AF869110004EC67 /* Close-50.png */; };
 		3DAA0C371AD9E0180006FA22 /* Geofence.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DAA0C361AD9E0180006FA22 /* Geofence.m */; };
 		3DAA0C391AD9E1AB0006FA22 /* orangePin.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DAA0C381AD9E1AB0006FA22 /* orangePin.png */; };
 		3DC041611AE5DAB500734ADE /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC041601AE5DAB500734ADE /* icon.png */; };
@@ -113,6 +131,10 @@
 		3D00B14C1AE72500006FDBCE /* welcome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = welcome.xib; sourceTree = "<group>"; };
 		3D00B14E1AE72622006FDBCE /* welcome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = welcome.h; sourceTree = "<group>"; };
 		3D00B14F1AE72622006FDBCE /* welcome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = welcome.m; sourceTree = "<group>"; };
+		3D06A52B1AED8C040044A3FD /* GSTouchesShowingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSTouchesShowingWindow.h; sourceTree = "<group>"; };
+		3D06A52C1AED8C040044A3FD /* GSTouchesShowingWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSTouchesShowingWindow.m; sourceTree = "<group>"; };
+		3D06A52E1AED8C210044A3FD /* GSTouchImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GSTouchImage.png; sourceTree = "<group>"; };
+		3D06A52F1AED8C210044A3FD /* GSTouchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "GSTouchImage@2x.png"; sourceTree = "<group>"; };
 		3D0EEF231ADB305A0040AA7A /* takeCareOfUserUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = takeCareOfUserUpdates.h; sourceTree = "<group>"; };
 		3D0EEF241ADB305A0040AA7A /* takeCareOfUserUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = takeCareOfUserUpdates.m; sourceTree = "<group>"; };
 		3D0EEF261ADB363A0040AA7A /* updateDealerPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = updateDealerPopup.h; sourceTree = "<group>"; };
@@ -181,6 +203,8 @@
 		3D4683661AD9A08B00C6DC8F /* requestFrom.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = requestFrom.xib; sourceTree = "<group>"; };
 		3D4683681AD9A1F200C6DC8F /* requestFrom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = requestFrom.h; sourceTree = "<group>"; };
 		3D4683691AD9A1F200C6DC8F /* requestFrom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = requestFrom.m; sourceTree = "<group>"; };
+		3D5DE25B1AF5888B00F96C63 /* Delete Sign-50 red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Delete Sign-50 red.png"; sourceTree = "<group>"; };
+		3D5DE25D1AF5889600F96C63 /* Checkmark-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checkmark-50.png"; sourceTree = "<group>"; };
 		3D6D92131AD73C1400E2CE55 /* Sign Up-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Sign Up-50.png"; sourceTree = "<group>"; };
 		3D6D92151AD73C1900E2CE55 /* Login-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login-50.png"; sourceTree = "<group>"; };
 		3D6D92171AD7409A00E2CE55 /* signInPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = signInPopup.h; sourceTree = "<group>"; };
@@ -222,6 +246,26 @@
 		3D95AD621AABE2A400467C96 /* recCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = recCell2.xib; sourceTree = "<group>"; };
 		3D95AD641AABE3BC00467C96 /* recCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = recCell.h; sourceTree = "<group>"; };
 		3D95AD651AABE3BC00467C96 /* recCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = recCell.m; sourceTree = "<group>"; };
+		3D9E84141B025792006EFF46 /* LocationFactoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationFactoryView.h; sourceTree = "<group>"; };
+		3D9E84151B025792006EFF46 /* LocationFactoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationFactoryView.m; sourceTree = "<group>"; };
+		3D9E841D1B026071006EFF46 /* vToView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = vToView.xib; sourceTree = "<group>"; };
+		3D9E841F1B026090006EFF46 /* vToView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vToView.h; sourceTree = "<group>"; };
+		3D9E84201B026090006EFF46 /* vToView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vToView.m; sourceTree = "<group>"; };
+		3D9E84221B0264D6006EFF46 /* vRequestFrom.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = vRequestFrom.xib; sourceTree = "<group>"; };
+		3D9E84241B0264ED006EFF46 /* vRequestFrom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vRequestFrom.h; sourceTree = "<group>"; };
+		3D9E84251B0264ED006EFF46 /* vRequestFrom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vRequestFrom.m; sourceTree = "<group>"; };
+		3D9E84271B050818006EFF46 /* obtainLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = obtainLocation.h; sourceTree = "<group>"; };
+		3D9E84281B050818006EFF46 /* obtainLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = obtainLocation.m; sourceTree = "<group>"; };
+		3D9E842A1B05082D006EFF46 /* obtainLocation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = obtainLocation.xib; sourceTree = "<group>"; };
+		3DA257991AF7DB370004EC67 /* Plus Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Plus Filled-50.png"; sourceTree = "<group>"; };
+		3DA2579B1AF7DC4A0004EC67 /* sendOrAsk.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = sendOrAsk.xib; sourceTree = "<group>"; };
+		3DA2579D1AF811930004EC67 /* sendOrAsk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sendOrAsk.h; sourceTree = "<group>"; };
+		3DA2579E1AF811930004EC67 /* sendOrAsk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sendOrAsk.m; sourceTree = "<group>"; };
+		3DA257A01AF812540004EC67 /* UIView+HeightResize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HeightResize.h"; sourceTree = "<group>"; };
+		3DA257A11AF812540004EC67 /* UIView+HeightResize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HeightResize.m"; sourceTree = "<group>"; };
+		3DA257A31AF816F70004EC67 /* LocationFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationFactory.h; sourceTree = "<group>"; };
+		3DA257A41AF816F70004EC67 /* LocationFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationFactory.m; sourceTree = "<group>"; };
+		3DA257A61AF869110004EC67 /* Close-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Close-50.png"; sourceTree = "<group>"; };
 		3DAA0C351AD9E0180006FA22 /* Geofence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geofence.h; sourceTree = "<group>"; };
 		3DAA0C361AD9E0180006FA22 /* Geofence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geofence.m; sourceTree = "<group>"; };
 		3DAA0C381AD9E1AB0006FA22 /* orangePin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orangePin.png; sourceTree = "<group>"; };
@@ -625,6 +669,7 @@
 		3D7377051AA4D789006CB9DF /* callout view classes */ = {
 			isa = PBXGroup;
 			children = (
+				3D9E84171B02579D006EFF46 /* Location Factory */,
 				3D7377181AA511A4006CB9DF /* calloutViewManager.h */,
 				3D7377191AA511A4006CB9DF /* calloutViewManager.m */,
 				3D73771B1AA51AAE006CB9DF /* calloutViewClass.h */,
@@ -632,6 +677,8 @@
 				3D7377121AA4D88C006CB9DF /* toViewView.xib */,
 				3D7377091AA4D7F7006CB9DF /* toViewCalloutView.h */,
 				3D73770A1AA4D7F7006CB9DF /* toViewCalloutView.m */,
+				3DA257A01AF812540004EC67 /* UIView+HeightResize.h */,
+				3DA257A11AF812540004EC67 /* UIView+HeightResize.m */,
 				3D73770C1AA4D80A006CB9DF /* whenViewCalloutView.h */,
 				3D73770D1AA4D80A006CB9DF /* whenViewCalloutView.m */,
 				3D73770F1AA4D81F006CB9DF /* sizeViewCalloutView.h */,
@@ -639,6 +686,8 @@
 				3D1445F31A943F34000B6F35 /* customCalloutXIB.xib */,
 				3D1445F51A9440A3000B6F35 /* customCalloutView.h */,
 				3D1445F61A9440A3000B6F35 /* customCalloutView.m */,
+				3D5DE25B1AF5888B00F96C63 /* Delete Sign-50 red.png */,
+				3D5DE25D1AF5889600F96C63 /* Checkmark-50.png */,
 				3D2CEBA31AC76ACF00544C5A /* Trash-50.png */,
 				3D2CEBA51AC76B1B00544C5A /* Trash-50 (1).png */,
 				3D4683661AD9A08B00C6DC8F /* requestFrom.xib */,
@@ -677,6 +726,29 @@
 			name = "Core Data Subclasses";
 			sourceTree = "<group>";
 		};
+		3D9E84171B02579D006EFF46 /* Location Factory */ = {
+			isa = PBXGroup;
+			children = (
+				3DA257A31AF816F70004EC67 /* LocationFactory.h */,
+				3DA257A41AF816F70004EC67 /* LocationFactory.m */,
+				3D9E84141B025792006EFF46 /* LocationFactoryView.h */,
+				3D9E84151B025792006EFF46 /* LocationFactoryView.m */,
+				3DA2579D1AF811930004EC67 /* sendOrAsk.h */,
+				3DA2579E1AF811930004EC67 /* sendOrAsk.m */,
+				3DA2579B1AF7DC4A0004EC67 /* sendOrAsk.xib */,
+				3D9E841F1B026090006EFF46 /* vToView.h */,
+				3D9E84201B026090006EFF46 /* vToView.m */,
+				3D9E841D1B026071006EFF46 /* vToView.xib */,
+				3D9E84241B0264ED006EFF46 /* vRequestFrom.h */,
+				3D9E84251B0264ED006EFF46 /* vRequestFrom.m */,
+				3D9E84221B0264D6006EFF46 /* vRequestFrom.xib */,
+				3D9E84271B050818006EFF46 /* obtainLocation.h */,
+				3D9E84281B050818006EFF46 /* obtainLocation.m */,
+				3D9E842A1B05082D006EFF46 /* obtainLocation.xib */,
+			);
+			name = "Location Factory";
+			sourceTree = "<group>";
+		};
 		3DE102461A911DFB002591FA = {
 			isa = PBXGroup;
 			children = (
@@ -710,6 +782,10 @@
 				3D14460B1A9D0B88000B6F35 /* UTCtoHumanTime.m */,
 				3DE102561A911DFB002591FA /* AppDelegate.h */,
 				3DE102571A911DFB002591FA /* AppDelegate.m */,
+				3D06A52B1AED8C040044A3FD /* GSTouchesShowingWindow.h */,
+				3D06A52C1AED8C040044A3FD /* GSTouchesShowingWindow.m */,
+				3D06A52E1AED8C210044A3FD /* GSTouchImage.png */,
+				3D06A52F1AED8C210044A3FD /* GSTouchImage@2x.png */,
 				3D4547081ACAFC0200FEEFE7 /* socketDealer.h */,
 				3D4547091ACAFC0200FEEFE7 /* socketDealer.m */,
 				3DE102851A9123E7002591FA /* MapPin.h */,
@@ -717,6 +793,8 @@
 				3D1445FB1A9443D4000B6F35 /* MapPinView.h */,
 				3D1445FC1A9443D4000B6F35 /* MapPinView.m */,
 				3DE102621A911DFB002591FA /* Main.storyboard */,
+				3DA257991AF7DB370004EC67 /* Plus Filled-50.png */,
+				3DA257A61AF869110004EC67 /* Close-50.png */,
 				3DDF2FC61AE2E3B5002206DB /* Eject-50.png */,
 				3D7377051AA4D789006CB9DF /* callout view classes */,
 				3D1445ED1A93AC92000B6F35 /* mapViewController.h */,
@@ -848,9 +926,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D06A5301AED8C210044A3FD /* GSTouchImage.png in Resources */,
 				3DDF2FC71AE2E3B5002206DB /* Eject-50.png in Resources */,
+				3D5DE25C1AF5888B00F96C63 /* Delete Sign-50 red.png in Resources */,
 				3D6D92241AD74B5400E2CE55 /* login.xib in Resources */,
+				3DA2579A1AF7DB370004EC67 /* Plus Filled-50.png in Resources */,
+				3DA257A71AF869110004EC67 /* Close-50.png in Resources */,
 				3D6D92281AD758CE00E2CE55 /* verifyNumber.xib in Resources */,
+				3DA2579C1AF7DC4A0004EC67 /* sendOrAsk.xib in Resources */,
+				3D06A5311AED8C210044A3FD /* GSTouchImage@2x.png in Resources */,
 				3DC041611AE5DAB500734ADE /* icon.png in Resources */,
 				3D4546F91ACAF90A00FEEFE7 /* .gitignore in Resources */,
 				3D6D922D1AD766DC00E2CE55 /* Approve Filled-50.png in Resources */,
@@ -858,6 +942,7 @@
 				3D711C721ADD6E2A00FF13F2 /* geofenceAccepted.xib in Resources */,
 				3D7377171AA4D8C0006CB9DF /* sizeViewView.xib in Resources */,
 				3D1445F41A943F34000B6F35 /* customCalloutXIB.xib in Resources */,
+				3D9E841E1B026071006EFF46 /* vToView.xib in Resources */,
 				3DE102641A911DFB002591FA /* Main.storyboard in Resources */,
 				3D4683671AD9A08B00C6DC8F /* requestFrom.xib in Resources */,
 				3D6D921E1AD7480A00E2CE55 /* Administrator2-50.png in Resources */,
@@ -871,6 +956,8 @@
 				3D6D922F1AD7670300E2CE55 /* Good Quality Filled-50.png in Resources */,
 				3D2CEBA41AC76ACF00544C5A /* Trash-50.png in Resources */,
 				3D4547041ACAF90A00FEEFE7 /* .gitignore in Resources */,
+				3D5DE25E1AF5889600F96C63 /* Checkmark-50.png in Resources */,
+				3D9E842B1B05082D006EFF46 /* obtainLocation.xib in Resources */,
 				3D7377131AA4D88C006CB9DF /* toViewView.xib in Resources */,
 				3D00B14D1AE72500006FDBCE /* welcome.xib in Resources */,
 				3DE102661A911DFB002591FA /* Images.xcassets in Resources */,
@@ -880,6 +967,7 @@
 				3D7377151AA4D8A5006CB9DF /* whenViewView.xib in Resources */,
 				3D4546FA1ACAF90A00FEEFE7 /* .gitmodules in Resources */,
 				3DAA0C391AD9E1AB0006FA22 /* orangePin.png in Resources */,
+				3D9E84231B0264D6006EFF46 /* vRequestFrom.xib in Resources */,
 				3D44E6DF1AB8BBB200DDEEB0 /* keyboardNumberPad.xib in Resources */,
 				3D6D92161AD73C1900E2CE55 /* Login-50.png in Resources */,
 				3D6D92201AD748BB00E2CE55 /* Advance-50.png in Resources */,
@@ -908,6 +996,7 @@
 				3D73770E1AA4D80A006CB9DF /* whenViewCalloutView.m in Sources */,
 				3D00B1501AE72622006FDBCE /* welcome.m in Sources */,
 				3D6D92361AD786C300E2CE55 /* signUp.m in Sources */,
+				3D06A52D1AED8C040044A3FD /* GSTouchesShowingWindow.m in Sources */,
 				3D0EEF281ADB363A0040AA7A /* updateDealerPopup.m in Sources */,
 				3D44E6EF1AC07D6C00DDEEB0 /* personNumbersView.m in Sources */,
 				3D44E6EA1ABA327300DDEEB0 /* Person.m in Sources */,
@@ -916,6 +1005,7 @@
 				3D14460C1A9D0B88000B6F35 /* UTCtoHumanTime.m in Sources */,
 				3D4547071ACAF9C300FEEFE7 /* urls.m in Sources */,
 				3D44E6E21AB8C1EE00DDEEB0 /* keyboardNumberPad.m in Sources */,
+				3DA257A51AF816F70004EC67 /* LocationFactory.m in Sources */,
 				3D4546FF1ACAF90A00FEEFE7 /* SocketIO.m in Sources */,
 				3D4547001ACAF90A00FEEFE7 /* SocketIOJSONSerialization.m in Sources */,
 				3D1445F71A9440A3000B6F35 /* customCalloutView.m in Sources */,
@@ -923,26 +1013,32 @@
 				3D4547031ACAF90A00FEEFE7 /* SocketIOTransportXHR.m in Sources */,
 				3D44E6DD1AB7409300DDEEB0 /* keyboardComplexView.m in Sources */,
 				3D4546FE1ACAF90A00FEEFE7 /* README.md in Sources */,
+				3DA257A21AF812540004EC67 /* UIView+HeightResize.m in Sources */,
 				3D1445FD1A9443D4000B6F35 /* MapPinView.m in Sources */,
 				3D1445EF1A93AC92000B6F35 /* mapViewController.m in Sources */,
+				3DA2579F1AF811930004EC67 /* sendOrAsk.m in Sources */,
 				3DE102581A911DFB002591FA /* AppDelegate.m in Sources */,
 				3D0EEF251ADB305A0040AA7A /* takeCareOfUserUpdates.m in Sources */,
 				3D46836A1AD9A1F200C6DC8F /* requestFrom.m in Sources */,
 				3D4547011ACAF90A00FEEFE7 /* SocketIOPacket.m in Sources */,
+				3D9E84161B025792006EFF46 /* LocationFactoryView.m in Sources */,
 				3D73771D1AA51AAE006CB9DF /* calloutViewClass.m in Sources */,
 				3D73771A1AA511A4006CB9DF /* calloutViewManager.m in Sources */,
 				3D44E6E71ABA054100DDEEB0 /* keyboardContacts.m in Sources */,
+				3D9E84211B026090006EFF46 /* vToView.m in Sources */,
 				3DE102871A9123E7002591FA /* MapPin.m in Sources */,
 				3D73770B1AA4D7F7006CB9DF /* toViewCalloutView.m in Sources */,
 				3D6D92231AD7496B00E2CE55 /* login.m in Sources */,
 				3D4546FC1ACAF90A00FEEFE7 /* CONTRIBUTORS.md in Sources */,
 				3D7377111AA4D81F006CB9DF /* sizeViewCalloutView.m in Sources */,
 				3D6D922B1AD75BE100E2CE55 /* verifyNumber.m in Sources */,
+				3D9E84291B050818006EFF46 /* obtainLocation.m in Sources */,
 				3DE1025B1A911DFB002591FA /* iTrack5.xcdatamodeld in Sources */,
 				3D95AD661AABE3BC00467C96 /* recCell.m in Sources */,
 				3D6D923D1AD78B6100E2CE55 /* insertNumber.m in Sources */,
 				3D4547051ACAF90A00FEEFE7 /* SRWebSocket.m in Sources */,
 				3D0EEF331ADD69470040AA7A /* geofenceDeletedByOwner.m in Sources */,
+				3D9E84261B0264ED006EFF46 /* vRequestFrom.m in Sources */,
 				3D4546FB1ACAF90A00FEEFE7 /* CHANGELOG.md in Sources */,
 				3D4547021ACAF90A00FEEFE7 /* SocketIOTransportWebsocket.m in Sources */,
 				3D0EEF2C1ADB37130040AA7A /* geofenceRequestedPopup.m in Sources */,
@@ -1027,7 +1123,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
+				PROVISIONING_PROFILE = "4ba3359e-365d-420a-b81d-186333d0e8fa";
 				SDKROOT = iphoneos;
 			};
 			name = Distribution;
@@ -1043,7 +1139,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Here-N-There";
-				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
+				PROVISIONING_PROFILE = "4ba3359e-365d-420a-b81d-186333d0e8fa";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Distribution;
@@ -1108,7 +1204,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
+				PROVISIONING_PROFILE = "4ba3359e-365d-420a-b81d-186333d0e8fa";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1144,7 +1240,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
+				PROVISIONING_PROFILE = "4ba3359e-365d-420a-b81d-186333d0e8fa";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1161,7 +1257,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Here-N-There";
-				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
+				PROVISIONING_PROFILE = "4ba3359e-365d-420a-b81d-186333d0e8fa";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1177,7 +1273,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Here-N-There";
-				PROVISIONING_PROFILE = "49cda753-0b82-421e-bb5f-aa3644ed4e55";
+				PROVISIONING_PROFILE = "4ba3359e-365d-420a-b81d-186333d0e8fa";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

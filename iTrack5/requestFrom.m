@@ -12,6 +12,7 @@
 #import "keyboardContacts.h"
 #import "Person.h"
 #import <AddressBook/AddressBook.h>
+#import "mapViewController.h"
 
 
 @interface requestFrom()
@@ -20,6 +21,8 @@
 @property (strong, nonatomic) NSString* prevQuery;
 
 @property (nonatomic) BOOL mode; //false = keypad, true = contacts;
+
+@property (strong, nonatomic) NSMutableDictionary* queryCache;//number to username
 
 @end
 
@@ -70,11 +73,13 @@
 	}
 	return _keyboard;
 }
+		
 
 - (void) backspaceTapped
 {
 	if(self.toBox.text.length<=0)return;
 	self.mode = NO;
+	if(self.toBox.text.length<=0)return;//setting mode could have reset text
 	self.toBox.text = [self.toBox.text substringToIndex:self.toBox.text.length-1];
 }
 - (void) keyTapped:(NSString *)key
@@ -110,10 +115,11 @@
 
 - (IBAction)searchButtonClicked:(id)sender
 {
-	[self unRegisterFromPrevTracker];
-	if(self.toBox.text.length!=0)
+		if(self.toBox.text.length!=0)
 	{
 		NSString* stringQuery;
+		
+
 		if(!self.mode || [self.keyboard.contactsKeyboard.picker numberOfRowsInComponent:0]==0)//we are keypad OR our contacts are empty
 			stringQuery = self.toBox.text;
 		else
@@ -150,6 +156,16 @@
 		if([stringQuery isEqualToString:@""])return;
 		stringQuery = [[stringQuery componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
 		
+		if([self.queryCache objectForKey:stringQuery])
+		{
+			[self gotResponse:[self.queryCache objectForKey:stringQuery]];
+			return;
+		}
+		
+		[self unRegisterFromPrevTracker];
+		[self.activityIndicator startAnimating];
+		self.searchButton.alpha = self.searchButton.enabled = 0;
+		
 		[self signUpForTrackersOnQuery:stringQuery];
 		NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
 		f.numberStyle = NSNumberFormatterDecimalStyle;
@@ -165,6 +181,14 @@
 - (void) gotResponse:(NSNotification*)notification
 {
 	NSDictionary* desc = [notification userInfo];
+	NSString* query = [[desc valueForKey:@"eventRecieved"] stringByReplacingOccurrencesOfString:@"userNameFromQuery:" withString:@""];
+	if(![self.queryCache objectForKey:query])
+	{
+		[self.queryCache setObject:notification forKey:query];
+	}
+	
+	[self.activityIndicator stopAnimating];
+	self.searchButton.alpha = self.searchButton.enabled = 1;
 	if([[desc valueForKey:@"success"] boolValue])
 	{
 		self.resultLabel.text = [desc valueForKey:@"username"];
@@ -193,5 +217,13 @@
 - (IBAction)cancelEdit:(id)sender
 {
     [self.delegate cancelEdit];
+}
+- (NSMutableDictionary*)queryCache
+{
+	if(!_queryCache)
+	{
+		_queryCache = [[NSMutableDictionary alloc] init];
+	}
+	return _queryCache;
 }
 @end

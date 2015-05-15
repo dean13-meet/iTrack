@@ -165,7 +165,7 @@
 	{
 		[self.mapVC fetchAllGeofences];
 		
-		popup = [[geofenceRequestedPopup alloc] initWithFrame:[geofenceRequestedPopup presentFrameWithMapVC:self.mapVC]];		((geofenceRequestedPopup*)popup).messageLabel.text = [NSString stringWithFormat:@"%@ editted the location notification they asked you for. Please review the changes below!", [update valueForKey:@"changedBy"]];
+		popup = [[geofenceRequestedPopup alloc] initWithFrame:[geofenceRequestedPopup presentFrameWithMapVC:self.mapVC]];		((geofenceRequestedPopup*)popup).messageLabel.text = [NSString stringWithFormat:@"%@ edited the location notification they asked you for. Please review the new location notification!", [update valueForKey:@"changedBy"]];
 		
 		((geofenceRequestedPopup*)popup).titleLabel.text = @"Request Modified";
 		
@@ -177,7 +177,7 @@
 		
 		popup = [[geofenceAccepted alloc] initWithFrame:[geofenceAccepted presentFrameWithMapVC:self.mapVC]];
 		((geofenceAccepted*)popup).messageLabel.text =
-		[NSString stringWithFormat:@"%@ editted the location notification you asked them for. Please see the changes below!", [update valueForKey:@"changedBy"]];
+		[NSString stringWithFormat:@"%@ edited the location notification you asked them for. Please see the new location notification!", [update valueForKey:@"changedBy"]];
 
 		((geofenceAccepted*)popup).titleLabel.text = @"Request Modified";
 		

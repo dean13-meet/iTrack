@@ -28,7 +28,7 @@
 /*
 @property (weak, nonatomic) IBOutlet UITextField *startField;
 @property (weak, nonatomic) IBOutlet UITextField *endField;*/
-@property (weak, nonatomic) IBOutlet UISegmentedControl *repeatControl;
+//@property (weak, nonatomic) IBOutlet UISegmentedControl *repeatControl;
 //@property (weak, nonatomic) IBOutlet UISlider *radiusSlider;
 @property (weak, nonatomic) IBOutlet UIButton *createButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -44,8 +44,14 @@
 @property (strong, nonatomic) NSDate *date2;
 @property (strong, nonatomic) UIToolbar *keyboardToolbar2;
 */
-@property (weak, nonatomic) IBOutlet UISwitch *arrivalSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *leaveSwitch;
+//@property (weak, nonatomic) IBOutlet UISwitch *arrivalSwitch;
+//@property (weak, nonatomic) IBOutlet UISwitch *leaveSwitch;
+@property (weak, nonatomic) IBOutlet UIImageView *onArrivalMark;
+@property (weak, nonatomic) IBOutlet UIImageView *onLeaveMark;
+@property (weak, nonatomic) IBOutlet UIImageView *repeatMark;
+@property (nonatomic) BOOL arrival;
+@property (nonatomic) BOOL leave;
+@property (nonatomic) BOOL repeat;
 
 - (IBAction)createClicked:(id)sender;
 - (IBAction)sliderValueChanged:(id)sender;

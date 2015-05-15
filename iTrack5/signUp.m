@@ -21,6 +21,21 @@
 @implementation signUp
 
 
+#define AUTHLENGTH 25 //this is maximum username length
+- (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	
+	NSUInteger oldLength = [textField.text length];
+	NSUInteger replacementLength = [string length];
+	NSUInteger rangeLength = range.length;
+	
+	NSUInteger newLength = oldLength - rangeLength + replacementLength;
+	
+	BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+	
+	
+	return newLength <= AUTHLENGTH || returnKey;
+}
+
 - (instancetype) initWithFrame:(CGRect)frame
 {
 	self = [super initWithFrame:frame];

@@ -31,8 +31,9 @@
         
         [[NSBundle mainBundle] loadNibNamed:@"keyboardContacts" owner:self options:nil];
         
-        self.bounds = self.view.bounds;
-        
+		self.frame = frame;
+		self.view.frame = self.bounds;
+		
         [self addSubview:self.view];
         
         

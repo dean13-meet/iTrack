@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="requestFrom">
             <connections>
+                <outlet property="activityIndicator" destination="ZLb-dZ-qrf" id="2vT-XJ-sbd"/>
                 <outlet property="addressLabel" destination="sW5-Qz-BH2" id="Kld-qA-IuN"/>
                 <outlet property="cancelButton" destination="TkO-lC-yL2" id="MlE-RL-dLf"/>
                 <outlet property="resultLabel" destination="b2X-qh-QUi" id="8rB-Hc-TFz"/>
+                <outlet property="searchButton" destination="bPe-Gg-wpA" id="ayb-q1-XyP"/>
                 <outlet property="toBox" destination="SvS-qh-klM" id="Y91-gG-dSy"/>
                 <outlet property="view" destination="Pki-Gw-tNx" id="h1F-1g-WzU"/>
             </connections>
@@ -83,6 +85,9 @@
                         <action selector="cancelEdit:" destination="-1" eventType="touchUpInside" id="Jf6-Ga-0lb"/>
                     </connections>
                 </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ZLb-dZ-qrf">
+                    <rect key="frame" x="194" y="70" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -91,6 +96,7 @@
                 <constraint firstItem="cnA-zt-38e" firstAttribute="top" secondItem="b2X-qh-QUi" secondAttribute="bottom" constant="8" symbolic="YES" id="3K2-0y-QPY"/>
                 <constraint firstItem="sW5-Qz-BH2" firstAttribute="leading" secondItem="Pki-Gw-tNx" secondAttribute="leadingMargin" id="Gdk-hn-Ith"/>
                 <constraint firstItem="bPe-Gg-wpA" firstAttribute="trailing" secondItem="Pki-Gw-tNx" secondAttribute="trailingMargin" id="KHj-z6-CDL"/>
+                <constraint firstItem="ZLb-dZ-qrf" firstAttribute="centerY" secondItem="bPe-Gg-wpA" secondAttribute="centerY" constant="1" id="MSy-Gp-5hv"/>
                 <constraint firstAttribute="bottom" secondItem="cnA-zt-38e" secondAttribute="bottom" id="N2P-Pt-cVv"/>
                 <constraint firstItem="ULG-RS-kQf" firstAttribute="top" secondItem="sW5-Qz-BH2" secondAttribute="bottom" constant="8" symbolic="YES" id="Q1Z-cs-5Zy"/>
                 <constraint firstAttribute="trailing" secondItem="ULG-RS-kQf" secondAttribute="trailing" constant="19" id="Tqm-kU-QoE"/>
@@ -99,6 +105,9 @@
                 <constraint firstItem="bPe-Gg-wpA" firstAttribute="baseline" secondItem="SvS-qh-klM" secondAttribute="baseline" id="YEO-fx-3dH"/>
                 <constraint firstItem="cnA-zt-38e" firstAttribute="centerX" secondItem="b2X-qh-QUi" secondAttribute="centerX" id="asY-SB-2vD"/>
                 <constraint firstItem="SvS-qh-klM" firstAttribute="top" secondItem="ULG-RS-kQf" secondAttribute="bottom" constant="8" symbolic="YES" id="cLv-7K-iQA"/>
+                <constraint firstItem="ZLb-dZ-qrf" firstAttribute="centerX" secondItem="bPe-Gg-wpA" secondAttribute="centerX" id="jcJ-JE-hwV"/>
+                <constraint firstItem="ZLb-dZ-qrf" firstAttribute="leading" secondItem="bPe-Gg-wpA" secondAttribute="trailing" constant="-39" id="jlm-jq-o2v"/>
+                <constraint firstItem="ZLb-dZ-qrf" firstAttribute="centerY" secondItem="bPe-Gg-wpA" secondAttribute="centerY" id="lyI-zt-Ca8"/>
                 <constraint firstItem="sW5-Qz-BH2" firstAttribute="trailing" secondItem="bPe-Gg-wpA" secondAttribute="trailing" id="mtL-R0-L5y"/>
                 <constraint firstItem="sW5-Qz-BH2" firstAttribute="leading" secondItem="ULG-RS-kQf" secondAttribute="leading" id="qap-J8-WyO"/>
                 <constraint firstAttribute="bottom" secondItem="TkO-lC-yL2" secondAttribute="bottom" id="rVE-jE-jHP"/>
@@ -106,6 +115,12 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="MSy-Gp-5hv"/>
+                    <exclude reference="jlm-jq-o2v"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="255.5" y="51"/>
         </view>
         <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ces-bI-KUx">
