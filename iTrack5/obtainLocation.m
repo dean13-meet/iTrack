@@ -37,10 +37,12 @@
 - (void) loadSearchBar
 {
 	UIView* topView = ((mapViewController*)((AppDelegate*)[UIApplication sharedApplication].delegate).mapVC).topBar;
-	topView.hidden = NO;
-	[topView removeFromSuperview];
-	[topView removeConstraints:topView.constraints];
+	
+	[self.viewForSearchBar addSubview:topView];
 	topView.frame = CGRectMake(0, 0, self.viewForSearchBar.frame.size.width, self.viewForSearchBar.frame.size.height);
+	//topView.center = self.viewForSearchBar.center;
+	topView.bounds = CGRectMake(0, 0, self.viewForSearchBar.frame.size.width, self.viewForSearchBar.frame.size.height);
+	
 }
 
 - (void) onPresent

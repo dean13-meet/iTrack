@@ -114,5 +114,6 @@ Stored in memory as status:expired
 - (IBAction)plusClicked:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *zoomfitButton;
 @property (weak, nonatomic) IBOutlet UIView *blackMapViewCover;
+@property (weak, nonatomic) IBOutlet UIView *coverViewForTopView;
 
 @end

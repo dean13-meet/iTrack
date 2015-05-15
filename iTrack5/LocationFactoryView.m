@@ -27,6 +27,11 @@
 	[self back];
 }
 
+- (IBAction)nextButtonPressed:(id)sender
+{
+	[self next];
+}
+
 - (void) onPresent
 {
 	//To be implemented in subclasses

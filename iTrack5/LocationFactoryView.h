@@ -17,6 +17,8 @@
 - (void) back;
 
 - (IBAction)backButtonClicked:(id)sender;
+- (IBAction)nextButtonPressed:(id)sender;
+
 
 //Call these to notify the view that it is being presented or replaced
 - (void) onPresent;

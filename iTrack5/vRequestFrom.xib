@@ -62,17 +62,6 @@
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="HHb-It-xdW">
                     <rect key="frame" x="194" y="41" width="20" height="20"/>
                 </activityIndicatorView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDs-xg-PDX">
-                    <rect key="frame" x="101" y="101" width="38" height="34"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" title="Next">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="clickedNext:" destination="-1" eventType="touchUpInside" id="9Ap-BH-ILk"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y06-Hh-m0E">
                     <rect key="frame" x="8" y="101" width="42" height="34"/>
                     <constraints>
@@ -86,6 +75,17 @@
                     </state>
                     <connections>
                         <action selector="backButtonClicked:" destination="-1" eventType="touchUpInside" id="AB4-2Y-ZQU"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDs-xg-PDX">
+                    <rect key="frame" x="195" y="101" width="38" height="34"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="Next">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="clickedNext:" destination="-1" eventType="touchUpInside" id="9Ap-BH-ILk"/>
                     </connections>
                 </button>
             </subviews>
@@ -113,6 +113,7 @@
                 <constraint firstItem="RX6-6T-ybE" firstAttribute="leading" secondItem="CIF-uX-VvA" secondAttribute="trailing" constant="8" symbolic="YES" id="hQh-BJ-qiW"/>
                 <constraint firstItem="HHb-It-xdW" firstAttribute="centerY" secondItem="RX6-6T-ybE" secondAttribute="centerY" id="iQs-Vm-b7h"/>
                 <constraint firstItem="Tip-hq-d1R" firstAttribute="leading" secondItem="6ac-Nd-UN2" secondAttribute="leadingMargin" id="jyq-5H-b95"/>
+                <constraint firstAttribute="trailing" secondItem="BDs-xg-PDX" secondAttribute="trailing" constant="8" id="lbY-aV-b5L"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -120,6 +121,7 @@
                 <mask key="constraints">
                     <exclude reference="FSk-et-kDa"/>
                     <exclude reference="YcE-RU-Ccu"/>
+                    <exclude reference="HEQ-0z-MHK"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="293.5" y="38"/>

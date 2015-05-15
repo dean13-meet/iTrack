@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="mapViewController">
+            <connections>
+                <outlet property="closeSearchButton" destination="TeL-8o-InL" id="hsU-YE-BKP"/>
+                <outlet property="logoutButton" destination="Otv-9m-6dk" id="bhP-pO-PK9"/>
+                <outlet property="searchBar" destination="0D2-at-ShA" id="msw-8T-nZZ"/>
+                <outlet property="searchBarPinBox" destination="UNg-4t-dY1" id="rao-hZ-81k"/>
+                <outlet property="topBar" destination="w7h-Kg-uQF" id="WIQ-RY-zhs"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view alpha="0.89999997615814209" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8hv-n4-KPY">
+            <rect key="frame" x="0.0" y="0.0" width="294" height="44"/>
+            <subviews>
+                <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Otv-9m-6dk">
+                    <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="8Rn-qs-2Dm"/>
+                        <constraint firstAttribute="height" constant="44" id="k6d-cL-JkN"/>
+                    </constraints>
+                    <state key="normal" image="Eject-50.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="logoutClicked:" destination="-1" eventType="touchUpInside" id="A9U-In-Zwt"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Otv-9m-6dk" secondAttribute="bottom" id="274-C6-8pf"/>
+                <constraint firstAttribute="height" constant="44" id="73C-nE-4jr"/>
+                <constraint firstItem="Otv-9m-6dk" firstAttribute="leading" secondItem="8hv-n4-KPY" secondAttribute="leading" id="Qf7-wA-Cvc"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <view alpha="0.89999997615814209" contentMode="scaleToFill" id="w7h-Kg-uQF">
+            <rect key="frame" x="0.0" y="0.0" width="294" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <searchBar alpha="0.89999997615814209" contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="0D2-at-ShA">
+                    <rect key="frame" x="0.0" y="0.0" width="250" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="524" id="jkS-ah-CXd"/>
+                        <constraint firstAttribute="height" constant="44" id="yEd-3Y-MqT"/>
+                    </constraints>
+                    <color key="barTintColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="jkS-ah-CXd"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="OXj-AS-gIF"/>
+                    </connections>
+                </searchBar>
+                <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TeL-8o-InL">
+                    <rect key="frame" x="246" y="8" width="40" height="30"/>
+                    <state key="normal" title="Close">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="closeSearchResults:" destination="-1" eventType="touchUpInside" id="OxI-LA-KcD"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNg-4t-dY1">
+                    <rect key="frame" x="250" y="1" width="44" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="Its-j1-p81"/>
+                        <constraint firstAttribute="height" constant="44" id="mmb-kw-LRz"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="TeL-8o-InL" firstAttribute="trailing" secondItem="w7h-Kg-uQF" secondAttribute="trailingMargin" id="3UB-zm-LNw"/>
+                <constraint firstItem="UNg-4t-dY1" firstAttribute="leading" secondItem="0D2-at-ShA" secondAttribute="trailing" id="4LF-j3-lB0"/>
+                <constraint firstItem="UNg-4t-dY1" firstAttribute="leading" secondItem="0D2-at-ShA" secondAttribute="trailing" id="5X7-vA-0QO"/>
+                <constraint firstItem="0D2-at-ShA" firstAttribute="top" secondItem="w7h-Kg-uQF" secondAttribute="top" id="Dn4-P0-1jG"/>
+                <constraint firstItem="0D2-at-ShA" firstAttribute="leading" secondItem="w7h-Kg-uQF" secondAttribute="leading" id="FPl-2u-Z4d"/>
+                <constraint firstItem="UNg-4t-dY1" firstAttribute="centerY" secondItem="TeL-8o-InL" secondAttribute="centerY" id="HTu-Iu-mV8"/>
+                <constraint firstAttribute="trailing" secondItem="UNg-4t-dY1" secondAttribute="trailing" id="fbn-se-a1T"/>
+                <constraint firstItem="UNg-4t-dY1" firstAttribute="top" secondItem="w7h-Kg-uQF" secondAttribute="top" constant="1" id="opM-g9-NhJ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="180" y="175"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Eject-50.png" width="50" height="50"/>
+    </resources>
+</document>

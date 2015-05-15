@@ -95,6 +95,7 @@
 		3D9E84261B0264ED006EFF46 /* vRequestFrom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9E84251B0264ED006EFF46 /* vRequestFrom.m */; };
 		3D9E84291B050818006EFF46 /* obtainLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D9E84281B050818006EFF46 /* obtainLocation.m */; };
 		3D9E842B1B05082D006EFF46 /* obtainLocation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9E842A1B05082D006EFF46 /* obtainLocation.xib */; };
+		3D9E842D1B059A44006EFF46 /* searchBarBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D9E842C1B059A44006EFF46 /* searchBarBox.xib */; };
 		3DA2579A1AF7DB370004EC67 /* Plus Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DA257991AF7DB370004EC67 /* Plus Filled-50.png */; };
 		3DA2579C1AF7DC4A0004EC67 /* sendOrAsk.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DA2579B1AF7DC4A0004EC67 /* sendOrAsk.xib */; };
 		3DA2579F1AF811930004EC67 /* sendOrAsk.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DA2579E1AF811930004EC67 /* sendOrAsk.m */; };
@@ -257,6 +258,7 @@
 		3D9E84271B050818006EFF46 /* obtainLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = obtainLocation.h; sourceTree = "<group>"; };
 		3D9E84281B050818006EFF46 /* obtainLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = obtainLocation.m; sourceTree = "<group>"; };
 		3D9E842A1B05082D006EFF46 /* obtainLocation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = obtainLocation.xib; sourceTree = "<group>"; };
+		3D9E842C1B059A44006EFF46 /* searchBarBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = searchBarBox.xib; sourceTree = "<group>"; };
 		3DA257991AF7DB370004EC67 /* Plus Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Plus Filled-50.png"; sourceTree = "<group>"; };
 		3DA2579B1AF7DC4A0004EC67 /* sendOrAsk.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = sendOrAsk.xib; sourceTree = "<group>"; };
 		3DA2579D1AF811930004EC67 /* sendOrAsk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sendOrAsk.h; sourceTree = "<group>"; };
@@ -745,6 +747,7 @@
 				3D9E84271B050818006EFF46 /* obtainLocation.h */,
 				3D9E84281B050818006EFF46 /* obtainLocation.m */,
 				3D9E842A1B05082D006EFF46 /* obtainLocation.xib */,
+				3D9E842C1B059A44006EFF46 /* searchBarBox.xib */,
 			);
 			name = "Location Factory";
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 				3D2CEBA61AC76B1B00544C5A /* Trash-50 (1).png in Resources */,
 				3D711C721ADD6E2A00FF13F2 /* geofenceAccepted.xib in Resources */,
 				3D7377171AA4D8C0006CB9DF /* sizeViewView.xib in Resources */,
+				3D9E842D1B059A44006EFF46 /* searchBarBox.xib in Resources */,
 				3D1445F41A943F34000B6F35 /* customCalloutXIB.xib in Resources */,
 				3D9E841E1B026071006EFF46 /* vToView.xib in Resources */,
 				3DE102641A911DFB002591FA /* Main.storyboard in Resources */,

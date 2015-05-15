@@ -43,6 +43,7 @@
 @property (strong, nonatomic) takeCareOfUserUpdates* updateCaretaker;
 
 @property (nonatomic) CGRect searchBarDefaultFrame;
+@property (nonatomic) CGRect topBarDefaultFrame;
 @property (strong, nonatomic) NSString* lastestQuery;
 @property (strong, nonatomic) UIColor* defaultSearchBarColor;
 
@@ -85,6 +86,9 @@
 - (void)viewDidLoad
 {	mapVCFromAppDelegate = self;
     [super viewDidLoad];
+	
+	//load searchbar
+	[[NSBundle mainBundle] loadNibNamed:@"searchBarBox" owner:self options:nil];
 	
     [self dealWithSignificantLocationChanges];
     self.mapView.delegate = self;
@@ -1201,7 +1205,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 						 
 						 for (CLPlacemark* aPlacemark in placemarks)
 						 {
-							 self.mapView.centerCoordinate = aPlacemark.location.coordinate;
+							 //self.mapView.centerCoordinate = aPlacemark.location.coordinate;
 							 NSArray *lines = aPlacemark.addressDictionary[ @"FormattedAddressLines"];
 							 NSString *addressString = [lines componentsJoinedByString:@"\n"];
 							 MapPin* annotation = [[MapPin alloc] initWithCoordinates:aPlacemark.location.coordinate placeName:addressString description:addressString mapVC:self];
@@ -1250,13 +1254,24 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 			{
 				self.searchBarDefaultFrame = self.searchBar.frame;
 			}
-			self.searchBar.frame = CGRectMake(8, self.searchBar.frame.origin.y, self.view.frame.size.width-16 - self.closeSearchButton.frame.size.width - 8, self.searchBar.frame.size.height);
+			self.searchBar.frame = CGRectMake(0, self.searchBar.frame.origin.y, self.searchBar.superview.frame.size.width-8 - self.closeSearchButton.frame.size.width - 8, self.searchBar.frame.size.height);
+			
+			if(CGRectIsEmpty(self.topBarDefaultFrame))
+			{
+				self.topBarDefaultFrame = self.topBar.frame;
+			}
+			self.topBar.frame = [self.topBar convertRect:CGRectMake((self.view.frame.size.width - self.topBar.frame.size.width)/2, 20, self.topBar.frame.size.width, self.topBar.frame.size.height) fromView:self.view];
+			
 		}
 		else
 		{
 			self.searchBar.frame = self.searchBarDefaultFrame;
+			self.topBar.frame = self.topBarDefaultFrame;
 		}
 
+		self.coverViewForTopView.alpha = visible;
+		
+		[self.view bringSubviewToFront:self.searchResultsView];
 		
 		self.searchResultsView.alpha = visible;
 		self.searchResultsView.userInteractionEnabled = visible;
@@ -1269,7 +1284,7 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 		self.closeSearchButton.alpha = visible;
 		self.closeSearchButton.userInteractionEnabled = visible;
 		
-		self.topBar.alpha = visible ? 1 : .9;
+		self.topBar.alpha = visible ? 1.0 : .9;
 		self.topBar.backgroundColor = visible ? self.searchResultsView.backgroundColor : [UIColor whiteColor];
 		
 		UITextField *textField;
@@ -1572,7 +1587,8 @@ NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345
 {
     [self setButtonsShown:shown];
     [UIView animateWithDuration:0.1 animations:^{
-        self.topBar.alpha = [[NSNumber numberWithBool:shown] doubleValue];
+       // self.topBar.alpha = [[NSNumber numberWithBool:shown] doubleValue];
+		//topBar is now contained in a seperate view
     }];
 }
 
